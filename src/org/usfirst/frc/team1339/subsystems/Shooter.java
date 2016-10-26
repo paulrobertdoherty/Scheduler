@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1339.subsystems;
 
 import org.usfirst.frc.team1339.commands.DriveShooter;
-import org.usfirst.frc.team1339.robot.Constants;
+import org.usfirst.frc.team1339.utils.Constants;
 
 import edu.wpi.first.wpilibj.CANTalon;
 

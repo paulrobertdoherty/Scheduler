@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1339.robot;
+package org.usfirst.frc.team1339.utils;
 
 public class Constants {
 	public static final double kDriveKp = 0.07;
