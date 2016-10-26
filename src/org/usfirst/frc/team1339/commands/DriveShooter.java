@@ -19,13 +19,16 @@ public class DriveShooter extends CommandBase {
     
     // Called repeatedly when this Command is scheduled to run
     public void execute() {
+    	/*
     	if(Robot.HardwareAdapter.getYButton()){
     		speed = 0.85;
     	}
     	else if (Robot.HardwareAdapter.getXButton()){
     		speed = -0.85;
     	}
+    	else speed = 0;
     	Robot.shooter.shoot(speed);
+    	*/
     }
 
     // Make this return true when this Command no longer needs to run execute()

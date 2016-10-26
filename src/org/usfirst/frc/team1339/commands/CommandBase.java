@@ -1,6 +1,11 @@
 package org.usfirst.frc.team1339.commands;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public abstract class CommandBase {
+	
+	private double m_time = -1;
+	private double startTime;
 	
 	private boolean initialized = false;
 	
@@ -20,5 +25,18 @@ public abstract class CommandBase {
 	
 	public void setInitialized(){
 		initialized = true;
+	}
+	
+	protected void setTimeout(double time){
+		m_time = Math.abs(time);
+		startTime = Timer.getFPGATimestamp();
+	}
+	
+	protected boolean isTimedOut(){
+		if (m_time < 0) return false;
+		if (Timer.getFPGATimestamp() > startTime + m_time){
+			return true;
+		}
+		return false;
 	}
 }

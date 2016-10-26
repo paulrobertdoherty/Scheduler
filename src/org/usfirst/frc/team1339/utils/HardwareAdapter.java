@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1339.utils;
 
+import org.usfirst.frc.team1339.auto.commands.PIDDriveForward;
 import org.usfirst.frc.team1339.commands.TankDrive;
 import org.usfirst.frc.team1339.subsystems.SubsystemBase;
 import org.usfirst.frc.team1339.utils.SynchronousPID;
@@ -9,6 +10,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class HardwareAdapter {
 
@@ -22,14 +24,14 @@ public class HardwareAdapter {
 	//Joysticks
 	private Joystick xboxStick = new Joystick(Constants.xboxPort);
 	//Razer Joystick Buttons
-	private JoystickButton AButton = new JoystickButton(xboxStick , 1);
-	private JoystickButton BButton = new JoystickButton(xboxStick , 2);
-	private JoystickButton XButton = new JoystickButton(xboxStick , 3);
-	private JoystickButton YButton = new JoystickButton(xboxStick , 4);
-	private JoystickButton leftBumper = new JoystickButton(xboxStick , 5);
-	private JoystickButton rightBumper = new JoystickButton(xboxStick , 6);
-	private JoystickButton leftStickButton = new JoystickButton(xboxStick , 9);
-	private JoystickButton rightStickButton = new JoystickButton(xboxStick , 10);
+	private JoystickButton AButton = new JoystickButton(xboxStick , Constants.xboxAbutton);
+	private JoystickButton BButton = new JoystickButton(xboxStick , Constants.xboxBbutton);
+	private JoystickButton XButton = new JoystickButton(xboxStick , Constants.xboxXbutton);
+	private JoystickButton YButton = new JoystickButton(xboxStick , Constants.xboxYbutton);
+	private JoystickButton leftBumper = new JoystickButton(xboxStick , Constants.xboxLeftBumper);
+	private JoystickButton rightBumper = new JoystickButton(xboxStick , Constants.xboxRightBumper);
+	private JoystickButton leftStickButton = new JoystickButton(xboxStick , Constants.xboxLeftStickButton);
+	private JoystickButton rightStickButton = new JoystickButton(xboxStick , Constants.xboxRightStickButton);
 	//PID Loops
 	public static SynchronousPID LeftDriveEncoderPID = new SynchronousPID(
 			Constants.kDriveKp , Constants.kDriveKi , Constants.kDriveKd);
@@ -59,8 +61,17 @@ public class HardwareAdapter {
 	
 	public void checkTriggers(SubsystemBase subsystem){
 		subsystem.whenPressed(AButton, new TankDrive());
+		subsystem.whenPressed(XButton, new PIDDriveForward(3, 100));
+		SmartDashboard.putNumber("left drive encoder", getLeftDriveEnc());
+		SmartDashboard.putNumber("right drive encoder", getRightDriveEnc());
+		SmartDashboard.putNumber("Gyro", kSpartanGyro.getAngle());
 	}
 	
+	private double getRightDriveEncoder() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	public Joystick getXboxStick(){
 		return xboxStick;
 	}

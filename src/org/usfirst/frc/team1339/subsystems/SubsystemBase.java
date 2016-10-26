@@ -19,6 +19,7 @@ public abstract class SubsystemBase {
 	
 	protected void setDefaultCommand(CommandBase command){
 		defaultCommand = command;
+		nextCommand = defaultCommand;
 	}
 	
 	public void setNextCommand(CommandBase command){

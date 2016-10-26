@@ -79,14 +79,14 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopInit(){
-    	
+    	t.init();
     }
     /**
      * 
      */
     @Override
     public void teleopPeriodic(){
-        while (isOperatorControl() && isEnabled()) {
+        while (isEnabled()) {
         	t.teleOpPeriodic();
         }
     }
