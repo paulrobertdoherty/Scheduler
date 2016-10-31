@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1339.utils;
 
+import org.usfirst.frc.team1339.auto.commandGroups.CommandGroupBase;
+import org.usfirst.frc.team1339.auto.commandGroups.CommandGroupTest;
 import org.usfirst.frc.team1339.auto.commands.PIDDriveForward;
 import org.usfirst.frc.team1339.commands.TankDrive;
 import org.usfirst.frc.team1339.subsystems.SubsystemBase;
@@ -14,6 +16,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class HardwareAdapter {
 
+	private CommandGroupBase currentCommandGroup;
+	private boolean isCommandGroup = false;
+	
 	//Encoders
 	public static Encoder kRightDriveEncoder = new Encoder(
 			Constants.kRightDriveAEncoder , Constants.kRightDriveBEncoder);
@@ -59,19 +64,13 @@ public class HardwareAdapter {
 	public HardwareAdapter(){
 	}
 	
-	public void checkTriggers(SubsystemBase subsystem){
-		subsystem.whenPressed(AButton, new TankDrive());
-		subsystem.whenPressed(XButton, new PIDDriveForward(3, 100));
-		SmartDashboard.putNumber("left drive encoder", getLeftDriveEnc());
-		SmartDashboard.putNumber("right drive encoder", getRightDriveEnc());
-		SmartDashboard.putNumber("Gyro", kSpartanGyro.getAngle());
+	public void checkTriggers(SubsystemBase chassis, SubsystemBase shooter,
+			SubsystemBase intake){
+		chassis.whenPressed(AButton, new TankDrive());
+		chassis.whenPressed(XButton, new PIDDriveForward(3, 100));
+		whenPressedCommandGroup(YButton, new CommandGroupTest(chassis, shooter));
 	}
 	
-	private double getRightDriveEncoder() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	public Joystick getXboxStick(){
 		return xboxStick;
 	}
@@ -106,4 +105,25 @@ public class HardwareAdapter {
 		return (kRightDriveEncoder.get() * -1);
 	}
 	
+	private void whenPressedCommandGroup(JoystickButton button, 
+			CommandGroupBase commandGroup){
+		if(button.get()){
+			scheduleCommandGroup(commandGroup);
+		}
+	}
+	/*
+	private void scheduleCommandGroup(CommandGroupBase commandGroup){
+		currentCommandGroup = commandGroup;
+		isCommandGroup = true;
+	}
+	public boolean isCommandGroup(){
+		return isCommandGroup;
+	}
+	public CommandGroupBase getCommandGroup(){
+		return currentCommandGroup;
+	}
+	public void CommandGroupFinished(){
+		isCommandGroup = false;
+	}
+	*/
 }

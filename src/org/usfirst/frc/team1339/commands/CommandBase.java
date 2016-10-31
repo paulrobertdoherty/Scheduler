@@ -8,6 +8,7 @@ public abstract class CommandBase {
 	private double startTime;
 	
 	private boolean initialized = false;
+	private boolean isCommandGroup = false;
 	
 	public abstract void init();
 	
@@ -37,6 +38,10 @@ public abstract class CommandBase {
 		if (Timer.getFPGATimestamp() > startTime + m_time){
 			return true;
 		}
+		return false;
+	}
+	
+	public boolean isCommandGroup(){
 		return false;
 	}
 }

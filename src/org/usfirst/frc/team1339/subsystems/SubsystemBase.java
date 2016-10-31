@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1339.subsystems;
 
+import org.usfirst.frc.team1339.auto.commandGroups.CommandGroupBase;
 import org.usfirst.frc.team1339.commands.CommandBase;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -15,7 +16,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 	
 public abstract class SubsystemBase {
 	
-	public CommandBase nextCommand, defaultCommand;
+	private CommandBase nextCommand, defaultCommand;
+	
+	private boolean commandGroupInit = false;
 	
 	protected void setDefaultCommand(CommandBase command){
 		defaultCommand = command;
@@ -35,6 +38,9 @@ public abstract class SubsystemBase {
 	}
 	
 	public void schedule(CommandBase command){
+		if(!getNextCommand().isFinished()){
+			getNextCommand().interrupted();
+		}
 		nextCommand = command;
 	}
 	
@@ -44,7 +50,13 @@ public abstract class SubsystemBase {
 	
 	public void whenPressed(JoystickButton button, CommandBase command){
 		if (button.get()){
-			schedule(command);
+			if(command.isCommandGroup()){
+				commandGroupInit = true;
+			}
+			else schedule(command);
+		}
+		if(commandGroupInit){
+			command.execute();
 		}
 	}
 }
