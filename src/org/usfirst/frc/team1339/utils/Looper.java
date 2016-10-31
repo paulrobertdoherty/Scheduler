@@ -64,6 +64,7 @@ public class Looper {
     		//Updates every 20 milliseconds
     		for(int x = 0; x < subsystems.size(); x++){ 
     			//Creates and files subsystems
+    			System.out.println(subsystems.get(x).getNextCommand());
     			if(subsystems.get(x).getNextCommand().isFinished()){
     				subsystems.get(x).endScheduledCommand();
     			}
@@ -98,4 +99,10 @@ public class Looper {
             //Sets timer to current FPGA state
     	}
     }
+	
+	public void resetSubsystems(){
+		for(int x = 0; x < subsystems.size(); x++){
+			subsystems.get(x).endScheduledCommand();
+		}
+	}
 }

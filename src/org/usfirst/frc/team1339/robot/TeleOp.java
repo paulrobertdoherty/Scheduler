@@ -2,6 +2,7 @@ package org.usfirst.frc.team1339.robot;
 
 import org.usfirst.frc.team1339.subsystems.*;
 import org.usfirst.frc.team1339.subsystems.SubsystemBase;
+import org.usfirst.frc.team1339.utils.HardwareAdapter;
 import org.usfirst.frc.team1339.utils.Looper;
 
 /**
@@ -45,10 +46,13 @@ public class TeleOp {
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/
     public void teleOpPeriodic(){
     	loop.update();
+    	Robot.HardwareAdapter.checkTriggers(chassis);
     }
     /** This method is called before TeleOp has run.*/
-	public void start(){
-
+	public void init(){	
+		loop.resetSubsystems();
+		HardwareAdapter.kLeftDriveEncoder.reset();
+		HardwareAdapter.kRightDriveEncoder.reset();
 	}
 	/**
 	 * This method runs Arcade Drive.

@@ -1,9 +1,12 @@
 package org.usfirst.frc.team1339.subsystems;
 
 import org.usfirst.frc.team1339.commands.ArcadeDrive;
+import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.utils.Constants;
+import org.usfirst.frc.team1339.utils.HardwareAdapter;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Chassis extends SubsystemBase{
 	
@@ -74,6 +77,34 @@ public class Chassis extends SubsystemBase{
     }
     public void tankDrive(double left, double right){
     	setMotorValues(left, right);
+    }
+    
+    public void PIDDriveEncoder(){
+    	//double enc = (HardwareAdapter.getRightDriveEnc() + HardwareAdapter.getLeftDriveEnc())/2;
+    	double rightSpeed = Robot.HardwareAdapter.RightDriveEncoderPID.calculate(HardwareAdapter.getRightDriveEnc());
+    	double leftSpeed = Robot.HardwareAdapter.LeftDriveEncoderPID.calculate(HardwareAdapter.getLeftDriveEnc());
+    	double gyroOutput = Robot.HardwareAdapter.GyroPID.calculate(HardwareAdapter.kSpartanGyro.getAngle());
+    	rightSpeed -= gyroOutput;
+    	leftSpeed += gyroOutput;
+    	rightSpeed *= 0.5;
+    	leftSpeed *= 0.5;
+    	/*
+    	if(leftSpeed > 0.5){
+    		leftSpeed = 0.5;
+    	}
+    	if(rightSpeed > 0.5){
+    		rightSpeed = 0.5;
+    	}
+    	if(leftSpeed < -0.5){
+    		leftSpeed = -0.5;
+    	}
+    	if(rightSpeed < -0.5){
+    		rightSpeed = -0.5;
+    	}
+    	*/
+    	SmartDashboard.putNumber("Right PID Output", rightSpeed);
+    	SmartDashboard.putNumber("Left PID Output", leftSpeed);
+    	setMotorValues(-leftSpeed, rightSpeed);
     }
 	
 }

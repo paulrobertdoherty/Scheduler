@@ -51,12 +51,22 @@ public class Constants {
 	
 	//Joysticks + Axis
 	public static int xboxPort = 0;
-	public static int xboxLeftXAxis = 1;
-	public static int xboxLeftYAxis = 2;
-	public static int xboxRightXAxis = 3;
-	public static int xboxRightYAxis = 4;
-	public static int xboxRightTrigger = 5;
-	public static int xboxLeftTrigger = 6;
+	public static int xboxLeftXAxis = 0;
+	public static int xboxLeftYAxis = 1;
+	public static int xboxRightXAxis = 4;
+	public static int xboxRightYAxis = 5;
+	public static int xboxRightTrigger = 3;
+	public static int xboxLeftTrigger = 2;
+	public static int xboxAbutton = 1;
+	public static int xboxBbutton = 2;
+	public static int xboxXbutton = 3;
+	public static int xboxYbutton = 4;
+	public static int xboxLeftBumper = 5;
+	public static int xboxRightBumper = 6;
+	public static int xboxViewButton = 7;
+	public static int xboxMenuButton = 8;
+	public static int xboxRightStickButton = 9;
+	public static int xboxLeftStickButton = 10;
 
 	//Motor CAN ID's
 	public static int kLeverMotor = 2; //savage
