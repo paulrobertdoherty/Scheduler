@@ -63,17 +63,6 @@ public class Looper {
 	public void update(){
     	if(Timer.getFPGATimestamp() > time + m_delay){ 
     		//Updates every 20 milliseconds
-    		/*
-    		if(Robot.HardwareAdapter.isCommandGroup()){
-    			if(!Robot.HardwareAdapter.getCommandGroup().isFinished()){
-    				Robot.HardwareAdapter.getCommandGroup().execute();
-    			}
-    			else{
-    				Robot.HardwareAdapter.getCommandGroup().end();
-    				Robot.HardwareAdapter.CommandGroupFinished();
-    			}
-    		}
-    		*/
     		for(int x = 0; x < subsystems.size(); x++){ 
     			//Creates and files subsystems
     			if(subsystems.get(x).getNextCommand().isFinished()){
