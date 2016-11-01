@@ -1,7 +1,4 @@
-package org.usfirst.frc.team1339.subsystems;
-
-import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupBase;
-import org.usfirst.frc.team1339.commands.CommandBase;
+package org.usfirst.frc.team1339.base;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
