@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1339.commands;
 
+import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.robot.Robot;
 
 /**

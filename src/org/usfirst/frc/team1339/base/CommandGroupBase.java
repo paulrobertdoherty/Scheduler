@@ -1,9 +1,6 @@
-package org.usfirst.frc.team1339.auto.commandgroups;
+package org.usfirst.frc.team1339.base;
 
 import java.util.ArrayList;
-
-import org.usfirst.frc.team1339.commands.CommandBase;
-import org.usfirst.frc.team1339.subsystems.SubsystemBase;
 
 public abstract class CommandGroupBase extends CommandBase{
 

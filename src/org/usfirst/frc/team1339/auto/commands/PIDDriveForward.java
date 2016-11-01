@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1339.auto.commands;
 
-import org.usfirst.frc.team1339.commands.CommandBase;
+import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.utils.Constants;
 import org.usfirst.frc.team1339.utils.HardwareAdapter;

@@ -2,9 +2,9 @@ package org.usfirst.frc.team1339.utils;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team1339.commands.CommandBase;
+import org.usfirst.frc.team1339.base.CommandBase;
+import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.robot.Robot;
-import org.usfirst.frc.team1339.subsystems.SubsystemBase;
 
 import edu.wpi.first.wpilibj.Timer;
 

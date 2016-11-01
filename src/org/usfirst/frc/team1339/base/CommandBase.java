@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1339.commands;
+package org.usfirst.frc.team1339.base;
 
 import edu.wpi.first.wpilibj.Timer;
 

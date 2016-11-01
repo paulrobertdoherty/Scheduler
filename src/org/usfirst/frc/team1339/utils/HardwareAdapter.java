@@ -1,10 +1,10 @@
 package org.usfirst.frc.team1339.utils;
 
-import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupBase;
 import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
 import org.usfirst.frc.team1339.auto.commands.PIDDriveForward;
+import org.usfirst.frc.team1339.base.CommandGroupBase;
+import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.commands.TankDrive;
-import org.usfirst.frc.team1339.subsystems.SubsystemBase;
 import org.usfirst.frc.team1339.utils.SynchronousPID;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
