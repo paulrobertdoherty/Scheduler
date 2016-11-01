@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1339.auto.commandGroups;
+package org.usfirst.frc.team1339.auto.commandgroups;
 
 import java.util.ArrayList;
 

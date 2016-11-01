@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1339.utils;
 
-import org.usfirst.frc.team1339.auto.commandGroups.CommandGroupBase;
-import org.usfirst.frc.team1339.auto.commandGroups.CommandGroupTest;
+import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupBase;
+import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
 import org.usfirst.frc.team1339.auto.commands.PIDDriveForward;
 import org.usfirst.frc.team1339.commands.TankDrive;
 import org.usfirst.frc.team1339.subsystems.SubsystemBase;
