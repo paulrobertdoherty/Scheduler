@@ -65,10 +65,6 @@ public class Looper {
     		//Updates every 20 milliseconds
     		for(int x = 0; x < subsystems.size(); x++){ 
     			//Creates and files subsystems
-    			System.out.println(subsystems.get(x).getNextCommand());
-    			if(subsystems.get(x).getNextCommand().isFinished()){
-    				subsystems.get(x).endScheduledCommand();
-    			}
     			if (subsystems.get(x).getNextCommand() 
     					!= subsystems.get(x).getDefaultCommand()){
     				commands.add(x, subsystems.get(x).getNextCommand());
@@ -80,24 +76,27 @@ public class Looper {
     		for(int commandNum = 0; commandNum < commands.size(); commandNum++){ 
     			//Creates and files commands - EDIT I MADE - WHOLE LOOP
     			if(commands.get(commandNum) != null){
-    				if (!commands.get(commandNum).isFinished()){
-    					if(!commands.get(commandNum).isInitialized()){
-    						commands.get(commandNum).init();
-    						commands.get(commandNum).setInitialized();
-    						}
-    					else{
-    						commands.get(commandNum).execute();
-    					}
+    				if(!commands.get(commandNum).isInitialized()){
+						commands.get(commandNum).init();
+						commands.get(commandNum).setInitialized();
     				}
-    				else{
-    					commands.get(commandNum).end();
-    				}
+					if (!commands.get(commandNum).isFinished()){
+						commands.get(commandNum).execute();
+					}
+					else{
+						commands.get(commandNum).end();
+					}
     			}
     		}
     		commands.clear();
 			
             time = Timer.getFPGATimestamp();
             //Sets timer to current FPGA state
+    		for(int x = 0; x < subsystems.size(); x++){
+    			if(subsystems.get(x).getNextCommand().isFinished()){
+    				subsystems.get(x).endScheduledCommand();
+    			}
+    		}
     	}
     }
 	
@@ -105,5 +104,14 @@ public class Looper {
 		for(int x = 0; x < subsystems.size(); x++){
 			subsystems.get(x).endScheduledCommand();
 		}
+	}
+	
+	public void createNewLoop(Looper oldLoop, Looper newLoop, SubsystemBase subsystem){
+		oldLoop.removeRegisteredSubsystem(subsystem);
+		newLoop.register(subsystem);
+	}
+	
+	public void removeRegisteredSubsystem(SubsystemBase subsystem){
+		subsystems.remove(subsystem);
 	}
 }

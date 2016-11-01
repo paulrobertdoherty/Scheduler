@@ -36,9 +36,9 @@ public class TeleOp {
 	 * @see Looper
 	 */
 	TeleOp(){
-		intake = new Intake();
-		chassis = new Chassis();
-		shooter = new Shooter();
+		intake = Robot.intake;
+		chassis = Robot.chassis;
+		shooter = Robot.shooter;
 		
 		loop = new Looper(0.02);
 		loop.register(chassis);
@@ -48,10 +48,10 @@ public class TeleOp {
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/
     public void teleOpPeriodic(){
     	loop.update();
-    	Robot.HardwareAdapter.checkTriggers(chassis, shooter, intake);
-		SmartDashboard.putNumber("left drive encoder", Robot.HardwareAdapter.getLeftDriveEnc());
-		SmartDashboard.putNumber("right encoder", Robot.HardwareAdapter.getRightDriveEnc());
-		SmartDashboard.putNumber("Gyro", Robot.HardwareAdapter.kSpartanGyro.getAngle());
+    	Robot.HardwareAdapter.checkTriggers();
+		SmartDashboard.putNumber("left drive encoder", HardwareAdapter.getLeftDriveEnc());
+		SmartDashboard.putNumber("right encoder", HardwareAdapter.getRightDriveEnc());
+		SmartDashboard.putNumber("Gyro",  HardwareAdapter.kSpartanGyro.getAngle());
     }
     /** This method is called before TeleOp has run.*/
 	public void init(){	
@@ -60,7 +60,6 @@ public class TeleOp {
 		HardwareAdapter.kRightDriveEncoder.reset();
 	}
 	/** This method is called after TeleOp has run.*/
-	public void stop(){
-
+ 
 	}
 }

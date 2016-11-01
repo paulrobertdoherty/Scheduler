@@ -1,8 +1,19 @@
 package org.usfirst.frc.team1339.commands;
 
+import org.usfirst.frc.team1339.robot.Robot;
+import org.usfirst.frc.team1339.subsystems.Chassis;
+import org.usfirst.frc.team1339.subsystems.Intake;
+import org.usfirst.frc.team1339.subsystems.Shooter;
+
 import edu.wpi.first.wpilibj.Timer;
 
 public abstract class CommandBase {
+	
+	//Subsystems
+	public static Chassis chassis = Robot.chassis;
+	public static Intake intake = Robot.intake;
+	public static Shooter shooter = Robot.shooter;
+	
 	
 	private double m_time = -1;
 	private double startTime;

@@ -8,11 +8,11 @@ import org.usfirst.frc.team1339.subsystems.SubsystemBase;
 
 public class CommandGroupTest extends CommandGroupBase{
 
-	public CommandGroupTest(SubsystemBase chassis, SubsystemBase shooter){
-		addSequential(new TankDrive(), chassis);
-		addSequential(new ArcadeDrive(), chassis);
+	public CommandGroupTest(){
+		addSequential(new TankDrive(), Robot.chassis);
+		addSequential(new ArcadeDrive(), Robot.chassis);
 		addInterrupter(1);
-		addSequential(new TankDrive(), chassis);
+		addSequential(new TankDrive(), Robot.chassis);
 	}
 
 	@Override
