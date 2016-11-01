@@ -1,18 +1,14 @@
 package org.usfirst.frc.team1339.utils;
 
 import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
-import org.usfirst.frc.team1339.auto.commands.PIDDriveForward;
-import org.usfirst.frc.team1339.base.CommandGroupBase;
 import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.commands.TankDrive;
-import org.usfirst.frc.team1339.utils.SynchronousPID;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A class where we define all the variables for talons, solenoids, sensors, etc.
