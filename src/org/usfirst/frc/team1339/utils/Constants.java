@@ -1,5 +1,12 @@
 package org.usfirst.frc.team1339.utils;
 
+/**
+ * A class where we define all the constant joystick ports, joystick axis, sensor ports, talon ports, etc.
+ * @author Nate Howard
+ * @author Sam Schwartz
+ * @author Sam Korman
+ *
+ */
 public class Constants {
 	public static final double kDriveKp = 0.07;
 	public static final double kDriveKi = 0;
@@ -90,7 +97,4 @@ public class Constants {
 
 	//Gyro
 	public static int kGyro = 0;
-
-	
-	
 }
