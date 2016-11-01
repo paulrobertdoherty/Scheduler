@@ -14,10 +14,17 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * A class where we define all the variables for talons, solenoids, sensors, etc.
+ * We also define joysticks and make get methods for the joysticks.
+ * Finally, we define the triggers for certain commands.
+ * @author Nate Howard
+ * @author Sam Schwartz
+ * @author Sam Korman
+ *
+ */
+		
 public class HardwareAdapter {
-
-	private CommandGroupBase currentCommandGroup;
-	private boolean isCommandGroup = false;
 	
 	//Encoders
 	public static Encoder kRightDriveEncoder = new Encoder(
@@ -25,9 +32,10 @@ public class HardwareAdapter {
 	public static Encoder kLeftDriveEncoder = new Encoder(
 			Constants.kLeftDriveAEncoder , Constants.kLeftDriveBEncoder);
 	public static ADXRS450_Gyro kSpartanGyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-	//Spike
+	
 	//Joysticks
 	private Joystick xboxStick = new Joystick(Constants.xboxPort);
+	
 	//Razer Joystick Buttons
 	private JoystickButton AButton = new JoystickButton(xboxStick , Constants.xboxAbutton);
 	private JoystickButton BButton = new JoystickButton(xboxStick , Constants.xboxBbutton);
@@ -37,6 +45,7 @@ public class HardwareAdapter {
 	private JoystickButton rightBumper = new JoystickButton(xboxStick , Constants.xboxRightBumper);
 	private JoystickButton leftStickButton = new JoystickButton(xboxStick , Constants.xboxLeftStickButton);
 	private JoystickButton rightStickButton = new JoystickButton(xboxStick , Constants.xboxRightStickButton);
+	
 	//PID Loops
 	public static SynchronousPID LeftDriveEncoderPID = new SynchronousPID(
 			Constants.kDriveKp , Constants.kDriveKi , Constants.kDriveKd);
@@ -71,6 +80,7 @@ public class HardwareAdapter {
 		chassis.whenPressed(YButton, new CommandGroupTest(chassis, shooter));
 	}
 	
+	//Joystick get methods
 	public Joystick getXboxStick(){
 		return xboxStick;
 	}
@@ -104,19 +114,4 @@ public class HardwareAdapter {
 	public static double getRightDriveEnc(){
 		return (kRightDriveEncoder.get() * -1);
 	}
-	/*
-	private void scheduleCommandGroup(CommandGroupBase commandGroup){
-		currentCommandGroup = commandGroup;
-		isCommandGroup = true;
-	}
-	public boolean isCommandGroup(){
-		return isCommandGroup;
-	}
-	public CommandGroupBase getCommandGroup(){
-		return currentCommandGroup;
-	}
-	public void CommandGroupFinished(){
-		isCommandGroup = false;
-	}
-	*/
 }

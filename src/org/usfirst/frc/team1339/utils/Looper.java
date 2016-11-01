@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The Looper class calls and creates subsystems and runs them at certain rates.
- * <br>$<br>
  * @author Sam Schwartz
  * @author Nate Howard
  * @author Sam Korman
