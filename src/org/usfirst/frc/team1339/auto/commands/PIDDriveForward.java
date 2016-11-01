@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PIDDriveForward extends CommandBase {
 
-	double m_clicks;
+	private double m_clicks;
+	private boolean initialized = false;
+	
 	
     public PIDDriveForward(double timeout, double clicks) {
     	m_clicks = clicks;
@@ -25,6 +27,7 @@ public class PIDDriveForward extends CommandBase {
     	Robot.HardwareAdapter.RightDriveEncoderPID.setSetpoint(m_clicks+Robot.HardwareAdapter.getRightDriveEnc());
     	Robot.HardwareAdapter.LeftDriveEncoderPID.setSetpoint(m_clicks+Robot.HardwareAdapter.getLeftDriveEnc());
     	Robot.HardwareAdapter.GyroPID.setSetpoint(HardwareAdapter.kSpartanGyro.getAngle());
+    	initialized = true;
 	}
     // Called repeatedly when this Command is scheduled to run
     public void execute() {
@@ -33,6 +36,7 @@ public class PIDDriveForward extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
+    	if(!initialized) return false;
         return Robot.HardwareAdapter.RightDriveEncoderPID.onTarget(10)
         		|| Robot.HardwareAdapter.LeftDriveEncoderPID.onTarget(10)  || isTimedOut();
     }

@@ -2,8 +2,9 @@ package org.usfirst.frc.team1339.utils;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team1339.subsystems.SubsystemBase;
 import org.usfirst.frc.team1339.commands.CommandBase;
+import org.usfirst.frc.team1339.robot.Robot;
+import org.usfirst.frc.team1339.subsystems.SubsystemBase;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -80,7 +81,7 @@ public class Looper {
     			//Creates and files commands - EDIT I MADE - WHOLE LOOP
     			if(commands.get(commandNum) != null){
     				if (!commands.get(commandNum).isFinished()){
-    					if(commands.get(commandNum).isInitialized()){
+    					if(!commands.get(commandNum).isInitialized()){
     						commands.get(commandNum).init();
     						commands.get(commandNum).setInitialized();
     						}

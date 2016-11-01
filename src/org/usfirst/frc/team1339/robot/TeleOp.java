@@ -5,6 +5,8 @@ import org.usfirst.frc.team1339.subsystems.SubsystemBase;
 import org.usfirst.frc.team1339.utils.HardwareAdapter;
 import org.usfirst.frc.team1339.utils.Looper;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * This is the class for teleoperated robot control. In this
  * instance, we use Arcade Drive, consisting of two joysticks,
@@ -40,13 +42,16 @@ public class TeleOp {
 		
 		loop = new Looper(0.02);
 		loop.register(chassis);
-		loop.register(intake);
+		//loop.register(intake);
 		loop.register(shooter);
 	}
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/
     public void teleOpPeriodic(){
     	loop.update();
-    	Robot.HardwareAdapter.checkTriggers(chassis);
+    	Robot.HardwareAdapter.checkTriggers(chassis, shooter, intake);
+		SmartDashboard.putNumber("left drive encoder", Robot.HardwareAdapter.getLeftDriveEnc());
+		SmartDashboard.putNumber("right encoder", Robot.HardwareAdapter.getRightDriveEnc());
+		SmartDashboard.putNumber("Gyro", Robot.HardwareAdapter.kSpartanGyro.getAngle());
     }
     /** This method is called before TeleOp has run.*/
 	public void init(){	
@@ -54,10 +59,6 @@ public class TeleOp {
 		HardwareAdapter.kLeftDriveEncoder.reset();
 		HardwareAdapter.kRightDriveEncoder.reset();
 	}
-	/**
-	 * This method runs Arcade Drive.
-	 * @see Robot
-	 */
 	/** This method is called after TeleOp has run.*/
 	public void stop(){
 

@@ -88,7 +88,6 @@ public class Chassis extends SubsystemBase{
     	leftSpeed += gyroOutput;
     	rightSpeed *= 0.5;
     	leftSpeed *= 0.5;
-    	/*
     	if(leftSpeed > 0.5){
     		leftSpeed = 0.5;
     	}
@@ -101,9 +100,9 @@ public class Chassis extends SubsystemBase{
     	if(rightSpeed < -0.5){
     		rightSpeed = -0.5;
     	}
-    	*/
+    	
     	SmartDashboard.putNumber("Right PID Output", rightSpeed);
-    	SmartDashboard.putNumber("Left PID Output", leftSpeed);
+    	SmartDashboard.putNumber("Left PID Output", -leftSpeed);
     	setMotorValues(-leftSpeed, rightSpeed);
     }
 	
