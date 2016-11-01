@@ -7,10 +7,10 @@ import org.usfirst.frc.team1339.subsystems.SubsystemBase;
 
 public abstract class CommandGroupBase extends CommandBase{
 
-	private ArrayList<CommandBase> commands;
-	private ArrayList<SubsystemBase> subsystems;
-	private ArrayList<Boolean> parallels;
-	private ArrayList<Integer> interupters;
+	private ArrayList<CommandBase> commands = new ArrayList<CommandBase>();
+	private ArrayList<SubsystemBase> subsystems = new ArrayList<SubsystemBase>();
+	private ArrayList<Boolean> parallels = new ArrayList<Boolean>();
+	private ArrayList<Integer> interupters = new ArrayList<Integer>();
 	private boolean isFinished = false;
 	
 	private int index = 0;
@@ -21,32 +21,6 @@ public abstract class CommandGroupBase extends CommandBase{
 	
 	public void execute() {
 		// TODO Auto-generated method stub
-		/*
-		if (commands.size() == subsystems.size() && 
-				commands.size() == parallels.size() &&
-				interupters.size() <= commands.size()){
-			for(int i = 0; i <= index; i++){
-				if(parallels.get(i)) index++;
-				if (!commands.get(i).isFinished() && !isInterruptIndex(i)){
-					if(!commands.get(i).isInitialized()){
-						commands.get(i).init();
-						commands.get(i).setInitialized();
-					}
-					else{
-						commands.get(i).execute();
-					}
-				}
-				else{
-					commands.get(i).end();
-					if (!parallels.get(i)) index++;
-				}
-			}
-		}
-		*/
-		
-		
-		
-		
 		
 		if (commands.size() == subsystems.size() && 
 				commands.size() == parallels.size() &&
@@ -65,7 +39,9 @@ public abstract class CommandGroupBase extends CommandBase{
 				}
 			}
 			else if(isInterruptIndex(index - 1)){
+				System.out.println("close");
 				if(index < subsystems.size()){
+					System.out.println("Done");
 					subsystems.get(index).schedule(commands.get(index));
 					index++;
 				}
@@ -82,8 +58,7 @@ public abstract class CommandGroupBase extends CommandBase{
 					isFinished = true;
 				}
 			}
-		}
-		
+		}		
 	}
 
 	public boolean isFinished() {

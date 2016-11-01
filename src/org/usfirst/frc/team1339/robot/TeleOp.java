@@ -42,7 +42,7 @@ public class TeleOp {
 		
 		loop = new Looper(0.02);
 		loop.register(chassis);
-		loop.register(intake);
+		//loop.register(intake);
 		loop.register(shooter);
 	}
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/

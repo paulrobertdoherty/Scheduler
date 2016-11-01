@@ -10,15 +10,15 @@ public class CommandGroupTest extends CommandGroupBase{
 
 	public CommandGroupTest(SubsystemBase chassis, SubsystemBase shooter){
 		addSequential(new TankDrive(), chassis);
-		addParallel(new DriveShooter(), shooter);
 		addSequential(new ArcadeDrive(), chassis);
 		addInterrupter(1);
+		addSequential(new TankDrive(), chassis);
 	}
 
 	@Override
 	protected boolean isInterrupted(int index) {
 		if (index == 1){
-			return Robot.HardwareAdapter.getLeftStickButton();
+			return Robot.HardwareAdapter.getXButton();
 		}
 		return false;
 	}

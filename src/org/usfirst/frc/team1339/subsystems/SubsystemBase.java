@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public abstract class SubsystemBase {
 	
 	private CommandBase nextCommand, defaultCommand;
+	private CommandGroupBase commandGroup;
 	
 	private boolean commandGroupInit = false;
 	
@@ -52,11 +53,12 @@ public abstract class SubsystemBase {
 		if (button.get()){
 			if(command.isCommandGroup()){
 				commandGroupInit = true;
+				commandGroup = (CommandGroupBase) command;
 			}
 			else schedule(command);
 		}
 		if(commandGroupInit){
-			command.execute();
+			commandGroup.execute();
 		}
 	}
 }

@@ -67,8 +67,8 @@ public class HardwareAdapter {
 	public void checkTriggers(SubsystemBase chassis, SubsystemBase shooter,
 			SubsystemBase intake){
 		chassis.whenPressed(AButton, new TankDrive());
-		chassis.whenPressed(XButton, new PIDDriveForward(3, 100));
-		whenPressedCommandGroup(YButton, new CommandGroupTest(chassis, shooter));
+		//chassis.whenPressed(XButton, new PIDDriveForward(3, 100));
+		chassis.whenPressed(YButton, new CommandGroupTest(chassis, shooter));
 	}
 	
 	public Joystick getXboxStick(){
@@ -103,13 +103,6 @@ public class HardwareAdapter {
 	}
 	public static double getRightDriveEnc(){
 		return (kRightDriveEncoder.get() * -1);
-	}
-	
-	private void whenPressedCommandGroup(JoystickButton button, 
-			CommandGroupBase commandGroup){
-		if(button.get()){
-			scheduleCommandGroup(commandGroup);
-		}
 	}
 	/*
 	private void scheduleCommandGroup(CommandGroupBase commandGroup){
