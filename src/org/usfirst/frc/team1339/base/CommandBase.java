@@ -2,13 +2,21 @@ package org.usfirst.frc.team1339.base;
 
 import edu.wpi.first.wpilibj.Timer;
 
+/**
+ * 
+ * @author Sam Schwartz
+ * @author Nate Howard
+ * @author Sam Korman
+ * @see Timer
+ *
+ */
+
 public abstract class CommandBase {
 	
 	private double m_time = -1;
 	private double startTime;
 	
 	private boolean initialized = false;
-	private boolean isCommandGroup = false;
 	
 	public abstract void init();
 	
