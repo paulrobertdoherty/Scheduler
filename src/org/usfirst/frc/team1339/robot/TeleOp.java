@@ -60,6 +60,5 @@ public class TeleOp {
 		HardwareAdapter.kRightDriveEncoder.reset();
 	}
 	/** This method is called after TeleOp has run.*/
- 
-	}
+
 }

@@ -9,12 +9,6 @@ import edu.wpi.first.wpilibj.Timer;
 
 public abstract class CommandBase {
 	
-	//Subsystems
-	public static Chassis chassis = Robot.chassis;
-	public static Intake intake = Robot.intake;
-	public static Shooter shooter = Robot.shooter;
-	
-	
 	private double m_time = -1;
 	private double startTime;
 	

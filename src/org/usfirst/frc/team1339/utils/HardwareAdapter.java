@@ -15,11 +15,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class HardwareAdapter {
 
 	
-	//Subsystems
-	public static Chassis chassis = Robot.chassis;
-	public static Intake intake  = Robot.intake;
-	public static Shooter shooter = Robot.shooter;
-	
 	//Encoders
 	public static Encoder kRightDriveEncoder = new Encoder(
 			Constants.kRightDriveAEncoder , Constants.kRightDriveBEncoder);
@@ -68,7 +63,7 @@ public class HardwareAdapter {
 	public void checkTriggers(){
 		//chassis.whenPressed(AButton, new TankDrive());
 		//chassis.whenPressed(XButton, new PIDDriveForward(3, 100));
-		chassis.whenPressed(YButton, new CommandGroupTest());
+		Robot.chassis.whenPressed(YButton, new CommandGroupTest());
 	}
 	
 	public Joystick getXboxStick(){
