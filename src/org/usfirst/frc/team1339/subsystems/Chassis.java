@@ -4,7 +4,6 @@ import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.commands.ArcadeDrive;
 import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.utils.Constants;
-import org.usfirst.frc.team1339.utils.HardwareAdapter;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -82,9 +81,9 @@ public class Chassis extends SubsystemBase{
     
     public void PIDDriveEncoder(){
     	//double enc = (HardwareAdapter.getRightDriveEnc() + HardwareAdapter.getLeftDriveEnc())/2;
-    	double rightSpeed = Robot.HardwareAdapter.RightDriveEncoderPID.calculate(HardwareAdapter.getRightDriveEnc());
-    	double leftSpeed = Robot.HardwareAdapter.LeftDriveEncoderPID.calculate(HardwareAdapter.getLeftDriveEnc());
-    	double gyroOutput = Robot.HardwareAdapter.GyroPID.calculate(HardwareAdapter.kSpartanGyro.getAngle());
+    	double rightSpeed = Robot.HardwareAdapter.RightDriveEncoderPID.calculate(Robot.HardwareAdapter.getRightDriveEnc());
+    	double leftSpeed = Robot.HardwareAdapter.LeftDriveEncoderPID.calculate(Robot.HardwareAdapter.getLeftDriveEnc());
+    	double gyroOutput = Robot.HardwareAdapter.GyroPID.calculate(Robot.HardwareAdapter.kSpartanGyro.getAngle());
     	rightSpeed -= gyroOutput;
     	leftSpeed += gyroOutput;
     	rightSpeed *= 0.5;

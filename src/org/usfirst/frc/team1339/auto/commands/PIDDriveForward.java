@@ -3,7 +3,6 @@ package org.usfirst.frc.team1339.auto.commands;
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.utils.Constants;
-import org.usfirst.frc.team1339.utils.HardwareAdapter;
 
 /**
  *
@@ -24,7 +23,7 @@ public class PIDDriveForward extends CommandBase {
     	Robot.HardwareAdapter.GyroPID.setPID(Constants.kAutoGyroKp, Constants.kAutoGyroKi, Constants.kAutoGyroKd);
     	Robot.HardwareAdapter.RightDriveEncoderPID.setSetpoint(m_clicks+Robot.HardwareAdapter.getRightDriveEnc());
     	Robot.HardwareAdapter.LeftDriveEncoderPID.setSetpoint(m_clicks+Robot.HardwareAdapter.getLeftDriveEnc());
-    	Robot.HardwareAdapter.GyroPID.setSetpoint(HardwareAdapter.kSpartanGyro.getAngle());
+    	Robot.HardwareAdapter.GyroPID.setSetpoint(Robot.HardwareAdapter.kSpartanGyro.getAngle());
     	initialized = true;
 	}
     // Called repeatedly when this Command is scheduled to run

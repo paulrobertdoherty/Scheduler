@@ -22,11 +22,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class HardwareAdapter {
 	
 	//Encoders
-	public static Encoder kRightDriveEncoder = new Encoder(
+	public Encoder kRightDriveEncoder = new Encoder(
 			Constants.kRightDriveAEncoder , Constants.kRightDriveBEncoder);
-	public static Encoder kLeftDriveEncoder = new Encoder(
+	public Encoder kLeftDriveEncoder = new Encoder(
 			Constants.kLeftDriveAEncoder , Constants.kLeftDriveBEncoder);
-	public static ADXRS450_Gyro kSpartanGyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+	public ADXRS450_Gyro kSpartanGyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 	
 	//Joysticks
 	private Joystick xboxStick = new Joystick(Constants.xboxPort);
@@ -42,27 +42,27 @@ public class HardwareAdapter {
 	private JoystickButton rightStickButton = new JoystickButton(xboxStick , Constants.xboxRightStickButton);
 	
 	//PID Loops
-	public static SynchronousPID LeftDriveEncoderPID = new SynchronousPID(
+	public SynchronousPID LeftDriveEncoderPID = new SynchronousPID(
 			Constants.kDriveKp , Constants.kDriveKi , Constants.kDriveKd);
-	public static SynchronousPID ShortLeftDriveEncoderPID = new SynchronousPID(
+	public SynchronousPID ShortLeftDriveEncoderPID = new SynchronousPID(
 			Constants.kShortDriveKp , Constants.kShortDriveKi , Constants.kShortDriveKd);
-	public static SynchronousPID RightDriveEncoderPID = new SynchronousPID(
+	public SynchronousPID RightDriveEncoderPID = new SynchronousPID(
 			Constants.kDriveKp , Constants.kDriveKi , Constants.kDriveKd);
-	public static SynchronousPID ShortRightDriveEncoderPID = new SynchronousPID(
+	public SynchronousPID ShortRightDriveEncoderPID = new SynchronousPID(
 			Constants.kShortDriveKp , Constants.kShortDriveKi , Constants.kShortDriveKd);
-	public static SynchronousPID TurnGyroPID = new SynchronousPID(
+	public SynchronousPID TurnGyroPID = new SynchronousPID(
 			Constants.kTurnKp , Constants.kTurnKi , Constants.kTurnKd);
-	public static SynchronousPID ArmPID = new SynchronousPID(
+	public SynchronousPID ArmPID = new SynchronousPID(
 			Constants.kArmKp , Constants.kArmKi , Constants.kArmKd);
-	public static SynchronousPID ShooterPID = new SynchronousPID(
+	public SynchronousPID ShooterPID = new SynchronousPID(
 			Constants.kShooterKp , Constants.kShooterKi , Constants.kShooterKd);
-	public static SynchronousPID AccelPID = new SynchronousPID(
+	public SynchronousPID AccelPID = new SynchronousPID(
 			Constants.kAccelKp, Constants.kAccelKi, Constants.kAccelKd);
-	public static SynchronousPID JerkPID = new SynchronousPID(
+	public SynchronousPID JerkPID = new SynchronousPID(
 			Constants.kJerkKp, Constants.kJerkKi, Constants.kJerkKd);
-	public static SynchronousPID GyroPID = new SynchronousPID(
+	public SynchronousPID GyroPID = new SynchronousPID(
 			Constants.kGyroKp , Constants.kGyroKi , Constants.kGyroKd);
-	public static SynchronousPID MotionProfile = new SynchronousPID(
+	public SynchronousPID MotionProfile = new SynchronousPID(
 			Constants.k_mp_Kp , Constants.k_mp_Ki , Constants.k_mp_Kd);
 
 	public HardwareAdapter(){
@@ -100,10 +100,10 @@ public class HardwareAdapter {
 	public boolean getRightStickButton(){
 		return rightStickButton.get();
 	}
-	public static double getLeftDriveEnc(){
+	public double getLeftDriveEnc(){
 		return (kLeftDriveEncoder.get());
 	}
-	public static double getRightDriveEnc(){
+	public double getRightDriveEnc(){
 		return (kRightDriveEncoder.get() * -1);
 	}
 }

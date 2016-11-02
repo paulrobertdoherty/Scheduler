@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1339.robot;
 
 import org.usfirst.frc.team1339.base.SubsystemBase;
-import org.usfirst.frc.team1339.utils.HardwareAdapter;
 import org.usfirst.frc.team1339.utils.Looper;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,15 +47,15 @@ public class TeleOp {
     public void teleOpPeriodic(){
     	loop.update();
     	Robot.HardwareAdapter.checkTriggers();
-		SmartDashboard.putNumber("left drive encoder", HardwareAdapter.getLeftDriveEnc());
-		SmartDashboard.putNumber("right encoder", HardwareAdapter.getRightDriveEnc());
-		SmartDashboard.putNumber("Gyro",  HardwareAdapter.kSpartanGyro.getAngle());
+		SmartDashboard.putNumber("left drive encoder", Robot.HardwareAdapter.getLeftDriveEnc());
+		SmartDashboard.putNumber("right encoder", Robot.HardwareAdapter.getRightDriveEnc());
+		SmartDashboard.putNumber("Gyro",  Robot.HardwareAdapter.kSpartanGyro.getAngle());
     }
     /** This method is called before TeleOp has run.*/
 	public void init(){	
 		loop.resetSubsystems();
-		HardwareAdapter.kLeftDriveEncoder.reset();
-		HardwareAdapter.kRightDriveEncoder.reset();
+		Robot.HardwareAdapter.kLeftDriveEncoder.reset();
+		Robot.HardwareAdapter.kRightDriveEncoder.reset();
 	}
 	/** This method is called after TeleOp has run.*/
 
