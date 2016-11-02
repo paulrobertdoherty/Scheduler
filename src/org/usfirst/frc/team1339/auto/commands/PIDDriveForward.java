@@ -5,8 +5,6 @@ import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.utils.Constants;
 import org.usfirst.frc.team1339.utils.HardwareAdapter;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  *
  */

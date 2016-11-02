@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.base.SubsystemBase;
-import org.usfirst.frc.team1339.robot.Robot;
 
 import edu.wpi.first.wpilibj.Timer;
 

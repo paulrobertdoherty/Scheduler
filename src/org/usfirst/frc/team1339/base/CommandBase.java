@@ -1,10 +1,5 @@
 package org.usfirst.frc.team1339.base;
 
-import org.usfirst.frc.team1339.robot.Robot;
-import org.usfirst.frc.team1339.subsystems.Chassis;
-import org.usfirst.frc.team1339.subsystems.Intake;
-import org.usfirst.frc.team1339.subsystems.Shooter;
-
 import edu.wpi.first.wpilibj.Timer;
 
 /**

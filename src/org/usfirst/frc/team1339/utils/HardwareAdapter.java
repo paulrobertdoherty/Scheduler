@@ -69,8 +69,6 @@ public class HardwareAdapter {
 	}
 	
 	public void checkTriggers(){
-		//chassis.whenPressed(AButton, new TankDrive());
-		//chassis.whenPressed(XButton, new PIDDriveForward(3, 100));
 		Robot.chassis.whenPressed(YButton, new CommandGroupTest());
 	}
 	

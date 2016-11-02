@@ -14,13 +14,11 @@ public class DriveShooter extends CommandBase {
     }
 
 	public void init() {
-		// TODO Auto-generated method stub
 		
 	}
     
     // Called repeatedly when this Command is scheduled to run
     public void execute() {
-    	/*
     	if(Robot.HardwareAdapter.getYButton()){
     		speed = 0.85;
     	}
@@ -29,7 +27,6 @@ public class DriveShooter extends CommandBase {
     	}
     	else speed = 0;
     	Robot.shooter.shoot(speed);
-    	*/
     }
 
     // Make this return true when this Command no longer needs to run execute()

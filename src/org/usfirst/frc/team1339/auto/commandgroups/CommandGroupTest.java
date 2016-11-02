@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1339.auto.commandgroups;
 
 import org.usfirst.frc.team1339.base.CommandGroupBase;
-import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.commands.ArcadeDrive;
 import org.usfirst.frc.team1339.commands.TankDrive;
 import org.usfirst.frc.team1339.robot.Robot;
