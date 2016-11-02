@@ -1,15 +1,7 @@
 package org.usfirst.frc.team1339.utils;
 
 import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
-<<<<<<< HEAD
 import org.usfirst.frc.team1339.robot.Robot;
-import org.usfirst.frc.team1339.subsystems.Chassis;
-import org.usfirst.frc.team1339.subsystems.Intake;
-import org.usfirst.frc.team1339.subsystems.Shooter;
-=======
-import org.usfirst.frc.team1339.base.SubsystemBase;
-import org.usfirst.frc.team1339.commands.TankDrive;
->>>>>>> master
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
@@ -28,10 +20,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 		
 public class HardwareAdapter {
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 	
 	//Encoders
 	public static Encoder kRightDriveEncoder = new Encoder(
