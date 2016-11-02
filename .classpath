@@ -4,7 +4,6 @@
 	<classpathentry kind="var" path="networktables" sourcepath="networktables.sources"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="libs/FRCUserProgram.jar"/>
 	<classpathentry kind="lib" path="libs/NetworkTables-sources.jar"/>
 	<classpathentry kind="lib" path="libs/NetworkTables.jar"/>
 	<classpathentry kind="lib" path="libs/WPILib-sources.jar"/>
