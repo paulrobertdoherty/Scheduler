@@ -8,6 +8,5 @@
 	<classpathentry kind="lib" path="libs/NetworkTables.jar"/>
 	<classpathentry kind="lib" path="libs/WPILib-sources.jar"/>
 	<classpathentry kind="lib" path="libs/WPILib.jar"/>
-	<classpathentry kind="lib" path="libs/FRCUserProgram.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -61,37 +61,41 @@ public class Looper {
 	 * @see SubsystemBase
 	 */
 	public void update(){
-    	if(Timer.getFPGATimestamp() > time + m_delay){ 
-    		//Updates every 20 milliseconds
+    	if(Timer.getFPGATimestamp() > time + m_delay){ //Updates every m_delay
+    		
+    		//Gets commands to run
     		for(int x = 0; x < subsystems.size(); x++){ 
-    			//Creates and files subsystems
-    			if (subsystems.get(x).getNextCommand() 
-    					!= subsystems.get(x).getDefaultCommand()){
-    				commands.add(x, subsystems.get(x).getNextCommand());
-    			}
-    			else {
-    				commands.add(x, subsystems.get(x).getDefaultCommand());
-    			}
+    			commands.add(x, subsystems.get(x).getDefaultCommand());
     		}
+    		
+    		//Runs commands
     		for(int commandNum = 0; commandNum < commands.size(); commandNum++){ 
     			//Creates and files commands - EDIT I MADE - WHOLE LOOP
     			if(commands.get(commandNum) != null){
-    				if(!commands.get(commandNum).isInitialized()){
-						commands.get(commandNum).init();
-						commands.get(commandNum).setInitialized();
+    				
+    				//Create an object for the command
+    				CommandBase command = commands.get(commandNum);
+    				
+    				//Initialize the command if it's not already
+    				if(!command.isInitialized()){
+						command.init();
+						command.setInitialized();
     				}
-					if (!commands.get(commandNum).isFinished()){
-						commands.get(commandNum).execute();
-					}
-					else{
-						commands.get(commandNum).end();
-					}
+    				
+    				//Execute the command
+    				commands.get(commandNum).execute();
+    				
+    				//Check if the command is finished
+    				if(command.isFinished()){
+    					command.end();
+    				}
     			}
     		}
+    		
     		commands.clear();
 			
             time = Timer.getFPGATimestamp();
-            //Sets timer to current FPGA state
+            
     		for(int x = 0; x < subsystems.size(); x++){
     			if(subsystems.get(x).getNextCommand().isFinished()){
     				subsystems.get(x).endScheduledCommand();
