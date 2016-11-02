@@ -1,9 +1,15 @@
-package org.usfirst.frc.team1339.auto.commandgroups;
+package org.usfirst.frc.team1339.base;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team1339.commands.CommandBase;
-import org.usfirst.frc.team1339.subsystems.SubsystemBase;
+/**
+ * 
+ * @author Sam Schwartz
+ * @author Nate Howard
+ * @author Sam Korman
+ * <br>
+ * @see ArrayList
+ */
 
 public abstract class CommandGroupBase extends CommandBase{
 
@@ -18,10 +24,18 @@ public abstract class CommandGroupBase extends CommandBase{
 	public void init(){
 		
 	}
-	
+	/**
+	 * This method gets called every time a command group runs.
+	 * It schedules commands based on sequentials and parallels
+	 * created in the actual command group. It decides if the
+	 * command before it is either {@code finished}, {@code interrupted}
+	 * or a {@code parallel}.
+	 * <br>
+	 * If any of those are {@code true}, then it schedules the next
+	 * command.
+	 * @see CommandBase
+	 */
 	public void execute() {
-		// TODO Auto-generated method stub
-		
 		if (commands.size() == subsystems.size() && 
 				commands.size() == parallels.size() &&
 				interupters.size() <= commands.size()){
@@ -62,12 +76,11 @@ public abstract class CommandGroupBase extends CommandBase{
 	}
 
 	public boolean isFinished() {
-		// TODO Auto-generated method stub
 		return isFinished;
 	}
 	
 	public void end() {
-		// TODO Auto-generated method stub
+
 	}
 	
 	public void interrupted(){

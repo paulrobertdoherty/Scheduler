@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.util.BoundaryException;
  * Does all computation synchronously (i.e. the calculate() function must be
  * called by the user from his own thread)
  * 
- * Source: Team 254's SynchronousPID.java
+ * Source: Team 254's SynchronousPID.java from their 2015 robot.
+ * <br/>
  */
 public class SynchronousPID {
     private double m_P;            // factor for "proportional" control

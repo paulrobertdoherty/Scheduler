@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1339.subsystems;
 
+import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.commands.DriveIntake;
 import org.usfirst.frc.team1339.utils.Constants;
 

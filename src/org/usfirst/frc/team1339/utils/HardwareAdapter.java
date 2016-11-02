@@ -1,10 +1,15 @@
 package org.usfirst.frc.team1339.utils;
 
 import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
+<<<<<<< HEAD
 import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.subsystems.Chassis;
 import org.usfirst.frc.team1339.subsystems.Intake;
 import org.usfirst.frc.team1339.subsystems.Shooter;
+=======
+import org.usfirst.frc.team1339.base.SubsystemBase;
+import org.usfirst.frc.team1339.commands.TankDrive;
+>>>>>>> master
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
@@ -12,8 +17,21 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+/**
+ * A class where we define all the variables for talons, solenoids, sensors, etc.
+ * We also define joysticks and make get methods for the joysticks.
+ * Finally, we define the triggers for certain commands.
+ * @author Nate Howard
+ * @author Sam Schwartz
+ * @author Sam Korman
+ *
+ */
+		
 public class HardwareAdapter {
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 	
 	//Encoders
 	public static Encoder kRightDriveEncoder = new Encoder(
@@ -21,9 +39,10 @@ public class HardwareAdapter {
 	public static Encoder kLeftDriveEncoder = new Encoder(
 			Constants.kLeftDriveAEncoder , Constants.kLeftDriveBEncoder);
 	public static ADXRS450_Gyro kSpartanGyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-	//Spike
+	
 	//Joysticks
 	private Joystick xboxStick = new Joystick(Constants.xboxPort);
+	
 	//Razer Joystick Buttons
 	private JoystickButton AButton = new JoystickButton(xboxStick , Constants.xboxAbutton);
 	private JoystickButton BButton = new JoystickButton(xboxStick , Constants.xboxBbutton);
@@ -33,6 +52,7 @@ public class HardwareAdapter {
 	private JoystickButton rightBumper = new JoystickButton(xboxStick , Constants.xboxRightBumper);
 	private JoystickButton leftStickButton = new JoystickButton(xboxStick , Constants.xboxLeftStickButton);
 	private JoystickButton rightStickButton = new JoystickButton(xboxStick , Constants.xboxRightStickButton);
+	
 	//PID Loops
 	public static SynchronousPID LeftDriveEncoderPID = new SynchronousPID(
 			Constants.kDriveKp , Constants.kDriveKi , Constants.kDriveKd);
@@ -66,6 +86,7 @@ public class HardwareAdapter {
 		Robot.chassis.whenPressed(YButton, new CommandGroupTest());
 	}
 	
+	//Joystick get methods
 	public Joystick getXboxStick(){
 		return xboxStick;
 	}
