@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.base.SubsystemBase;
 
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;	
 
 /**
  * The Looper class calls and creates subsystems and runs them at certain rates.
