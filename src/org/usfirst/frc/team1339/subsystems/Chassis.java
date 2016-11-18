@@ -105,5 +105,11 @@ public class Chassis extends SubsystemBase{
     	SmartDashboard.putNumber("Left PID Output", -leftSpeed);
     	setMotorValues(-leftSpeed, rightSpeed);
     }
+    
+    public void motionProfile(){
+    	double speed = Robot.HardwareAdapter.ChassisMP.calculate();
+    	System.out.println(speed);
+    	//setMotorValues(speed, speed);
+    }
 	
 }

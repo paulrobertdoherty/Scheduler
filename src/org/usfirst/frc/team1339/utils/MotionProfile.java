@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class MotionProfile {
 	
-	public double Kp, Ki, Kd, Ka, Kv, goal, cruiseVel,
+	private double Kp, Ki, Kd, Ka, Kv, goal, cruiseVel,
 	maxAcc, cruiseVelScaleFactor;
 	private double lastTime;
 	public Segment initialSegment = new Segment(0, 0, 0);
@@ -92,7 +92,7 @@ public class MotionProfile {
 		lastTime = Timer.getFPGATimestamp();
 	}
 	
-	public void calculate(){
+	public double calculate(){
 		double dt;
 		double currentTime = Timer.getFPGATimestamp();
 		dt = lastTime - currentTime;
@@ -132,18 +132,33 @@ public class MotionProfile {
 			nextSegment.vel = currentVel + dt * maxAcc;
 			nextSegment.acc = maxAcc;
 		}
-		if(getState() == MotionState.CRUISING){
-			nextSegment.pos = x_to_cruise + cruiseVel * (dt - t_to_cruise);;
+		else if(getState() == MotionState.CRUISING){
+			nextSegment.pos = cruiseVel * dt;
 			nextSegment.vel = cruiseVel;
 			nextSegment.acc = 0;
 		}
-		if(getState() == MotionState.DECELERATING){
+		else if(getState() == MotionState.DECELERATING){
+			nextSegment.pos = currentVel * dt - 0.5 *maxAcc * dt * dt;
+			nextSegment.vel = currentVel - maxAcc * dt;
+			nextSegment.acc = -maxAcc;
 		}
+		else{
+			nextSegment.pos = 0;
+			nextSegment.vel = 0;
+			nextSegment.acc = 0;
+		}
+		
+		currentSegment.pos += nextSegment.pos;
+		currentSegment.vel = nextSegment.vel;
+		currentSegment.acc = nextSegment.acc;
+		
+		double output = Kv * currentSegment.vel + Ka * currentSegment.acc;
+		
+		return output;
 	}
 	
-	
-	
-	
-	
-	
+	public boolean isFinishedTrajectory() {
+        return Math.abs(currentSegment.pos - goal) < 10
+                && Math.abs(currentSegment.vel) < 0.05;
+    }
 }

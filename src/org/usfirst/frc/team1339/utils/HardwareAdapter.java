@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1339.utils;
 
 import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
+import org.usfirst.frc.team1339.commands.MotionProfileTest;
 import org.usfirst.frc.team1339.robot.Robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -64,12 +65,19 @@ public class HardwareAdapter {
 			Constants.kGyroKp , Constants.kGyroKi , Constants.kGyroKd);
 	public SynchronousPID MotionProfile = new SynchronousPID(
 			Constants.k_mp_Kp , Constants.k_mp_Ki , Constants.k_mp_Kd);
+	
+	//Motion Profiles
+	public MotionProfile ChassisMP = new MotionProfile(
+			Constants.chassisMPKp, Constants.chassisMPKi, Constants.chassisMPKd, 
+			Constants.chassisMPKa, Constants.chassisMPKv);
+	
 
 	public HardwareAdapter(){
 	}
 	
 	public void checkTriggers(){
 		Robot.chassis.whenPressed(YButton, new CommandGroupTest());
+		Robot.chassis.whenPressed(AButton, new MotionProfileTest(1000));
 	}
 	
 	//Joystick get methods
