@@ -109,7 +109,8 @@ public class Chassis extends SubsystemBase{
     public void motionProfile(){
     	double speed = Robot.HardwareAdapter.ChassisMP.calculate();
     	System.out.println(speed);
-    	//setMotorValues(speed, speed);
+    	SmartDashboard.putNumber("MP output", speed);
+    	setMotorValues(speed, speed);
     }
 	
 }

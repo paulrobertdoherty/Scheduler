@@ -104,7 +104,7 @@ public class MotionProfile {
 		double x_to_cruise = currentVel * t_to_cruise + .5 * maxAcc * t_to_cruise * t_to_cruise; //distance to get to cruise speed
 		
 		double t_to_zero = Math.abs(cruiseVel / maxAcc); //time to get to zero speed from cruise speed
-		double x_to_zero =currentVel * t_to_zero + .5 * maxAcc * t_to_zero * t_to_zero; //distance to get to zero speed
+		double x_to_zero =currentVel * t_to_zero - .5 * maxAcc * t_to_zero * t_to_zero; //distance to get to zero speed
 		
 		double cruiseX  = Math.max(0, distanceToGo - x_to_cruise - x_to_zero);
 		double cruiseT = Math.abs(cruiseX / cruiseVel);
