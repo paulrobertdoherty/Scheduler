@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1339.robot;
 
 import org.usfirst.frc.team1339.base.SubsystemBase;
+import org.usfirst.frc.team1339.subsystems.*;
 import org.usfirst.frc.team1339.utils.Looper;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,7 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TeleOp {
 	
 	Looper loop;
-	SubsystemBase chassis;
+	Chassis chassis;
 	SubsystemBase intake;
 	SubsystemBase shooter;
 	/**
@@ -34,14 +35,14 @@ public class TeleOp {
 	 * @see Looper
 	 */
 	TeleOp(){
-		intake = Robot.intake;
+		/*intake = Robot.intake;
 		chassis = Robot.chassis;
-		shooter = Robot.shooter;
+		shooter = Robot.shooter;*/
 		
 		loop = new Looper(0.02);
 		loop.register(chassis);
 		//loop.register(intake);
-		loop.register(shooter);
+		//loop.register(shooter);
 	}
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/
     public void teleOpPeriodic(){

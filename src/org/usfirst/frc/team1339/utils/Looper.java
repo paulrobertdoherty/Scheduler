@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.base.SubsystemBase;
+import org.usfirst.frc.team1339.subsystems.Chassis;
 
 import edu.wpi.first.wpilibj.Timer;	
 
@@ -63,7 +64,7 @@ public class Looper {
     		
     		//Gets commands to run
     		for(int x = 0; x < subsystems.size(); x++){ 
-    			commands.add(x, subsystems.get(x).getDefaultCommand());
+    			commands.add(x, subsystems.get(x).getNextCommand());
     		}
     		
     		//Runs commands
@@ -104,7 +105,7 @@ public class Looper {
 	
 	public void resetSubsystems(){
 		for(int x = 0; x < subsystems.size(); x++){
-			subsystems.get(x).endScheduledCommand();
+			subsystems.get(x).test();
 		}
 	}
 	
