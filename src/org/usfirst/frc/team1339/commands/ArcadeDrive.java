@@ -12,6 +12,7 @@ public class ArcadeDrive extends CommandBase{
 	Joystick stick;
 	
 	public ArcadeDrive(){
+		requires(Robot.chassis);
 	}
 	
 	public void init(){

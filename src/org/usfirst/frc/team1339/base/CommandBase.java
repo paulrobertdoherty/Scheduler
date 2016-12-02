@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1339.base;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -18,6 +20,8 @@ public abstract class CommandBase {
 	
 	private boolean initialized = false;
 	
+	private ArrayList<SubsystemBase> requirements = new ArrayList<SubsystemBase>();
+	
 	public abstract void init();
 	
 	public abstract void execute();
@@ -34,6 +38,10 @@ public abstract class CommandBase {
 	
 	public void setInitialized(){
 		initialized = true;
+	}
+	
+	protected void requires(SubsystemBase instance){
+		requirements.add(instance);
 	}
 	
 	protected void setTimeout(double time){

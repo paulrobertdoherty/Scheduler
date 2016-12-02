@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  *
  */
 		
-public class HardwareAdapter {
+public class HardwareAdapter extends Triggers{
 	
 	//Encoders
 	public Encoder kRightDriveEncoder = new Encoder(
@@ -76,9 +76,9 @@ public class HardwareAdapter {
 	public HardwareAdapter(){
 	}
 	
-	public void checkTriggers(SubsystemBase chassis){
-		chassis.whenPressed(YButton, new CommandGroupTest());
-		chassis.whenPressed(AButton, new MotionProfileTest(1000));
+	public void checkTriggers(){
+		whenPressed(YButton, new CommandGroupTest());
+		whenPressed(AButton, new MotionProfileTest(1000));
 	}
 	
 	//Joystick get methods
