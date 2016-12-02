@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TeleOp {
 	
 	Looper loop;
-	Chassis chassis;
+	public SubsystemBase chassis;
 	SubsystemBase intake;
 	SubsystemBase shooter;
 	/**
@@ -35,9 +35,9 @@ public class TeleOp {
 	 * @see Looper
 	 */
 	TeleOp(){
-		/*intake = Robot.intake;
-		chassis = Robot.chassis;
-		shooter = Robot.shooter;*/
+		//intake = Robot.intake;
+		chassis = new Chassis();
+		//shooter = Robot.shooter;
 		
 		loop = new Looper(0.02);
 		loop.register(chassis);
@@ -47,7 +47,7 @@ public class TeleOp {
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/
     public void teleOpPeriodic(){
     	loop.update();
-    	Robot.HardwareAdapter.checkTriggers();
+    	Robot.HardwareAdapter.checkTriggers(chassis);
 		SmartDashboard.putNumber("left drive encoder", Robot.HardwareAdapter.getLeftDriveEnc());
 		SmartDashboard.putNumber("right encoder", Robot.HardwareAdapter.getRightDriveEnc());
 		SmartDashboard.putNumber("Gyro",  Robot.HardwareAdapter.kSpartanGyro.getAngle());

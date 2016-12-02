@@ -42,12 +42,7 @@ public abstract class SubsystemBase {
 		nextCommand = command;
 	}
 	
-	public void test(){
-		System.out.println("test");
-	}
-	
 	public void endScheduledCommand(){
-		System.out.println("Dds");
 		nextCommand = getDefaultCommand();
 	}	
 	

@@ -105,7 +105,7 @@ public class Looper {
 	
 	public void resetSubsystems(){
 		for(int x = 0; x < subsystems.size(); x++){
-			subsystems.get(x).test();
+			subsystems.get(x).endScheduledCommand();
 		}
 	}
 	

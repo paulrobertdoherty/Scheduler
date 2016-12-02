@@ -21,6 +21,7 @@ public class MotionProfileTest extends CommandBase {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
+		System.out.println("Running");
 		Robot.chassis.motionProfile();
 	}
 

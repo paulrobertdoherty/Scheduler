@@ -12,6 +12,7 @@ public class MotionProfile {
 	public Segment nextSegment;
 	
 	public MotionProfile(){
+		nextSegment = new Segment(0, 0, 0);
 	}
 	
 	public MotionProfile(double Kp, double Ki, double Kd, double Ka,
@@ -21,6 +22,7 @@ public class MotionProfile {
 		this.Kd = Kd;
 		this.Ka = Ka;
 		this.Kv = Kv;
+		nextSegment = new Segment(0, 0, 0);
 	}
 	
 	private enum MotionState{
@@ -141,6 +143,7 @@ public class MotionProfile {
 			nextSegment.pos = currentVel * dt - 0.5 *maxAcc * dt * dt;
 			nextSegment.vel = currentVel - maxAcc * dt;
 			nextSegment.acc = -maxAcc;
+			System.out.println("Deceleration");
 		}
 		else{
 			nextSegment.pos = 0;
@@ -158,7 +161,7 @@ public class MotionProfile {
 	}
 	
 	public boolean isFinishedTrajectory() {
-        return Math.abs(currentSegment.pos - goal) < 10
-                && Math.abs(currentSegment.vel) < 0.05;
+        return false;//Math.abs(currentSegment.pos - goal) < 10
+                //&& Math.abs(currentSegment.vel) < 0.05;
     }
 }

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1339.utils;
 
 import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
+import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.commands.MotionProfileTest;
 import org.usfirst.frc.team1339.robot.Robot;
 
@@ -75,9 +76,9 @@ public class HardwareAdapter {
 	public HardwareAdapter(){
 	}
 	
-	public void checkTriggers(){
-		Robot.chassis.whenPressed(YButton, new CommandGroupTest());
-		Robot.chassis.whenPressed(AButton, new MotionProfileTest(1000));
+	public void checkTriggers(SubsystemBase chassis){
+		chassis.whenPressed(YButton, new CommandGroupTest());
+		chassis.whenPressed(AButton, new MotionProfileTest(1000));
 	}
 	
 	//Joystick get methods

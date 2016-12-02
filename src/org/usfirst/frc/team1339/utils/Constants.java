@@ -9,8 +9,8 @@ package org.usfirst.frc.team1339.utils;
  */
 public class Constants {
 	//Motion Profile Constants
-	public static double maxAcceleration = 0.0;
-	public static double maxCruiseSpeed = 0.0;
+	public static double maxAcceleration = 0.0007;
+	public static double maxCruiseSpeed = 500000;
 	public static double motionProfileSlowScaleFactor = 0.5;
 	public static double motionProfileMediumScaleFactor = 0.65;
 	public static double motionProfileFastScaleFactor = 0.75;
@@ -20,7 +20,6 @@ public class Constants {
 	public static final double chassisMPKd = 0.0;
 	public static final double chassisMPKa = 0.05;
 	public static final double chassisMPKv = 0.05;
-	
 	public static final double kDriveKp = 0.07;
 	public static final double kDriveKi = 0;
 	public static final double kDriveKd = 0.05;
