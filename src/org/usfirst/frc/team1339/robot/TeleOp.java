@@ -47,7 +47,7 @@ public class TeleOp {
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/
     public void teleOpPeriodic(){
     	loop.update();
-    	Robot.HardwareAdapter.checkTriggers(chassis);
+    	Robot.HardwareAdapter.checkTriggers();
 		SmartDashboard.putNumber("left drive encoder", Robot.HardwareAdapter.getLeftDriveEnc());
 		SmartDashboard.putNumber("right encoder", Robot.HardwareAdapter.getRightDriveEnc());
 		SmartDashboard.putNumber("Gyro",  Robot.HardwareAdapter.kSpartanGyro.getAngle());

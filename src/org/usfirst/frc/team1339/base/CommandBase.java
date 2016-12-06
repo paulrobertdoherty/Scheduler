@@ -17,6 +17,8 @@ public abstract class CommandBase {
 	
 	private double m_time = -1;
 	private double startTime;
+	private double m_speed = 0;
+	private double runTime = 0;
 	
 	private boolean initialized = false;
 	
@@ -32,12 +34,13 @@ public abstract class CommandBase {
 	
 	public abstract void interrupted();
 	
-	public boolean isInitialized(){
-		return initialized;
+	public void cancel(){
+		if(isFinished()) end();
+		else interrupted();
 	}
 	
-	public void setInitialized(){
-		initialized = true;
+	protected void setRunSpeed(double speed){
+		m_speed = speed;
 	}
 	
 	protected void requires(SubsystemBase instance){
@@ -55,6 +58,30 @@ public abstract class CommandBase {
 			return true;
 		}
 		return false;
+	}
+	
+	public ArrayList<SubsystemBase> getRequirements(){
+		return requirements;
+	}
+	
+	public void resetTime(){
+		runTime = Timer.getFPGATimestamp();
+	}
+	
+	public double getLastTime(){
+		return runTime;
+	}
+	
+	public boolean isInitialized(){
+		return initialized;
+	}
+	
+	public void setInitialized(){
+		initialized = true;
+	}
+	
+	public double getRunSpeed(){
+		return m_speed;
 	}
 	
 	public boolean isCommandGroup(){

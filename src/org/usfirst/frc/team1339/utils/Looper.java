@@ -52,6 +52,14 @@ public class Looper {
 	
 	/* adds a command only when it is supposed to be scheduled e.g  whenPressed()*/
 	public void newCommand(CommandBase instance){
+		ArrayList<SubsystemBase> requirements = instance.getRequirements();
+		for(SubsystemBase subsystem : requirements){
+			if(subsystem.getNextCommand() != null){
+				commands.remove(subsystem.getNextCommand());
+				subsystem.getNextCommand().cancel();
+			}
+			subsystem
+		}
 		commands.add(instance);
 	}
 	/**
@@ -60,10 +68,16 @@ public class Looper {
 	 * @see SubsystemBase
 	 */
 	public void update(){
-    	if(Timer.getFPGATimestamp() > time + m_delay){ //Updates every m_delay
+		for(CommandBase command : commands){
+			if(Timer.getFPGATimestamp() > command.getRunSpeed() + command.getLastTime()){
+				command.execute();
+				command.resetTime();
+			}
+		}
+    	/*if(Timer.getFPGATimestamp() > time + m_delay){ //Updates every m_delay
     		
     		//Gets commands to run
-    		for(int x = 0; x < subsystems.size(); x++){ 
+    		/*for(int x = 0; x < subsystems.size(); x++){ 
     			commands.add(x, subsystems.get(x).getNextCommand());
     		}
     		
@@ -100,7 +114,7 @@ public class Looper {
     				subsystems.get(x).endScheduledCommand();
     			}
     		}
-    	}
+    	}*/
     }
 	
 	public void resetSubsystems(){
