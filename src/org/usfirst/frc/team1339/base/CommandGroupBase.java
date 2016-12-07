@@ -2,6 +2,8 @@ package org.usfirst.frc.team1339.base;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team1339.utils.Triggers;
+
 /**
  * 
  * @author Sam Schwartz
@@ -40,12 +42,12 @@ public abstract class CommandGroupBase extends CommandBase{
 				commands.size() == parallels.size() &&
 				interupters.size() <= commands.size()){
 			if(index == 0){
-				subsystems.get(index).schedule(commands.get(index));
+				Triggers.schedule(commands.get(index));
 				index++;
 			}
 			else if(parallels.get(index - 1).equals(true)){
 				if(index < subsystems.size()){
-					subsystems.get(index).schedule(commands.get(index));
+					Triggers.schedule(commands.get(index));
 					index++;
 				}
 				else {
@@ -56,7 +58,7 @@ public abstract class CommandGroupBase extends CommandBase{
 				System.out.println("close");
 				if(index < subsystems.size()){
 					System.out.println("Done");
-					subsystems.get(index).schedule(commands.get(index));
+					Triggers.schedule(commands.get(index));
 					index++;
 				}
 				else {
@@ -65,7 +67,7 @@ public abstract class CommandGroupBase extends CommandBase{
 			}
 			else if(commands.get(index - 1).isFinished()){
 				if(index < subsystems.size()){
-					subsystems.get(index).schedule(commands.get(index));
+					Triggers.schedule(commands.get(index));
 					index++;
 				}
 				else {
@@ -89,7 +91,7 @@ public abstract class CommandGroupBase extends CommandBase{
 	
 	protected void addSequential(CommandBase command, SubsystemBase subsystem){
 		commands.add(command);
-		subsystems.add(subsystem);
+		//subsystems.add(subsystem);
 		parallels.add(false);
 	}
 	

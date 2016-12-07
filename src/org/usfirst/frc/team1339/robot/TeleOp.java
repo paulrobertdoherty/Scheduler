@@ -46,7 +46,7 @@ public class TeleOp {
 	}
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/
     public void teleOpPeriodic(){
-    	loop.update();
+    	Looper.update();
     	Robot.HardwareAdapter.checkTriggers();
 		SmartDashboard.putNumber("left drive encoder", Robot.HardwareAdapter.getLeftDriveEnc());
 		SmartDashboard.putNumber("right encoder", Robot.HardwareAdapter.getRightDriveEnc());
@@ -54,7 +54,7 @@ public class TeleOp {
     }
     /** This method is called before TeleOp has run.*/
 	public void init(){	
-		loop.resetSubsystems();
+		Looper.setInitDefaults();
 		Robot.HardwareAdapter.kLeftDriveEncoder.reset();
 		Robot.HardwareAdapter.kRightDriveEncoder.reset();
 	}

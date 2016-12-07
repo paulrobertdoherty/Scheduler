@@ -54,20 +54,50 @@ public class Looper {
 	public static void newCommand(CommandBase instance){
 		ArrayList<SubsystemBase> requirements = instance.getRequirements();
 		for(SubsystemBase subsystem : requirements){
-			if(subsystem.getNextCommand() != null){
-				commands.remove(subsystem.getNextCommand());
-				subsystem.getNextCommand().cancel();
+			if(subsystem.getCurrentCommand() != null){
+				commands.remove(subsystem.getCurrentCommand());
+				subsystem.getCurrentCommand().cancel();
 			}
-			subsystem.setNextCommand(instance);
+			subsystem.setCurrentCommand(instance);
 		}
 		commands.add(instance);
+	}
+	
+	/*
+	private static void setDefaults(){
+		boolean isSubDefault;
+		ArrayList<SubsystemBase> globalRequirements = new ArrayList<SubsystemBase>();
+		for(CommandBase command : commands){
+			ArrayList<SubsystemBase> requirements = command.getRequirements();
+			for(SubsystemBase sub : requirements){
+				globalRequirements.add(sub);
+			}
+		}
+		for(SubsystemBase subsystem : SubsystemBase.getDefaults()){
+			isSubDefault = true;
+			for(SubsystemBase globalSub : globalRequirements){
+				if(subsystem.equals(globalSub)) isSubDefault = false;
+			}
+			if(subsystem.getDefaultCommand() != null){
+				if(isSubDefault) newCommand(subsystem.getDefaultCommand());
+			}
+		}
+	}
+	*/
+	
+	public static void setInitDefaults(){
+		for (SubsystemBase subsystem : SubsystemBase.getDefaults()){
+			if(subsystem.getDefaultCommand() != null){
+				commands.add(subsystem.getDefaultCommand());
+			}
+		}
 	}
 	/**
 	 * This method updates subsystems.
 	 * <p> $ <p> 
 	 * @see SubsystemBase
 	 */
-	public void update(){
+	public static void update(){
 		for(CommandBase command : commands){
 			if(Timer.getFPGATimestamp() > command.getRunSpeed() + command.getLastTime()){
 				if(!command.isInitialized()){
@@ -78,7 +108,13 @@ public class Looper {
 				command.resetTime();
 				if(command.isFinished()){
 					command.end();
-					commands.remove(command);
+					ArrayList<SubsystemBase> requirements = command.getRequirements();
+					for(SubsystemBase subsystem : requirements){
+						if (subsystem.getDefaultCommand() != null){
+							newCommand(subsystem.getDefaultCommand());
+						}
+					}
+					//commands.remove(command);
 				}
 			}
 		}

@@ -20,4 +20,8 @@ public class Triggers {
 			command.execute();
 		}
 	}
+	
+	public static void schedule(CommandBase command){
+		Looper.newCommand(command);
+	}
 }
