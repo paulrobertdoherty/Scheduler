@@ -24,7 +24,7 @@ public class Looper {
 	private double time; 
 	private double m_delay;
 	
-	private ArrayList<CommandBase> commands;
+	private static ArrayList<CommandBase> commands;
 	/**
 	 * This method creates the ArrayList subsystems and sets the
 	 * variable time to the current FPGA time.
@@ -51,14 +51,14 @@ public class Looper {
 	}
 	
 	/* adds a command only when it is supposed to be scheduled e.g  whenPressed()*/
-	public void newCommand(CommandBase instance){
+	public static void newCommand(CommandBase instance){
 		ArrayList<SubsystemBase> requirements = instance.getRequirements();
 		for(SubsystemBase subsystem : requirements){
 			if(subsystem.getNextCommand() != null){
 				commands.remove(subsystem.getNextCommand());
 				subsystem.getNextCommand().cancel();
 			}
-			subsystem
+			subsystem.setNextCommand(instance);
 		}
 		commands.add(instance);
 	}
@@ -70,8 +70,16 @@ public class Looper {
 	public void update(){
 		for(CommandBase command : commands){
 			if(Timer.getFPGATimestamp() > command.getRunSpeed() + command.getLastTime()){
+				if(!command.isInitialized()){
+					command.init();
+					command.setInitialized();
+				}
 				command.execute();
 				command.resetTime();
+				if(command.isFinished()){
+					command.end();
+					commands.remove(command);
+				}
 			}
 		}
     	/*if(Timer.getFPGATimestamp() > time + m_delay){ //Updates every m_delay
