@@ -8,8 +8,8 @@ public class MotionProfile {
 	maxAcc, cruiseVelScaleFactor;
 	private double lastTime;
 	public Segment initialSegment = new Segment(0, 0, 0);
-	public Segment currentSegment;
-	public Segment nextSegment;
+	public Segment currentSegment = new Segment(0, 0, 0);
+	public Segment nextSegment = new Segment(0, 0, 0);
 	
 	public MotionProfile(){
 		nextSegment = new Segment(0, 0, 0);
@@ -97,7 +97,7 @@ public class MotionProfile {
 	public double calculate(){
 		double dt;
 		double currentTime = Timer.getFPGATimestamp();
-		dt = lastTime - currentTime;
+		dt = currentTime - lastTime;
 		lastTime = currentTime;
 		double currentVel = currentSegment.vel;
 		double distanceToGo = goal - currentSegment.pos;
