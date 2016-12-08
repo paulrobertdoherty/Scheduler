@@ -12,7 +12,7 @@ public class Shooter extends SubsystemBase{
 	private CANTalon shooterMotorTwo = new CANTalon(Constants.kShooterMotorTwo);
 	
 	public Shooter(){
-		setDefaultCommand(new DriveShooter());
+		//setDefaultCommand(new DriveShooter());
 	}
 	
 	public void shoot(double speed){

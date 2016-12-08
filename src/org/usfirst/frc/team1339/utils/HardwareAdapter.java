@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1339.utils;
 
+import org.usfirst.frc.team1339.commands.DriveStraight;
 import org.usfirst.frc.team1339.commands.MotionProfileTest;
 import org.usfirst.frc.team1339.commands.TankDrive;
 
@@ -78,6 +79,7 @@ public class HardwareAdapter extends Triggers{
 		//whenPressed(YButton, new CommandGroupTest());
 		whenPressed(AButton, new MotionProfileTest(1000));
 		whenPressed(BButton, new TankDrive());
+		whenPressed(XButton, new DriveStraight(0.5, 1));
 	}
 	
 	//Joystick get methods
