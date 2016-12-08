@@ -26,7 +26,7 @@ public class DriveStraight extends CommandBase{
 	@Override
 	public boolean isFinished() {
 		// TODO Auto-generated method stub
-		return isTimedOut();
+		return isTimedOut(); 
 	}
 
 	@Override
