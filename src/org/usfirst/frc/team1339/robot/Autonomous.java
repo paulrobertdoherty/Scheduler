@@ -28,9 +28,6 @@ public class Autonomous {
 		intake = new Intake();
 		chassis = new Chassis();
 		
-		loop = new Looper(0.01);
-		loop.register(chassis);
-		loop.register(intake);
 	}
 	
 	public void autonomousPeriodic(){

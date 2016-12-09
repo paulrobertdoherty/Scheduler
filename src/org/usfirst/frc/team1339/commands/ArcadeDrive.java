@@ -13,7 +13,8 @@ public class ArcadeDrive extends CommandBase{
 	
 	public ArcadeDrive(){
 		requires(Robot.chassis);
-		setRunSpeed(0.05);
+		//setRunSpeed(0.05);
+		setName();
 	}
 	
 	public void init(){

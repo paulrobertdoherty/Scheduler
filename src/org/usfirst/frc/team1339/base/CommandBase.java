@@ -19,6 +19,7 @@ public abstract class CommandBase {
 	private double startTime;
 	private double m_speed = 0;
 	private double runTime = 0;
+	private String m_name = "";
 	
 	private boolean initialized = false;
 	
@@ -37,6 +38,14 @@ public abstract class CommandBase {
 	public void cancel(){
 		if(isFinished()) end();
 		else interrupted();
+	}
+	
+	protected void setName(){
+		this.m_name = this.getClass().getName().substring(this.getClass().getName().lastIndexOf('.') + 1);
+	}
+	
+	public String getName(){
+		return m_name;
 	}
 	
 	protected void setRunSpeed(double speed){

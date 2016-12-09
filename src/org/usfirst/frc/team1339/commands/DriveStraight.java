@@ -9,6 +9,7 @@ public class DriveStraight extends CommandBase{
 		requires(Robot.chassis);
 		setRunSpeed(m_speed);
 		setTimeout(timeout);
+		setName();
 	}
 	
 	@Override

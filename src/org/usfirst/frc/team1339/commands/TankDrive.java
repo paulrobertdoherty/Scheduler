@@ -12,6 +12,9 @@ public class TankDrive extends CommandBase{
 	Joystick stick;
 	
 	public TankDrive(){
+		requires(Robot.chassis);
+		setRunSpeed(0.05);
+		setName();
 	}
 	
 	public void init(){
@@ -27,7 +30,7 @@ public class TankDrive extends CommandBase{
 	}
 	
 	public boolean isFinished(){
-		return Robot.HardwareAdapter.getBButton();
+		return Robot.HardwareAdapter.getAButton();
 	}
 	public void end(){
 	}

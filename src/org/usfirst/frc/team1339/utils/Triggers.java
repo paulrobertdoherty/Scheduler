@@ -14,7 +14,7 @@ public class Triggers {
 			if(command.isCommandGroup()){
 				commandGroupInit = true;
 			}
-			else Looper.newCommand(command);
+			else Looper.getInstance().newCommand(command);
 		}
 		if(commandGroupInit){
 			command.execute();
@@ -22,6 +22,6 @@ public class Triggers {
 	}
 	
 	public static void schedule(CommandBase command){
-		Looper.newCommand(command);
+		Looper.getInstance().newCommand(command);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.base.SubsystemBase;
+import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.subsystems.Chassis;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -23,7 +24,7 @@ public class Looper {
 	
 	private static Looper instance;
 	
-	private static ArrayList<CommandBase> commands;
+	private static ArrayList<CommandBase> commands = new ArrayList<CommandBase>();
 	/**
 	 * This method creates the ArrayList subsystems and sets the
 	 * variable time to the current FPGA time.
@@ -47,14 +48,24 @@ public class Looper {
 	
 	/* adds a command only when it is supposed to be scheduled e.g  whenPressed()*/
 	public void newCommand(CommandBase instance){
-		ArrayList<SubsystemBase> requirements = instance.getRequirements();
-		for(SubsystemBase subsystem : requirements){
-			if (subsystem == null) System.out.println("Subsystem is null");
-			if(subsystem.getCurrentCommand() != null){
-				commands.remove(subsystem.getCurrentCommand());
-				subsystem.getCurrentCommand().cancel();
+		boolean isCommandAlready = false;
+		for(CommandBase command : commands){
+			if(command.getName().equals(instance.getName())) isCommandAlready = true;
+			else System.out.println(command.getName());
+			//if(command.getName().equals(instance.getName())) System.out.println("happening");
+		}
+		if(!isCommandAlready);{
+			ArrayList<SubsystemBase> requirements = instance.getRequirements();
+			for(SubsystemBase subsystem : requirements){
+				if (subsystem != null){
+					//if(subsystem.equals(Robot.chassis)) System.out.println("Chassis");
+					if(subsystem.getCurrentCommand() != null){
+						commands.remove(subsystem.getCurrentCommand());
+						subsystem.getCurrentCommand().cancel();
+					}
+					subsystem.setCurrentCommand(instance);
+				}
 			}
-			subsystem.setCurrentCommand(instance);
 		}
 		commands.add(instance);
 	}
@@ -62,6 +73,7 @@ public class Looper {
 	public void setInitDefaults(){
 		for (SubsystemBase subsystem : SubsystemBase.getDefaults()){
 			if(subsystem.getDefaultCommand() != null){
+				
 				commands.add(subsystem.getDefaultCommand());
 			}
 		}
