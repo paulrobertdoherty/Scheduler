@@ -32,9 +32,6 @@ public class Robot extends IterativeRobot {
 	public static Chassis chassis;
 	public static Intake intake;
 	public static Shooter shooter;
-	public Chassis Chassis;
-	public Intake Intake;
-	public Shooter Shooter;
 	public static HardwareAdapter HardwareAdapter;
     public Robot() {
 		a = new Autonomous();
@@ -46,9 +43,6 @@ public class Robot extends IterativeRobot {
     		chassis = new Chassis();
     		intake = new Intake();
     		shooter = new Shooter();
-    		Chassis = new Chassis();
-    		Intake = new Intake();
-    		Shooter = new Shooter();
     		HardwareAdapter = new HardwareAdapter();
     }
 
