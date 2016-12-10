@@ -54,7 +54,7 @@ public class Looper {
 			else System.out.println(command.getName());
 			//if(command.getName().equals(instance.getName())) System.out.println("happening");
 		}
-		if(!isCommandAlready);{
+		if(!isCommandAlready){
 			ArrayList<SubsystemBase> requirements = instance.getRequirements();
 			for(SubsystemBase subsystem : requirements){
 				if (subsystem != null){
@@ -66,14 +66,13 @@ public class Looper {
 					subsystem.setCurrentCommand(instance);
 				}
 			}
+			commands.add(instance);
 		}
-		commands.add(instance);
 	}
 	
 	public void setInitDefaults(){
 		for (SubsystemBase subsystem : SubsystemBase.getDefaults()){
-			if(subsystem.getDefaultCommand() != null){
-				
+			if(subsystem.getDefaultCommand() != null){		
 				commands.add(subsystem.getDefaultCommand());
 			}
 		}
