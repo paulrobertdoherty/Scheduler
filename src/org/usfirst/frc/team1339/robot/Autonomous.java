@@ -25,8 +25,8 @@ public class Autonomous {
 	SubsystemBase intake;
 
 	Autonomous(){
-		intake = new Intake();
-		chassis = new Chassis();
+		//intake = new Intake();
+		//chassis = new Chassis();
 		
 	}
 	

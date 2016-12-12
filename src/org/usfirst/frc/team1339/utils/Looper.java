@@ -8,7 +8,8 @@ import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.subsystems.Chassis;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Scheduler;	
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;	
 
 /**
  * The Looper class calls and creates subsystems and runs them at certain rates.
@@ -51,29 +52,39 @@ public class Looper {
 		boolean isCommandAlready = false;
 		for(CommandBase command : commands){
 			if(command.getName().equals(instance.getName())) isCommandAlready = true;
-			else System.out.println(command.getName());
 			//if(command.getName().equals(instance.getName())) System.out.println("happening");
 		}
+		if(isCommandAlready)System.out.println(instance.getName() + " is already a command");
 		if(!isCommandAlready){
+			System.out.println("new " + instance.getName());
 			ArrayList<SubsystemBase> requirements = instance.getRequirements();
 			for(SubsystemBase subsystem : requirements){
+				if(subsystem == null) {
+					System.out.println(instance.getName() + "ISNULL");
+					System.out.println(instance.getRequirements().toString() + "Requirements");
+				}
 				if (subsystem != null){
 					//if(subsystem.equals(Robot.chassis)) System.out.println("Chassis");
 					if(subsystem.getCurrentCommand() != null){
+						System.out.println(subsystem.getCurrentCommand().getName() + "current command");
 						commands.remove(subsystem.getCurrentCommand());
 						subsystem.getCurrentCommand().cancel();
 					}
 					subsystem.setCurrentCommand(instance);
 				}
 			}
+			//System.out.println(instance.getName());
 			commands.add(instance);
 		}
 	}
 	
 	public void setInitDefaults(){
+		commands.clear();
+		System.out.println(SubsystemBase.getDefaults().size() + "size");
 		for (SubsystemBase subsystem : SubsystemBase.getDefaults()){
 			if(subsystem.getDefaultCommand() != null){		
 				commands.add(subsystem.getDefaultCommand());
+				subsystem.getDefaultCommand().addRequires(subsystem);
 			}
 		}
 	}
@@ -83,7 +94,9 @@ public class Looper {
 	 * @see SubsystemBase
 	 */
 	public void update(){
+		SmartDashboard.putNumber("Number of commands", commands.size());
 		for(CommandBase command : commands){
+			SmartDashboard.putString("commands", commands.toString());
 			if(Timer.getFPGATimestamp() > command.getRunSpeed() + command.getLastTime()){
 				if(!command.isInitialized()){
 					command.init();
@@ -92,6 +105,7 @@ public class Looper {
 				command.execute();
 				command.resetTime();
 				if(command.isFinished()){
+					System.out.println(command.getName() + " finished");
 					setDefault(command);
 				}
 			}
@@ -103,6 +117,7 @@ public class Looper {
 		ArrayList<SubsystemBase> requirements = command.getRequirements();
 		for(SubsystemBase subsystem : requirements){
 			if (subsystem.getDefaultCommand() != null){
+				System.out.println("Set Default Running");
 				newCommand(subsystem.getDefaultCommand());
 			}
 		}
