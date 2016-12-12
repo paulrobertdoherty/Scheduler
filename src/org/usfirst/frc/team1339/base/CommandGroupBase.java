@@ -2,6 +2,8 @@ package org.usfirst.frc.team1339.base;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team1339.utils.Triggers;
+
 /**
  * 
  * @author Sam Schwartz
@@ -14,7 +16,6 @@ import java.util.ArrayList;
 public abstract class CommandGroupBase extends CommandBase{
 
 	private ArrayList<CommandBase> commands = new ArrayList<CommandBase>();
-	private ArrayList<SubsystemBase> subsystems = new ArrayList<SubsystemBase>();
 	private ArrayList<Boolean> parallels = new ArrayList<Boolean>();
 	private ArrayList<Integer> interupters = new ArrayList<Integer>();
 	private boolean isFinished = false;
@@ -36,16 +37,15 @@ public abstract class CommandGroupBase extends CommandBase{
 	 * @see CommandBase
 	 */
 	public void execute() {
-		if (commands.size() == subsystems.size() && 
-				commands.size() == parallels.size() &&
+		if (commands.size() == parallels.size() &&
 				interupters.size() <= commands.size()){
 			if(index == 0){
-				subsystems.get(index).schedule(commands.get(index));
+				Triggers.schedule(commands.get(index));
 				index++;
 			}
 			else if(parallels.get(index - 1).equals(true)){
-				if(index < subsystems.size()){
-					subsystems.get(index).schedule(commands.get(index));
+				if(index < commands.size()){
+					Triggers.schedule(commands.get(index));
 					index++;
 				}
 				else {
@@ -53,10 +53,8 @@ public abstract class CommandGroupBase extends CommandBase{
 				}
 			}
 			else if(isInterruptIndex(index - 1)){
-				System.out.println("close");
-				if(index < subsystems.size()){
-					System.out.println("Done");
-					subsystems.get(index).schedule(commands.get(index));
+				if(index < commands.size()){
+					Triggers.schedule(commands.get(index));
 					index++;
 				}
 				else {
@@ -64,8 +62,8 @@ public abstract class CommandGroupBase extends CommandBase{
 				}
 			}
 			else if(commands.get(index - 1).isFinished()){
-				if(index < subsystems.size()){
-					subsystems.get(index).schedule(commands.get(index));
+				if(index < commands.size()){
+					Triggers.schedule(commands.get(index));
 					index++;
 				}
 				else {
@@ -87,15 +85,13 @@ public abstract class CommandGroupBase extends CommandBase{
 		
 	}
 	
-	protected void addSequential(CommandBase command, SubsystemBase subsystem){
+	protected void addSequential(CommandBase command){
 		commands.add(command);
-		subsystems.add(subsystem);
 		parallels.add(false);
 	}
 	
-	protected void addParallel(CommandBase command, SubsystemBase subsystem){
+	protected void addParallel(CommandBase command){
 		commands.add(command);
-		subsystems.add(subsystem);
 		parallels.add(true);
 	}
 	protected void addInterrupter(int index){

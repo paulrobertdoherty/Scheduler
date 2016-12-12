@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1339.base;
 
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import java.util.ArrayList;
 
 /**
  * The subsystem class is the very core of the entire subsystem framework.
@@ -13,21 +13,28 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 	
 public abstract class SubsystemBase {
 	
-	private CommandBase nextCommand, defaultCommand;
+	private CommandBase currentCommand, defaultCommand;
 	
 	private boolean commandGroupInit = false;
 	
+	private static ArrayList<SubsystemBase> defaults = new ArrayList<SubsystemBase>();
+	
 	protected void setDefaultCommand(CommandBase command){
 		defaultCommand = command;
-		nextCommand = defaultCommand;
+		currentCommand = defaultCommand;
+		defaults.add(this);
 	}
 	
-	public void setNextCommand(CommandBase command){
-		nextCommand = command;
+	public void setCurrentCommand(CommandBase command){
+		currentCommand = command;
 	}
 	
-	public CommandBase getNextCommand(){
-		return nextCommand;
+	public static ArrayList<SubsystemBase> getDefaults(){
+		return defaults;
+	}
+	
+	public CommandBase getCurrentCommand(){
+		return currentCommand;
 	}
 	
 	public CommandBase getDefaultCommand(){
@@ -35,13 +42,13 @@ public abstract class SubsystemBase {
 	}
 	
 	public void schedule(CommandBase command){
-		if(!getNextCommand().isFinished()){
-			getNextCommand().interrupted();
+		if(!getCurrentCommand().isFinished()){
+			getCurrentCommand().interrupted();
 		}
-		nextCommand = command;
+		currentCommand = command;
 	}
 	
 	public void endScheduledCommand(){
-		nextCommand = getDefaultCommand();
+		currentCommand = getDefaultCommand();
 	}
 }

@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="libs/NetworkTables-sources.jar"/>
-	<classpathentry kind="lib" path="libs/NetworkTables.jar"/>
+	<classpathentry kind="lib" path="libs/NetworkTables.jar" sourcepath="libs/NetworkTables-sources.jar"/>
 	<classpathentry kind="lib" path="libs/WPILib-sources.jar"/>
-	<classpathentry kind="lib" path="libs/WPILib.jar"/>
+	<classpathentry kind="lib" path="libs/WPILib.jar" sourcepath="libs/WPILib-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="Networktables"/>
 	<classpathentry kind="var" path="WPI"/>

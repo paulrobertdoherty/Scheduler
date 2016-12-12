@@ -21,6 +21,7 @@ public class Chassis extends SubsystemBase{
 	double rate = 0.085;
 	
 	public Chassis(){
+		System.out.println("F");
 		setDefaultCommand(new ArcadeDrive());
 	}
 	

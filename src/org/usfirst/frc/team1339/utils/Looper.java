@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.base.SubsystemBase;
+import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.subsystems.Chassis;
 
-import edu.wpi.first.wpilibj.Timer;	
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;	
 
 /**
  * The Looper class calls and creates subsystems and runs them at certain rates.
@@ -19,12 +22,10 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Looper {
 	/** Creating an array list of subsystems.*/
-	private ArrayList<SubsystemBase> subsystems;
-	/** Time variable utilizing the FPGA timer.*/
-	private double time; 
-	private double m_delay;
 	
-	private ArrayList<CommandBase> commands;
+	private static Looper instance;
+	
+	private static ArrayList<CommandBase> commands = new ArrayList<CommandBase>();
 	/**
 	 * This method creates the ArrayList subsystems and sets the
 	 * variable time to the current FPGA time.
@@ -32,12 +33,7 @@ public class Looper {
 	 * @param speed = the speed of the loop.
 	 * @see ArrayList
 	 */
-	public Looper(double delay){
-		subsystems = new ArrayList<SubsystemBase>();
-		commands = new ArrayList<CommandBase>();
-		time = Timer.getFPGATimestamp();
-		m_delay = delay;
-	}
+	public Looper(){}
 	/**
 	 * This method registers various subsystems that we create into
 	 * the ArrayList subsystems.
@@ -46,21 +42,51 @@ public class Looper {
 	 * @see SubsystemBase
 	 * @see ArrayList
 	 */
-	public void register(SubsystemBase instance){
-		subsystems.add(instance);
-	}
+	public static Looper getInstance() {
+	    return instance == null ? instance = new Looper() : instance;
+	  }
+	
 	
 	/* adds a command only when it is supposed to be scheduled e.g  whenPressed()*/
 	public void newCommand(CommandBase instance){
-		ArrayList<SubsystemBase> requirements = instance.getRequirements();
-		for(SubsystemBase subsystem : requirements){
-			if(subsystem.getNextCommand() != null){
-				commands.remove(subsystem.getNextCommand());
-				subsystem.getNextCommand().cancel();
-			}
-			subsystem
+		boolean isCommandAlready = false;
+		for(CommandBase command : commands){
+			if(command.getName().equals(instance.getName())) isCommandAlready = true;
+			//if(command.getName().equals(instance.getName())) System.out.println("happening");
 		}
-		commands.add(instance);
+		if(isCommandAlready)System.out.println(instance.getName() + " is already a command");
+		if(!isCommandAlready){
+			System.out.println("new " + instance.getName());
+			ArrayList<SubsystemBase> requirements = instance.getRequirements();
+			for(SubsystemBase subsystem : requirements){
+				if(subsystem == null) {
+					System.out.println(instance.getName() + "ISNULL");
+					System.out.println(instance.getRequirements().toString() + "Requirements");
+				}
+				if (subsystem != null){
+					//if(subsystem.equals(Robot.chassis)) System.out.println("Chassis");
+					if(subsystem.getCurrentCommand() != null){
+						System.out.println(subsystem.getCurrentCommand().getName() + "current command");
+						commands.remove(subsystem.getCurrentCommand());
+						subsystem.getCurrentCommand().cancel();
+					}
+					subsystem.setCurrentCommand(instance);
+				}
+			}
+			//System.out.println(instance.getName());
+			commands.add(instance);
+		}
+	}
+	
+	public void setInitDefaults(){
+		commands.clear();
+		System.out.println(SubsystemBase.getDefaults().size() + "size");
+		for (SubsystemBase subsystem : SubsystemBase.getDefaults()){
+			if(subsystem.getDefaultCommand() != null){		
+				commands.add(subsystem.getDefaultCommand());
+				subsystem.getDefaultCommand().addRequires(subsystem);
+			}
+		}
 	}
 	/**
 	 * This method updates subsystems.
@@ -68,67 +94,33 @@ public class Looper {
 	 * @see SubsystemBase
 	 */
 	public void update(){
+		SmartDashboard.putNumber("Number of commands", commands.size());
 		for(CommandBase command : commands){
+			SmartDashboard.putString("commands", commands.toString());
 			if(Timer.getFPGATimestamp() > command.getRunSpeed() + command.getLastTime()){
+				if(!command.isInitialized()){
+					command.init();
+					command.setInitialized();
+				}
 				command.execute();
 				command.resetTime();
+				if(command.isFinished()){
+					System.out.println(command.getName() + " finished");
+					setDefault(command);
+				}
 			}
 		}
-    	/*if(Timer.getFPGATimestamp() > time + m_delay){ //Updates every m_delay
-    		
-    		//Gets commands to run
-    		/*for(int x = 0; x < subsystems.size(); x++){ 
-    			commands.add(x, subsystems.get(x).getNextCommand());
-    		}
-    		
-    		//Runs commands
-    		for(int commandNum = 0; commandNum < commands.size(); commandNum++){ 
-    			//Creates and files commands - EDIT I MADE - WHOLE LOOP
-    			if(commands.get(commandNum) != null){
-    				
-    				//Create an object for the command
-    				CommandBase command = commands.get(commandNum);
-    				
-    				//Initialize the command if it's not already
-    				if(!command.isInitialized()){
-						command.init();
-						command.setInitialized();
-    				}
-    				
-    				//Execute the command
-    				commands.get(commandNum).execute();
-    				
-    				//Check if the command is finished
-    				if(command.isFinished()){
-    					command.end();
-    				}
-    			}
-    		}
-    		
-    		commands.clear();
-			
-            time = Timer.getFPGATimestamp();
-            
-    		for(int x = 0; x < subsystems.size(); x++){
-    			if(subsystems.get(x).getNextCommand().isFinished()){
-    				subsystems.get(x).endScheduledCommand();
-    			}
-    		}
-    	}*/
     }
 	
-	public void resetSubsystems(){
-		for(int x = 0; x < subsystems.size(); x++){
-			subsystems.get(x).endScheduledCommand();
+	private void setDefault(CommandBase command){
+		command.end();
+		ArrayList<SubsystemBase> requirements = command.getRequirements();
+		for(SubsystemBase subsystem : requirements){
+			if (subsystem.getDefaultCommand() != null){
+				System.out.println("Set Default Running");
+				newCommand(subsystem.getDefaultCommand());
+			}
 		}
-	}
-	
-	public void createNewLoop(Looper oldLoop, Looper newLoop, SubsystemBase subsystem){
-		oldLoop.removeRegisteredSubsystem(subsystem);
-		newLoop.register(subsystem);
-	}
-	
-	public void removeRegisteredSubsystem(SubsystemBase subsystem){
-		subsystems.remove(subsystem);
+		commands.remove(command);
 	}
 }
