@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1339.robot;
 
 import org.usfirst.frc.team1339.base.SubsystemBase;
+import org.usfirst.frc.team1339.subsystems.*;
 import org.usfirst.frc.team1339.utils.Looper;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,10 +23,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class TeleOp {
 	
-	Looper loop;
-	SubsystemBase chassis;
-	SubsystemBase intake;
-	SubsystemBase shooter;
 	/**
 	 * Teleoperated constructor that adds the chassis subsystem
 	 * to Looper.
@@ -34,18 +31,10 @@ public class TeleOp {
 	 * @see Looper
 	 */
 	TeleOp(){
-		intake = Robot.intake;
-		chassis = Robot.chassis;
-		shooter = Robot.shooter;
-		
-		loop = new Looper(0.02);
-		loop.register(chassis);
-		//loop.register(intake);
-		loop.register(shooter);
 	}
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/
     public void teleOpPeriodic(){
-    	loop.update();
+    	Looper.getInstance().update();
     	Robot.HardwareAdapter.checkTriggers();
 		SmartDashboard.putNumber("left drive encoder", Robot.HardwareAdapter.getLeftDriveEnc());
 		SmartDashboard.putNumber("right encoder", Robot.HardwareAdapter.getRightDriveEnc());
@@ -53,7 +42,7 @@ public class TeleOp {
     }
     /** This method is called before TeleOp has run.*/
 	public void init(){	
-		loop.resetSubsystems();
+		Looper.getInstance().setInitDefaults();
 		Robot.HardwareAdapter.kLeftDriveEncoder.reset();
 		Robot.HardwareAdapter.kRightDriveEncoder.reset();
 	}

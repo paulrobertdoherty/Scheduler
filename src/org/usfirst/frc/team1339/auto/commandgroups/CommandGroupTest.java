@@ -17,10 +17,10 @@ import org.usfirst.frc.team1339.robot.Robot;
 public class CommandGroupTest extends CommandGroupBase{
 
 	public CommandGroupTest(){
-		addSequential(new TankDrive(), Robot.chassis);
-		addSequential(new ArcadeDrive(), Robot.chassis);
+		addSequential(new TankDrive());
+		addSequential(new ArcadeDrive());
 		addInterrupter(1);
-		addSequential(new TankDrive(), Robot.chassis);
+		addSequential(new TankDrive());
 	}
 	/**
 	 * This function returns {@code true} when the creator

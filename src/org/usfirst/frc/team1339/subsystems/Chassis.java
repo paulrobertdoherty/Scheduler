@@ -21,6 +21,7 @@ public class Chassis extends SubsystemBase{
 	double rate = 0.085;
 	
 	public Chassis(){
+		System.out.println("F");
 		setDefaultCommand(new ArcadeDrive());
 	}
 	
@@ -104,6 +105,13 @@ public class Chassis extends SubsystemBase{
     	SmartDashboard.putNumber("Right PID Output", rightSpeed);
     	SmartDashboard.putNumber("Left PID Output", -leftSpeed);
     	setMotorValues(-leftSpeed, rightSpeed);
+    }
+    
+    public void motionProfile(){
+    	double speed = Robot.HardwareAdapter.ChassisMP.calculate();
+    	System.out.println(speed);
+    	SmartDashboard.putNumber("MP output", speed);
+    	//setMotorValues(speed, speed);
     }
 	
 }
