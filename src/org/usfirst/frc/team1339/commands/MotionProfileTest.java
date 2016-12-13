@@ -8,6 +8,8 @@ public class MotionProfileTest extends CommandBase {
 	private double m_goal;
 	
 	public MotionProfileTest(double goal){
+		requires(Robot.chassis);
+		setName();
 		m_goal = goal;
 	}
 
