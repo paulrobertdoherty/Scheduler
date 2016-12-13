@@ -26,45 +26,26 @@ public class Looper {
 	private static Looper instance;
 	
 	private static ArrayList<CommandBase> commands = new ArrayList<CommandBase>();
-	/**
-	 * This method creates the ArrayList subsystems and sets the
-	 * variable time to the current FPGA time.
-	 * <br>$<br>
-	 * @param speed = the speed of the loop.
-	 * @see ArrayList
-	 */
-	public Looper(){}
-	/**
-	 * This method registers various subsystems that we create into
-	 * the ArrayList subsystems.
-	 * <br>$<br>
-	 * @param instance = subsystem variable
-	 * @see SubsystemBase
-	 * @see ArrayList
-	 */
-	public static Looper getInstance() {
+	
+	public Looper(){
+		
+	}
+	
+	public static Looper getInstance(){
 	    return instance == null ? instance = new Looper() : instance;
-	  }
+	}
 	
-	
-	/* adds a command only when it is supposed to be scheduled e.g  whenPressed()*/
 	public void newCommand(CommandBase instance){
 		boolean isCommandAlready = false;
 		for(CommandBase command : commands){
 			if(command.getName().equals(instance.getName())) isCommandAlready = true;
-			//if(command.getName().equals(instance.getName())) System.out.println("happening");
 		}
 		if(isCommandAlready)System.out.println(instance.getName() + " is already a command");
 		if(!isCommandAlready){
 			System.out.println("new " + instance.getName());
 			ArrayList<SubsystemBase> requirements = instance.getRequirements();
 			for(SubsystemBase subsystem : requirements){
-				if(subsystem == null) {
-					System.out.println(instance.getName() + "ISNULL");
-					System.out.println(instance.getRequirements().toString() + "Requirements");
-				}
 				if (subsystem != null){
-					//if(subsystem.equals(Robot.chassis)) System.out.println("Chassis");
 					if(subsystem.getCurrentCommand() != null){
 						System.out.println(subsystem.getCurrentCommand().getName() + "current command");
 						commands.remove(subsystem.getCurrentCommand());
@@ -73,7 +54,6 @@ public class Looper {
 					subsystem.setCurrentCommand(instance);
 				}
 			}
-			//System.out.println(instance.getName());
 			commands.add(instance);
 		}
 	}

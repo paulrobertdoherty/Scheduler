@@ -32,6 +32,7 @@ public class TankDrive extends CommandBase{
 	public boolean isFinished(){
 		return Robot.HardwareAdapter.getAButton();
 	}
+	
 	public void end(){
 	}
 	

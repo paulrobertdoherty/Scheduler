@@ -73,6 +73,7 @@ public class HardwareAdapter extends Triggers{
 	
 
 	public HardwareAdapter(){
+		
 	}
 	
 	public void checkTriggers(){

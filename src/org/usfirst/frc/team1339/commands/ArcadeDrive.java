@@ -12,8 +12,6 @@ public class ArcadeDrive extends CommandBase{
 	Joystick stick;
 	
 	public ArcadeDrive(){
-		//requires(Robot.chassis);
-		//setRunSpeed(0.05);
 		setName();
 	}
 	

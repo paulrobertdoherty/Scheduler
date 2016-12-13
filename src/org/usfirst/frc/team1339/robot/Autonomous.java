@@ -1,8 +1,5 @@
 package org.usfirst.frc.team1339.robot;
 
-import org.usfirst.frc.team1339.base.SubsystemBase;
-import org.usfirst.frc.team1339.subsystems.Chassis;
-import org.usfirst.frc.team1339.subsystems.Intake;
 import org.usfirst.frc.team1339.utils.Looper;
 
 /**
@@ -20,18 +17,13 @@ import org.usfirst.frc.team1339.utils.Looper;
  */
 public class Autonomous {
 
-	Looper loop;
-	SubsystemBase chassis;
-	SubsystemBase intake;
 
 	Autonomous(){
-		//intake = new Intake();
-		//chassis = new Chassis();
 		
 	}
 	
 	public void autonomousPeriodic(){
-    	loop.update();
+		Looper.getInstance().update();
     }
 
 }

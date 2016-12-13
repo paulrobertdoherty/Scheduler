@@ -1,7 +1,5 @@
 package org.usfirst.frc.team1339.robot;
 
-import org.usfirst.frc.team1339.base.SubsystemBase;
-import org.usfirst.frc.team1339.subsystems.*;
 import org.usfirst.frc.team1339.utils.Looper;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,14 +21,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class TeleOp {
 	
-	/**
-	 * Teleoperated constructor that adds the chassis subsystem
-	 * to Looper.
-	 * <br><br>
-	 * $
-	 * @see Looper
-	 */
 	TeleOp(){
+		
 	}
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/
     public void teleOpPeriodic(){
