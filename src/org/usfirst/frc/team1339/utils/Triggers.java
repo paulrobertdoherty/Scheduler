@@ -10,11 +10,9 @@ public class Triggers {
 	private boolean isPressed = false;
 	
 	protected void whenPressed(JoystickButton button, CommandBase command){
-		
 		if(!isPressed){
 			if (button.get()){
 				isPressed = true;
-				//System.out.println("button is pressed");
 				if(command.isCommandGroup()){
 					commandGroupInit = true;
 				}
@@ -25,7 +23,6 @@ public class Triggers {
 			}
 		}
 		if(isPressed && !button.get()){
-			//System.out.println("button is relesaed");
 			isPressed = false;
 		}
 	}

@@ -17,9 +17,14 @@ import org.usfirst.frc.team1339.utils.Looper;
  */
 public class Autonomous {
 
-
 	Autonomous(){
 		
+	}
+	
+	public void init(){
+		Looper.getInstance().setInitDefaults();
+		Robot.HardwareAdapter.kLeftDriveEncoder.reset();
+		Robot.HardwareAdapter.kRightDriveEncoder.reset();
 	}
 	
 	public void autonomousPeriodic(){
