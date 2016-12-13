@@ -77,8 +77,6 @@ public class HardwareAdapter extends Triggers{
 	}
 	
 	public void checkTriggers(){
-		//whenPressed(YButton, new CommandGroupTest());
-		//whenPressed(AButton, new MotionProfileTest(1000));
 		whenPressed(BButton, new TankDrive());
 		whenPressed(XButton, new DriveStraight(0.5, 1));
 	}
