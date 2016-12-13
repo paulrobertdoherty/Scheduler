@@ -8,6 +8,8 @@ public class MotionProfileTest extends CommandBase {
 	private double m_goal;
 	
 	public MotionProfileTest(double goal){
+		requires(Robot.chassis);
+		setName();
 		m_goal = goal;
 	}
 
@@ -20,7 +22,7 @@ public class MotionProfileTest extends CommandBase {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		System.out.println("Running");
+		//System.out.println("Running");
 		Robot.chassis.motionProfile();
 	}
 

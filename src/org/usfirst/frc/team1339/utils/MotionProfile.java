@@ -1,8 +1,6 @@
 package org.usfirst.frc.team1339.utils;
 
 import edu.wpi.first.wpilibj.Timer;
-import motionProfile.MotionProfile.MotionState;
-import motionProfile.MotionProfile.Segment;
 
 public class MotionProfile {
 	
@@ -54,7 +52,8 @@ public class MotionProfile {
 	public void configureNewProfile(double distance){
 		initialSegment = new Segment(0, 0, 0);
 		this.goal = distance;
-		this.maxAcc = 0.0005;
+		this.maxAcc = Constants.maxAcceleration;
+		this.cruiseVelScaleFactor = Constants.motionProfileFastScaleFactor;
 		if(distance < 0){
 			this.maxAcc *= -1;
 		}
@@ -64,7 +63,7 @@ public class MotionProfile {
 		}
 		this.currentSegment = initialSegment;
 		setState(MotionState.ACCELERATING);
-		lastTime = 0.1;
+		lastTime = Timer.getFPGATimestamp();
 	}
 	
 	public void configureNewProfile(double Kp, double Ki, double Kd, double Ka,
@@ -168,8 +167,9 @@ public class MotionProfile {
 		currentSegment.vel = nextSegment.vel;
 		currentSegment.acc = nextSegment.acc;
 		
+		System.out.println("pos" + currentSegment.pos);
+		//System.out.println("cruiseVel" + cruiseVel);
 		double output = Kv * currentSegment.vel + Ka * currentSegment.acc;
-		
 		return output;
 	}
 	
