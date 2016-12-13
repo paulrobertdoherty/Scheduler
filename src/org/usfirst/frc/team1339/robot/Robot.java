@@ -28,7 +28,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 public class Robot extends IterativeRobot {
 	public Autonomous a;
 	public TeleOp t;
-	public Disabled d;
 	public static Chassis chassis;
 	public static Intake intake;
 	public static Shooter shooter;
@@ -36,7 +35,6 @@ public class Robot extends IterativeRobot {
     public Robot() {
 		a = new Autonomous();
     	t = new TeleOp();
-		d = new Disabled();
     }
 
     public void robotInit() {
