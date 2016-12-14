@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1339.utils;
 
 import org.usfirst.frc.team1339.commands.DriveStraight;
+import org.usfirst.frc.team1339.commands.MaxAcceleration;
 import org.usfirst.frc.team1339.commands.MotionProfileTest;
 import org.usfirst.frc.team1339.commands.TankDrive;
 
@@ -79,9 +80,10 @@ public class HardwareAdapter extends Triggers{
 	
 	public void checkTriggers(){
 		//whenPressed(YButton, new CommandGroupTest());
-		whenPressed(AButton, new MotionProfileTest(50));
+		whenPressed(AButton, new MotionProfileTest(4000));
+		whenPressed(XButton, new MaxAcceleration());
 		//whenPressed(BButton, new TankDrive());
-		whenPressed(XButton, new DriveStraight(0.5, 1));
+		//whenPressed(XButton, new DriveStraight(0.5, 1));
 	}
 	
 	//Joystick get methods

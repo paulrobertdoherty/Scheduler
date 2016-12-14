@@ -174,7 +174,7 @@ public class MotionProfile {
 	}
 	
 	public boolean isFinishedTrajectory() {
-        return Math.abs(currentSegment.pos - goal) < 1
-                && Math.abs(currentSegment.vel) < 0.05;
+        return Math.abs(currentSegment.pos - goal) < 100
+                && Math.abs(currentSegment.vel) < 100;
     }
 }

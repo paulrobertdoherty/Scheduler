@@ -123,9 +123,11 @@ public class Chassis extends SubsystemBase{
     public void calculate(){
     	double rightEncSpeed = Robot.HardwareAdapter.getRightDriveEncSpeed();
     	double rightSpeed = rightEncSpeed - lastRightSpeed;
+    	lastRightSpeed = rightEncSpeed;
     	
     	double leftEncSpeed = Robot.HardwareAdapter.getLeftDriveEncSpeed();
     	double leftSpeed = leftEncSpeed - lastLeftSpeed;
+    	lastLeftSpeed = leftEncSpeed;
 
     	double currentTime = Timer.getFPGATimestamp();
     	double time = currentTime - lastTime;
@@ -136,13 +138,14 @@ public class Chassis extends SubsystemBase{
 
     	double avg = (rightAcc + leftAcc) / 2;
     	accel.add(avg);
+    	
+    	double speedAvg = (leftEncSpeed + rightEncSpeed) / 2;
+
+    	SmartDashboard.putNumber("MP speed", speedAvg);
+		SmartDashboard.putNumber("Accel Array", avg);
     }
 	
     public ArrayList<Double> getAvgAcc(){
-    	for(int i = 0; i < accel.size(); i++){
-    		double acc = accel.get(i);
-    		SmartDashboard.putNumber("Accel Array", acc);
-    	}
     	return accel;
     }
     

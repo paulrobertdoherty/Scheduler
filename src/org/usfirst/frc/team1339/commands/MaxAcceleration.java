@@ -13,7 +13,7 @@ public class MaxAcceleration extends CommandBase{
 		requires(Robot.chassis);
 		setName();
 		setRunSpeed(0.05);
-		setTimeout(2);
+		setTimeout(7);
 	}
 	
 	@Override
