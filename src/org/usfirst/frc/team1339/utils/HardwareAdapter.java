@@ -24,7 +24,7 @@ public class HardwareAdapter extends Triggers{
 	
 	//Encoders
 	public Encoder kRightDriveEncoder = new Encoder(
-			Constants.kRightDriveAEncoder , Constants.kRightDriveBEncoder);
+			Constants.kRightDriveAEncoder , Constants.kRightDriveBEncoder, true);
 	public Encoder kLeftDriveEncoder = new Encoder(
 			Constants.kLeftDriveAEncoder , Constants.kLeftDriveBEncoder);
 	public ADXRS450_Gyro kSpartanGyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
@@ -73,7 +73,8 @@ public class HardwareAdapter extends Triggers{
 	
 
 	public HardwareAdapter(){
-		
+		kRightDriveEncoder.setDistancePerPulse(1);
+		kLeftDriveEncoder.setDistancePerPulse(1);
 	}
 	
 	public void checkTriggers(){
@@ -112,9 +113,15 @@ public class HardwareAdapter extends Triggers{
 		return rightStickButton.get();
 	}
 	public double getLeftDriveEnc(){
-		return (kLeftDriveEncoder.get());
+		return kLeftDriveEncoder.get();
 	}
 	public double getRightDriveEnc(){
-		return (kRightDriveEncoder.get() * -1);
+		return kRightDriveEncoder.get();
+	}
+	public double getRightDriveEncSpeed(){
+		return kRightDriveEncoder.getRate();
+	}
+	public double getLeftDriveEncSpeed(){
+		return kLeftDriveEncoder.getRate();
 	}
 }

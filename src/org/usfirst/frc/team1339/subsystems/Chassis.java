@@ -1,11 +1,14 @@
 package org.usfirst.frc.team1339.subsystems;
 
+import java.util.ArrayList;
+
 import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.commands.ArcadeDrive;
 import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.utils.Constants;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Chassis extends SubsystemBase{
@@ -19,6 +22,10 @@ public class Chassis extends SubsystemBase{
 	double leftLastSpeed, rightLastSpeed;
 	double rightSpeed, leftSpeed;
 	double rate = 0.085;
+	
+	private ArrayList<Double> accel = new ArrayList<Double>();
+	
+	private double lastTime = 0, lastRightSpeed = 0, lastLeftSpeed = 0;
 	
 	public Chassis(){
 		System.out.println("F");
@@ -74,7 +81,6 @@ public class Chassis extends SubsystemBase{
     	leftMotorTwo.set(-left);
     	rightMotorOne.set(right);
     	rightMotorTwo.set(-right);
-    	//
     }
     public void tankDrive(double left, double right){
     	setMotorValues(left, right);
@@ -113,5 +119,31 @@ public class Chassis extends SubsystemBase{
     	SmartDashboard.putNumber("MP output", speed);
     	setMotorValues(speed, speed);
     }
+    
+    public void calculate(){
+    	double rightEncSpeed = Robot.HardwareAdapter.getRightDriveEncSpeed();
+    	double rightSpeed = rightEncSpeed - lastRightSpeed;
+    	
+    	double leftEncSpeed = Robot.HardwareAdapter.getLeftDriveEncSpeed();
+    	double leftSpeed = leftEncSpeed - lastLeftSpeed;
+
+    	double currentTime = Timer.getFPGATimestamp();
+    	double time = currentTime - lastTime;
+    	lastTime = currentTime;
+    	
+    	double rightAcc = rightSpeed / time;
+    	double leftAcc = leftSpeed / time;
+
+    	double avg = (rightAcc + leftAcc) / 2;
+    	accel.add(avg);
+    }
 	
+    public ArrayList<Double> getAvgAcc(){
+    	for(int i = 0; i < accel.size(); i++){
+    		double acc = accel.get(i);
+    		SmartDashboard.putNumber("Accel Array", acc);
+    	}
+    	return accel;
+    }
+    
 }
