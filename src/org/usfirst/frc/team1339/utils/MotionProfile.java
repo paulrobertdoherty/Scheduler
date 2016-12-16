@@ -79,7 +79,7 @@ public class MotionProfile {
 		this.cruiseVel = getCruiseVel(this.goal);
 		this.maxAcc = Constants.maxAcceleration;
 		this.currentSegment = initialSegment;
-		this.cruiseVelScaleFactor = Constants.motionProfileSlowScaleFactor;
+		this.cruiseVelScaleFactor = Constants.motionProfileFastScaleFactor;
 		setState(MotionState.ACCELERATING);
 		lastTime = Timer.getFPGATimestamp();
 	}

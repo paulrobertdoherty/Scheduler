@@ -116,8 +116,11 @@ public class Chassis extends SubsystemBase{
     public void motionProfile(){
     	Robot.HardwareAdapter.ChassisMP.calculate(Robot.HardwareAdapter.getRightDriveEnc(), 
     			Robot.HardwareAdapter.getLeftDriveEnc());
+    	double gyroOutput = Robot.HardwareAdapter.GyroPID.calculate(Robot.HardwareAdapter.kSpartanGyro.getAngle());
     	double rightSpeed = Robot.HardwareAdapter.ChassisMP.getRightOutput();
     	double leftSpeed = Robot.HardwareAdapter.ChassisMP.getLeftOutput();
+    	rightSpeed += gyroOutput;
+    	leftSpeed -= gyroOutput;
     	//System.out.println(speed);
     	SmartDashboard.putNumber("MP output", rightSpeed);
     	setMotorValues(leftSpeed, rightSpeed);

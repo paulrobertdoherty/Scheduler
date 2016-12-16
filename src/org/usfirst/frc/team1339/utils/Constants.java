@@ -13,7 +13,7 @@ public class Constants {
 	public static double maxCruiseSpeed = 2500;
 	public static double motionProfileSlowScaleFactor = 0.5;
 	public static double motionProfileMediumScaleFactor = 0.65;
-	public static double motionProfileFastScaleFactor = 0.75;
+	public static double motionProfileFastScaleFactor = 0.9;
 	
 	public static final double chassisMPKp = 0.0008;
 	public static final double chassisMPKi = 0.0;
