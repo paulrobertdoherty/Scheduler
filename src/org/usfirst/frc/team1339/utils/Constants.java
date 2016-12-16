@@ -15,11 +15,11 @@ public class Constants {
 	public static double motionProfileMediumScaleFactor = 0.65;
 	public static double motionProfileFastScaleFactor = 0.75;
 	
-	public static final double chassisMPKp = 0.0;
+	public static final double chassisMPKp = 0.0008;
 	public static final double chassisMPKi = 0.0;
 	public static final double chassisMPKd = 0.0;
-	public static final double chassisMPKa = 0.000005;
-	public static final double chassisMPKv = 0.0005;
+	public static final double chassisMPKa = 0.00000005;
+	public static final double chassisMPKv = 0.000005;
 	public static final double kDriveKp = 0.07;
 	public static final double kDriveKi = 0;
 	public static final double kDriveKd = 0.05;

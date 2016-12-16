@@ -1,11 +1,13 @@
 package org.usfirst.frc.team1339.utils;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MotionProfile {
 	
 	private double Kp, Ki, Kd, Ka, Kv, goal, cruiseVel,
-	maxAcc, cruiseVelScaleFactor;
+	maxAcc, cruiseVelScaleFactor, lastRightError = 0,
+	lastLeftError = 0, rightOutput = 0, leftOutput = 0;
 	private double lastTime;
 	public Segment initialSegment = new Segment(0, 0, 0);
 	public Segment currentSegment = new Segment(0, 0, 0);
@@ -53,7 +55,7 @@ public class MotionProfile {
 		initialSegment = new Segment(0, 0, 0);
 		this.goal = distance;
 		this.maxAcc = Constants.maxAcceleration;
-		this.cruiseVelScaleFactor = Constants.motionProfileFastScaleFactor;
+		this.cruiseVelScaleFactor = Constants.motionProfileSlowScaleFactor;
 		if(distance < 0){
 			this.maxAcc *= -1;
 		}
@@ -101,7 +103,7 @@ public class MotionProfile {
 		lastTime = Timer.getFPGATimestamp();
 	}
 	
-	public double calculate(){
+	public void calculate(double rightDistance, double leftDistance){
 		double dt;
 		double currentTime = Timer.getFPGATimestamp();
 		dt = currentTime - lastTime;
@@ -170,7 +172,27 @@ public class MotionProfile {
 		System.out.println("pos" + currentSegment.pos);
 		//System.out.println("cruiseVel" + cruiseVel);
 		double output = Kv * currentSegment.vel + Ka * currentSegment.acc;
-		return output;
+		
+		double rightError = currentSegment.pos - rightDistance;
+		SmartDashboard.putNumber("right Error", rightError);
+		
+		rightOutput = rightError * Kp + ((rightError - lastRightError) / dt) * Kd + output;
+		lastRightError = rightError;
+		
+		double leftError = currentSegment.pos - leftDistance;
+		SmartDashboard.putNumber("left Error", leftError);
+		
+		SmartDashboard.putNumber("pos", currentSegment.pos);
+		leftOutput = leftError * Kp + ((leftError - lastLeftError) / dt) * Kd + output;
+		lastLeftError = leftError;
+	}
+	
+	public double getRightOutput(){
+		return rightOutput;
+	}
+	
+	public double getLeftOutput(){
+		return leftOutput;
 	}
 	
 	public boolean isFinishedTrajectory() {
