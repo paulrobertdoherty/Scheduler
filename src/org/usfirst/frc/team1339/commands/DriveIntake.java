@@ -11,6 +11,8 @@ public class DriveIntake extends CommandBase {
 	private double speed = 0;
 	
     public DriveIntake() {
+    	setName();
+    	setRunSpeed(0.05);
     }
 
 	public void init() {

@@ -1,11 +1,14 @@
 package org.usfirst.frc.team1339.subsystems;
 
+import java.util.ArrayList;
+
 import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.commands.ArcadeDrive;
 import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.utils.Constants;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Chassis extends SubsystemBase{
@@ -19,6 +22,10 @@ public class Chassis extends SubsystemBase{
 	double leftLastSpeed, rightLastSpeed;
 	double rightSpeed, leftSpeed;
 	double rate = 0.085;
+	
+	private ArrayList<Double> accel = new ArrayList<Double>();
+	
+	private double lastTime = 0, lastRightSpeed = 0, lastLeftSpeed = 0;
 	
 	public Chassis(){
 		setDefaultCommand(new ArcadeDrive());
@@ -90,8 +97,7 @@ public class Chassis extends SubsystemBase{
     	}
     	if(rightSpeed > 0.5){
     		rightSpeed = 0.5;
-    	}
-    	if(leftSpeed < -0.5){
+    	}    	if(leftSpeed < -0.5){
     		leftSpeed = -0.5;
     	}
     	if(rightSpeed < -0.5){
@@ -104,9 +110,45 @@ public class Chassis extends SubsystemBase{
     }
     
     public void motionProfile(){
-    	double speed = Robot.HardwareAdapter.ChassisMP.calculate();
-    	System.out.println(speed);
-    	SmartDashboard.putNumber("MP output", speed);
+    	Robot.HardwareAdapter.ChassisMP.calculate(Robot.HardwareAdapter.getRightDriveEnc(), 
+    			Robot.HardwareAdapter.getLeftDriveEnc());
+    	double gyroOutput = Robot.HardwareAdapter.GyroPID.calculate(Robot.HardwareAdapter.kSpartanGyro.getAngle());
+    	double rightSpeed = Robot.HardwareAdapter.ChassisMP.getRightOutput();
+    	double leftSpeed = Robot.HardwareAdapter.ChassisMP.getLeftOutput();
+    	rightSpeed += gyroOutput;
+    	leftSpeed -= gyroOutput;
+    	//System.out.println(speed);
+    	SmartDashboard.putNumber("MP output", rightSpeed);
+    	setMotorValues(leftSpeed, rightSpeed);
+    }
+    
+    public void calculate(){
+    	double rightEncSpeed = Robot.HardwareAdapter.getRightDriveEncSpeed();
+    	double rightSpeed = rightEncSpeed - lastRightSpeed;
+    	lastRightSpeed = rightEncSpeed;
+    	
+    	double leftEncSpeed = Robot.HardwareAdapter.getLeftDriveEncSpeed();
+    	double leftSpeed = leftEncSpeed - lastLeftSpeed;
+    	lastLeftSpeed = leftEncSpeed;
+
+    	double currentTime = Timer.getFPGATimestamp();
+    	double time = currentTime - lastTime;
+    	lastTime = currentTime;
+    	
+    	double rightAcc = rightSpeed / time;
+    	double leftAcc = leftSpeed / time;
+
+    	double avg = (rightAcc + leftAcc) / 2;
+    	accel.add(avg);
+    	
+    	double speedAvg = (leftEncSpeed + rightEncSpeed) / 2;
+
+    	SmartDashboard.putNumber("MP speed", speedAvg);
+		  SmartDashboard.putNumber("Accel Array", avg);
     }
 	
+    public ArrayList<Double> getAvgAcc(){
+    	return accel;
+    }
+    
 }

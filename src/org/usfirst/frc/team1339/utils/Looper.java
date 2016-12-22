@@ -75,9 +75,8 @@ public class Looper {
 			//looping through the subsystems that have a defualt command
 			if(subsystem.getDefaultCommand() != null){		
 				commands.add(subsystem.getDefaultCommand());
-				//adding the default command to the commands list
-				subsystem.getDefaultCommand().addRequires(subsystem); 
-				//adding the subsystem to the list of requires within the default command
+				subsystem.getDefaultCommand().addRequires(subsystem);
+				subsystem.setCurrentCommand(subsystem.getDefaultCommand());
 			}
 		}
 	}
