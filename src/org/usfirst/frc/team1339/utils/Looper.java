@@ -71,19 +71,28 @@ public class Looper {
 	}
 	
 	/**
-	 * this method if for initializing the default commands at the start of teleOp
+	 * this method is for initializing the default commands at the start of teleOp
 	 */
 	public void setInitDefaults(){
 		commands.clear();
 		for (SubsystemBase subsystem : SubsystemBase.getDefaults()){
+			//looping through the subsystems that have a defualt command
 			if(subsystem.getDefaultCommand() != null){		
 				commands.add(subsystem.getDefaultCommand());
-				subsystem.getDefaultCommand().addRequires(subsystem);
+				//adding the default command to the commands list
+				subsystem.getDefaultCommand().addRequires(subsystem); 
+				//adding the subsystem to the list of requires within the default command
 			}
 		}
 	}
 	/**
-	 * This method is run continuously to run the commands.
+	 * This method is run continuously to execute the commands.
+	 * First, it loops through the list of commands, but it only
+	 * hits a certain command if enought time has passed for it to run. {@code CommandBase.getRunSpeed}
+	 * Then, if it is not initialized, it runs the {@code init} method within the 
+	 * command. Then, it executes the command and resets the time. If the command
+	 * is finished, then it adds the default command for that subsystem to the 
+	 * running list of commands {@link setDefault}
 	 * <p> $ <p> 
 	 * @see SubsystemBase
 	 */
@@ -103,6 +112,12 @@ public class Looper {
 		}
     }
 	
+	/**
+	 * This method is run when a command is finished, and it adds
+	 * the default command from the finished commands requirements to 
+	 * the list of commands
+	 * @param command
+	 */
 	private void setDefault(CommandBase command){
 		command.end();
 		ArrayList<SubsystemBase> requirements = command.getRequirements();
