@@ -2,6 +2,7 @@ package org.usfirst.frc.team1339.base;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team1339.utils.Looper;
 import org.usfirst.frc.team1339.utils.Triggers;
 
 /**
@@ -40,12 +41,12 @@ public abstract class CommandGroupBase extends CommandBase{
 		if (commands.size() == parallels.size() &&
 				interupters.size() <= commands.size()){
 			if(index == 0){
-				Triggers.schedule(commands.get(index));
+				Looper.getInstance().newCommand(commands.get(index));
 				index++;
 			}
 			else if(parallels.get(index - 1).equals(true)){
 				if(index < commands.size()){
-					Triggers.schedule(commands.get(index));
+					Looper.getInstance().newCommand(commands.get(index));
 					index++;
 				}
 				else {
@@ -54,7 +55,7 @@ public abstract class CommandGroupBase extends CommandBase{
 			}
 			else if(isInterruptIndex(index - 1)){
 				if(index < commands.size()){
-					Triggers.schedule(commands.get(index));
+					Looper.getInstance().newCommand(commands.get(index));
 					index++;
 				}
 				else {
@@ -63,7 +64,7 @@ public abstract class CommandGroupBase extends CommandBase{
 			}
 			else if(commands.get(index - 1).isFinished()){
 				if(index < commands.size()){
-					Triggers.schedule(commands.get(index));
+					Looper.getInstance().newCommand(commands.get(index));
 					index++;
 				}
 				else {

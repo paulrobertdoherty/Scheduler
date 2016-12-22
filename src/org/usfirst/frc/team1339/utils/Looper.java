@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.base.SubsystemBase;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;	
+import edu.wpi.first.wpilibj.Timer;	
 
 /**
  * The Looper class loops through a list of commands that are supposed to be 

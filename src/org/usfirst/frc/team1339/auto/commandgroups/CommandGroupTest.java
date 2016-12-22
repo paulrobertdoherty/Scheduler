@@ -1,8 +1,7 @@
 package org.usfirst.frc.team1339.auto.commandgroups;
 
 import org.usfirst.frc.team1339.base.CommandGroupBase;
-import org.usfirst.frc.team1339.commands.ArcadeDrive;
-import org.usfirst.frc.team1339.commands.TankDrive;
+import org.usfirst.frc.team1339.commands.*;
 import org.usfirst.frc.team1339.robot.Robot;
 
 /**
@@ -17,22 +16,13 @@ import org.usfirst.frc.team1339.robot.Robot;
 public class CommandGroupTest extends CommandGroupBase{
 
 	public CommandGroupTest(){
-		addSequential(new TankDrive());
-		addSequential(new ArcadeDrive());
-		addInterrupter(1);
-		addSequential(new TankDrive());
+		addSequential(new DriveStraight(.5, 1));
+		addSequential(new DriveStraight(-.5, 1));
 	}
-	/**
-	 * This function returns {@code true} when the creator
-	 * wants a sequential command at a given index to be
-	 * interrupted. 
-	 * 
-	 * @param index = index at which the sequential command is
-	 */ 
+
+	@Override
 	protected boolean isInterrupted(int index) {
-		if (index == 1){
-			return Robot.HardwareAdapter.getXButton();
-		}
+		// TODO Auto-generated method stub
 		return false;
 	}
 }

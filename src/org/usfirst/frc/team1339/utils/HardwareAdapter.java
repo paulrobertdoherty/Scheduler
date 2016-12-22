@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1339.utils;
 
+import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
 import org.usfirst.frc.team1339.commands.DriveStraight;
 import org.usfirst.frc.team1339.commands.MaxAcceleration;
 import org.usfirst.frc.team1339.commands.MotionProfileTest;
