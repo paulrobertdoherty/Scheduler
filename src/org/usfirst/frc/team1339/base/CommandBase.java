@@ -57,12 +57,12 @@ public abstract class CommandBase {
 	}
 	
 	protected void requires(SubsystemBase instance){
-		requirements.add(instance);
+		if(!requirements.contains(instance))
+			requirements.add(instance);
 	}
 	
 	protected void setTimeout(double time){
 		m_time = Math.abs(time);
-		startTime = Timer.getFPGATimestamp();
 	}
 	
 	protected boolean isTimedOut(){
@@ -90,6 +90,7 @@ public abstract class CommandBase {
 	}
 	
 	public void setInitialized(){
+		startTime = Timer.getFPGATimestamp();
 		initialized = true;
 	}
 	/**
@@ -98,9 +99,5 @@ public abstract class CommandBase {
 	 */
 	public double getRunSpeed(){
 		return m_speed;
-	}
-	
-	public boolean isCommandGroup(){
-		return false;
 	}
 }

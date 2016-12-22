@@ -80,6 +80,7 @@ public class HardwareAdapter extends Triggers{
 	}
 	
 	public void checkTriggers(){
+		whenPressed(XButton, new CommandGroupTest());
 	}
 	
 	//Joystick get methods

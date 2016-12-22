@@ -16,8 +16,9 @@ import org.usfirst.frc.team1339.robot.Robot;
 public class CommandGroupTest extends CommandGroupBase{
 
 	public CommandGroupTest(){
-		addSequential(new DriveStraight(.5, 1));
 		addSequential(new DriveStraight(-.5, 1));
+		addParallel(new DriveShooterTimeout(1, 2));
+		addSequential(new DriveStraight(.5, 1));
 	}
 
 	@Override

@@ -50,6 +50,8 @@ public class Looper {
 			if(command.getName().equals(instance.getName())) isCommandAlready = true;
 		}
 		
+		if(isCommandAlready) System.out.println(instance.getName() + " is already a command");
+		
 		//only runs if it doesn't exist already
 		if(!isCommandAlready){
 			ArrayList<SubsystemBase> requirements = instance.getRequirements();
