@@ -92,7 +92,10 @@ public abstract class CommandBase {
 	public void setInitialized(){
 		initialized = true;
 	}
-	
+	/**
+	 * Test
+	 * @return
+	 */
 	public double getRunSpeed(){
 		return m_speed;
 	}

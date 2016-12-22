@@ -15,8 +15,6 @@ public abstract class SubsystemBase {
 	
 	private CommandBase currentCommand, defaultCommand;
 	
-	private boolean commandGroupInit = false;
-	
 	private static ArrayList<SubsystemBase> defaults = new ArrayList<SubsystemBase>();
 	
 	protected void setDefaultCommand(CommandBase command){

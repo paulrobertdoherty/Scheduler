@@ -28,7 +28,6 @@ public class Chassis extends SubsystemBase{
 	private double lastTime = 0, lastRightSpeed = 0, lastLeftSpeed = 0;
 	
 	public Chassis(){
-		System.out.println("F");
 		setDefaultCommand(new ArcadeDrive());
 	}
 	
@@ -73,7 +72,6 @@ public class Chassis extends SubsystemBase{
         
         leftLastSpeed = leftSpeed;
         rightLastSpeed = rightSpeed;
-        //Arcade Drive with Throttle
     }
     
     public void setMotorValues(double left, double right){
@@ -87,7 +85,6 @@ public class Chassis extends SubsystemBase{
     }
     
     public void PIDDriveEncoder(){
-    	//double enc = (HardwareAdapter.getRightDriveEnc() + HardwareAdapter.getLeftDriveEnc())/2;
     	double rightSpeed = Robot.HardwareAdapter.RightDriveEncoderPID.calculate(Robot.HardwareAdapter.getRightDriveEnc());
     	double leftSpeed = Robot.HardwareAdapter.LeftDriveEncoderPID.calculate(Robot.HardwareAdapter.getLeftDriveEnc());
     	double gyroOutput = Robot.HardwareAdapter.GyroPID.calculate(Robot.HardwareAdapter.kSpartanGyro.getAngle());
@@ -100,8 +97,7 @@ public class Chassis extends SubsystemBase{
     	}
     	if(rightSpeed > 0.5){
     		rightSpeed = 0.5;
-    	}
-    	if(leftSpeed < -0.5){
+    	}    	if(leftSpeed < -0.5){
     		leftSpeed = -0.5;
     	}
     	if(rightSpeed < -0.5){
@@ -148,7 +144,7 @@ public class Chassis extends SubsystemBase{
     	double speedAvg = (leftEncSpeed + rightEncSpeed) / 2;
 
     	SmartDashboard.putNumber("MP speed", speedAvg);
-		SmartDashboard.putNumber("Accel Array", avg);
+		  SmartDashboard.putNumber("Accel Array", avg);
     }
 	
     public ArrayList<Double> getAvgAcc(){
