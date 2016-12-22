@@ -62,6 +62,7 @@ public class Looper {
 			if(subsystem.getDefaultCommand() != null){		
 				commands.add(subsystem.getDefaultCommand());
 				subsystem.getDefaultCommand().addRequires(subsystem);
+				subsystem.setCurrentCommand(subsystem.getDefaultCommand());
 			}
 		}
 	}

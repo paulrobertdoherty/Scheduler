@@ -37,6 +37,7 @@ public class TeleOp {
 		Looper.getInstance().setInitDefaults();
 		Robot.HardwareAdapter.kLeftDriveEncoder.reset();
 		Robot.HardwareAdapter.kRightDriveEncoder.reset();
+		Robot.HardwareAdapter.kSpartanGyro.reset();
 	}
 	/** This method is called after TeleOp has run.*/
 
