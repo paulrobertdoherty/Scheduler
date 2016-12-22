@@ -2,6 +2,7 @@ package org.usfirst.frc.team1339.commands;
 
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.robot.Robot;
+import org.usfirst.frc.team1339.utils.Constants;
 
 /**
  *
@@ -11,6 +12,8 @@ public class DriveShooter extends CommandBase {
 	private double speed = 0;
 	
     public DriveShooter() {
+    	setName();
+    	setRunSpeed(0.05);
     }
 
 	public void init() {
@@ -19,13 +22,11 @@ public class DriveShooter extends CommandBase {
     
     // Called repeatedly when this Command is scheduled to run
     public void execute() {
-    	if(Robot.HardwareAdapter.getYButton()){
-    		speed = 0.85;
-    	}
-    	else if (Robot.HardwareAdapter.getXButton()){
-    		speed = -0.85;
-    	}
-    	else speed = 0;
+    	double leftTrigger = Robot.HardwareAdapter.getXboxStick().getRawAxis(Constants.xboxLeftTrigger);
+    	double rightTrigger = Robot.HardwareAdapter.getXboxStick().getRawAxis(Constants.xboxRightTrigger);
+
+    	speed = rightTrigger - leftTrigger;
+    	
     	Robot.shooter.shoot(speed);
     }
 

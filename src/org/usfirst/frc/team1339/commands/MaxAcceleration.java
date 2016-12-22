@@ -3,45 +3,54 @@ package org.usfirst.frc.team1339.commands;
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.robot.Robot;
 
-public class MotionProfileTest extends CommandBase {
+import edu.wpi.first.wpilibj.Timer;
+
+public class MaxAcceleration extends CommandBase{
+
+	private double initTime;
 	
-	private double m_goal;
-	
-	public MotionProfileTest(double goal){
+	public MaxAcceleration(){
 		requires(Robot.chassis);
 		setName();
-		m_goal = goal;
+		setRunSpeed(0.05);
+		setTimeout(7);
 	}
-
+	
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
-		Robot.HardwareAdapter.ChassisMP.configureNewProfile(m_goal);
+		initTime = Timer.getFPGATimestamp();
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		//System.out.println("Running");
-		Robot.chassis.motionProfile();
+		if(Timer.getFPGATimestamp() < initTime + 1){
+			Robot.chassis.setMotorValues(1, 1);
+		} else{
+			Robot.chassis.setMotorValues(0, 0);
+		}
+		Robot.chassis.calculate();
 	}
 
 	@Override
 	public boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.HardwareAdapter.ChassisMP.isFinishedTrajectory();
+		return isTimedOut();
 	}
 
 	@Override
 	public void end() {
 		// TODO Auto-generated method stub
-		
+		Robot.chassis.getAvgAcc();
+		Robot.chassis.setMotorValues(0, 0);
 	}
 
 	@Override
 	public void interrupted() {
 		// TODO Auto-generated method stub
-		
+		Robot.chassis.getAvgAcc();
+		Robot.chassis.setMotorValues(0, 0);
 	}
 
 }

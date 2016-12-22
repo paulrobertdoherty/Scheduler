@@ -4,11 +4,8 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.base.SubsystemBase;
-import org.usfirst.frc.team1339.robot.Robot;
-import org.usfirst.frc.team1339.subsystems.Chassis;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;	
 
 /**
@@ -79,9 +76,8 @@ public class Looper {
 			//looping through the subsystems that have a defualt command
 			if(subsystem.getDefaultCommand() != null){		
 				commands.add(subsystem.getDefaultCommand());
-				//adding the default command to the commands list
-				subsystem.getDefaultCommand().addRequires(subsystem); 
-				//adding the subsystem to the list of requires within the default command
+				subsystem.getDefaultCommand().addRequires(subsystem);
+				subsystem.setCurrentCommand(subsystem.getDefaultCommand());
 			}
 		}
 	}

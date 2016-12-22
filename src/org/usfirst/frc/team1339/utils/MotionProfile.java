@@ -1,11 +1,13 @@
 package org.usfirst.frc.team1339.utils;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MotionProfile {
 	
 	private double Kp, Ki, Kd, Ka, Kv, goal, cruiseVel,
-	maxAcc, cruiseVelScaleFactor;
+	maxAcc, cruiseVelScaleFactor, lastRightError = 0,
+	lastLeftError = 0, rightOutput = 0, leftOutput = 0;
 	private double lastTime;
 	public Segment initialSegment = new Segment(0, 0, 0);
 	public Segment currentSegment = new Segment(0, 0, 0);
@@ -50,11 +52,18 @@ public class MotionProfile {
 	}
 	
 	public void configureNewProfile(double distance){
+		initialSegment = new Segment(0, 0, 0);
 		this.goal = distance;
-		this.cruiseVel = getCruiseVel(this.goal);
 		this.maxAcc = Constants.maxAcceleration;
-		this.currentSegment = initialSegment;
 		this.cruiseVelScaleFactor = Constants.motionProfileSlowScaleFactor;
+		if(distance < 0){
+			this.maxAcc *= -1;
+		}
+		this.cruiseVel = getCruiseVel(this.goal);
+		if(distance < 0){
+			this.cruiseVel *= -1;
+		}
+		this.currentSegment = initialSegment;
 		setState(MotionState.ACCELERATING);
 		lastTime = Timer.getFPGATimestamp();
 	}
@@ -70,7 +79,7 @@ public class MotionProfile {
 		this.cruiseVel = getCruiseVel(this.goal);
 		this.maxAcc = Constants.maxAcceleration;
 		this.currentSegment = initialSegment;
-		this.cruiseVelScaleFactor = Constants.motionProfileSlowScaleFactor;
+		this.cruiseVelScaleFactor = Constants.motionProfileFastScaleFactor;
 		setState(MotionState.ACCELERATING);
 		lastTime = Timer.getFPGATimestamp();
 	}
@@ -94,7 +103,7 @@ public class MotionProfile {
 		lastTime = Timer.getFPGATimestamp();
 	}
 	
-	public double calculate(){
+	public void calculate(double rightDistance, double leftDistance){
 		double dt;
 		double currentTime = Timer.getFPGATimestamp();
 		dt = currentTime - lastTime;
@@ -108,7 +117,13 @@ public class MotionProfile {
 		double t_to_zero = Math.abs(cruiseVel / maxAcc); //time to get to zero speed from cruise speed
 		double x_to_zero = currentVel * t_to_zero - .5 * maxAcc * t_to_zero * t_to_zero; //distance to get to zero speed
 		
-		double cruiseX  = Math.max(0, distanceToGo - x_to_cruise - x_to_zero);
+		double cruiseX;
+		if(goal > 0){
+			cruiseX  = Math.max(0, distanceToGo - x_to_cruise - x_to_zero);
+		}
+		else{
+			cruiseX  = Math.min(0, distanceToGo - x_to_cruise - x_to_zero);
+		}
 		double cruiseT = Math.abs(cruiseX / cruiseVel);
 		
 		if (getState() == MotionState.ACCELERATING){
@@ -154,13 +169,34 @@ public class MotionProfile {
 		currentSegment.vel = nextSegment.vel;
 		currentSegment.acc = nextSegment.acc;
 		
+		System.out.println("pos" + currentSegment.pos);
+		//System.out.println("cruiseVel" + cruiseVel);
 		double output = Kv * currentSegment.vel + Ka * currentSegment.acc;
 		
-		return output;
+		double rightError = currentSegment.pos - rightDistance;
+		SmartDashboard.putNumber("right Error", rightError);
+		
+		rightOutput = rightError * Kp + ((rightError - lastRightError) / dt) * Kd + output;
+		lastRightError = rightError;
+		
+		double leftError = currentSegment.pos - leftDistance;
+		SmartDashboard.putNumber("left Error", leftError);
+		
+		SmartDashboard.putNumber("pos", currentSegment.pos);
+		leftOutput = leftError * Kp + ((leftError - lastLeftError) / dt) * Kd + output;
+		lastLeftError = leftError;
+	}
+	
+	public double getRightOutput(){
+		return rightOutput;
+	}
+	
+	public double getLeftOutput(){
+		return leftOutput;
 	}
 	
 	public boolean isFinishedTrajectory() {
-        return Math.abs(currentSegment.pos - goal) < 1
-                && Math.abs(currentSegment.vel) < 0.05;
+        return Math.abs(currentSegment.pos - goal) < 100
+                && Math.abs(currentSegment.vel) < 100;
     }
 }
