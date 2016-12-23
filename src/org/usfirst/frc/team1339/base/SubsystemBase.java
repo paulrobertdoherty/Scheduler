@@ -21,7 +21,7 @@ public abstract class SubsystemBase {
 	
 	public abstract void initDefaultCommand();
 	
-	public SubsystemBase(){
+	protected SubsystemBase(){
 		Looper.getInstance().register(this);
 	}
 	
@@ -47,13 +47,6 @@ public abstract class SubsystemBase {
 		if(defaultCommand == null)
 			initDefaultCommand();
 		return defaultCommand;
-	}
-	
-	public void schedule(CommandBase command){
-		if(!getCurrentCommand().isFinished()){
-			getCurrentCommand().interrupted();
-		}
-		currentCommand = command;
 	}
 	
 	public void endScheduledCommand(){

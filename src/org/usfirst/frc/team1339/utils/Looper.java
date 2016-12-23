@@ -99,7 +99,6 @@ public class Looper {
 		for(CommandBase command : commands){
 			if(Timer.getFPGATimestamp() > command.getRunSpeed() + command.getLastTime()){
 				if(!command.isInitialized()){
-					command.init();
 					command.setInitialized();
 				}
 				command.execute();
@@ -118,7 +117,7 @@ public class Looper {
 	 * @param command
 	 */
 	private void setDefault(CommandBase command){
-		command.end();
+		command.cancel();
 		ArrayList<SubsystemBase> requirements = command.getRequirements();
 		for(SubsystemBase subsystem : requirements){
 			if (subsystem.getDefaultCommand() != null){

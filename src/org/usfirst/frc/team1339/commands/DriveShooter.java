@@ -12,12 +12,11 @@ public class DriveShooter extends CommandBase {
 	private double speed = 0;
 	
     public DriveShooter() {
-    	setName();
     	setRunSpeed(0.05);
     	requires(Robot.shooter);
     }
 
-	public void init() {
+	protected void init() {
 		
 	}
     
@@ -37,12 +36,12 @@ public class DriveShooter extends CommandBase {
     }
 
     // Called once after isFinished returns true
-    public void end(){
+    protected void end(){
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    public void interrupted() {
+    protected void interrupted() {
     }
 
 }

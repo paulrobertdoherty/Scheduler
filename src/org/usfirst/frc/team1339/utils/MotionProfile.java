@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MotionProfile {
-	
+
 	private double Kp, Ki, Kd, Ka, Kv, goal, cruiseVel,
 	maxAcc, cruiseVelScaleFactor, lastRightError = 0,
 	lastLeftError = 0, rightOutput = 0, leftOutput = 0;

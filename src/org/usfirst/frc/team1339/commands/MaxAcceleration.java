@@ -11,20 +11,15 @@ public class MaxAcceleration extends CommandBase{
 	
 	public MaxAcceleration(){
 		requires(Robot.chassis);
-		setName();
 		setRunSpeed(0.05);
 		setTimeout(7);
 	}
 	
-	@Override
-	public void init() {
-		// TODO Auto-generated method stub
+	protected void init() {
 		initTime = Timer.getFPGATimestamp();
 	}
 
-	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
 		if(Timer.getFPGATimestamp() < initTime + 1){
 			Robot.chassis.setMotorValues(1, 1);
 		} else{
@@ -33,22 +28,16 @@ public class MaxAcceleration extends CommandBase{
 		Robot.chassis.calculate();
 	}
 
-	@Override
 	public boolean isFinished() {
-		// TODO Auto-generated method stub
 		return isTimedOut();
 	}
 
-	@Override
-	public void end() {
-		// TODO Auto-generated method stub
+	protected void end() {
 		Robot.chassis.getAvgAcc();
 		Robot.chassis.setMotorValues(0, 0);
 	}
 
-	@Override
-	public void interrupted() {
-		// TODO Auto-generated method stub
+	protected void interrupted() {
 		Robot.chassis.getAvgAcc();
 		Robot.chassis.setMotorValues(0, 0);
 	}

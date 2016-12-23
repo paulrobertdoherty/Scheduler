@@ -68,15 +68,8 @@ public abstract class CommandGroupBase extends CommandBase{
 				}
 				command.execute();
 				command.resetTime();
-				if(command.isFinished()){
-					command.end();
-					if(!cmd.isParallel)
-						index++;
-					runningCommands.remove(cmd);
-					numCmdsFinished++;
-				}
-				else if(isInterrupted(cmd.line)){
-					command.interrupted();
+				if(command.isFinished() || isInterrupted(cmd.line)){
+					command.cancel();
 					if(!cmd.isParallel)
 						index++;
 					runningCommands.remove(cmd);
