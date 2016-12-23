@@ -2,6 +2,8 @@ package org.usfirst.frc.team1339.base;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team1339.utils.AngelButton;
+
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -17,10 +19,11 @@ public abstract class CommandGroupBase extends CommandBase{
 
 	private ArrayList<CommandState> commands = new ArrayList<CommandState>();
 	private ArrayList<CommandState> runningCommands = new ArrayList<CommandState>();
-	private ArrayList<Integer> interupters = new ArrayList<Integer>();
+	private ArrayList<Interrupter> interrupters = new ArrayList<Interrupter>();
 	
 	private int index = -1;
 	private int numCmdsFinished = 0;
+	private int lineCounter = 0;
 	
 	public void init(){
 		
@@ -72,6 +75,13 @@ public abstract class CommandGroupBase extends CommandBase{
 					runningCommands.remove(cmd);
 					numCmdsFinished++;
 				}
+				else if(isInterrupted(cmd.line)){
+					command.interrupted();
+					if(!cmd.isParallel)
+						index++;
+					runningCommands.remove(cmd);
+					numCmdsFinished++;
+				}
 			}
 		}
 	}
@@ -92,39 +102,60 @@ public abstract class CommandGroupBase extends CommandBase{
 		for(SubsystemBase subsys : command.getRequirements()){
 			requires(subsys);
 		}
-		commands.add(new CommandState(command, false));
+		commands.add(new CommandState(command, false, lineCounter));
+		lineCounter++;
 	}
 	
 	protected void addParallel(CommandBase command){
 		for(SubsystemBase subsys : command.getRequirements()){
 			requires(subsys);
 		}
-		commands.add(new CommandState(command, true));
+		commands.add(new CommandState(command, true, lineCounter));
+		lineCounter++;
 	}
 	
-	protected void addInterrupter(int index){
-		interupters.add(index);
+	protected void addInterrupter(int line, AngelButton button, boolean value){
+		interrupters.add(new Interrupter(line, button, value));
 	}
 	
-	protected abstract boolean isInterrupted(int index);
+	protected void addInterrupter(int line, AngelButton button){
+		addInterrupter(line, button, true);
+	}
 	
-	@SuppressWarnings("unused")
-	private boolean isInterruptIndex(int index){
-		for(int i = 0; i < interupters.size(); i++){
-			if(interupters.get(i).equals(index)) {
-				if(isInterrupted(interupters.get(i))) return true;
+	private boolean isInterrupted(int line){
+		for(int i = 0; i < interrupters.size(); i++){
+			if(interrupters.get(i).line == line) {
+				return interrupters.get(i).isInterrupted();
 			}
 		}
 		return false;
 	}
 	
+	private static class Interrupter{
+		int line;
+		AngelButton button;
+		boolean value;
+		
+		Interrupter(int line, AngelButton button, boolean value){
+			this.line = line;
+			this.button = button;
+			this.value = value;
+		}
+		
+		public boolean isInterrupted(){
+			return button.get() == value;
+		}
+	}
+	
 	private static class CommandState{
 		CommandBase command;
 		boolean isParallel;
+		int line;
 		
-		CommandState(CommandBase command, boolean isParallel){
+		CommandState(CommandBase command, boolean isParallel, int line){
 			this.command = command;
 			this.isParallel = isParallel;
+			this.line = line;
 		}
 	}
 }
