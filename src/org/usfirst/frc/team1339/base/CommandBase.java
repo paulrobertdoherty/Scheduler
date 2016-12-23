@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.Timer;
  * @author Sam Schwartz
  * @author Nate Howard
  * @author Sam Korman
+ * 
+ * A class
+ * 
  * @see Timer
  *
  */
