@@ -2,8 +2,7 @@ package org.usfirst.frc.team1339.base;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team1339.utils.Looper;
-import org.usfirst.frc.team1339.utils.Triggers;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * 
@@ -16,12 +15,12 @@ import org.usfirst.frc.team1339.utils.Triggers;
 
 public abstract class CommandGroupBase extends CommandBase{
 
-	private ArrayList<CommandBase> commands = new ArrayList<CommandBase>();
-	private ArrayList<Boolean> parallels = new ArrayList<Boolean>();
+	private ArrayList<CommandState> commands = new ArrayList<CommandState>();
+	private ArrayList<CommandState> runningCommands = new ArrayList<CommandState>();
 	private ArrayList<Integer> interupters = new ArrayList<Integer>();
-	private boolean isFinished = false;
 	
-	private int index = 0;
+	private int index = -1;
+	private int numCmdsFinished = 0;
 	
 	public void init(){
 		
@@ -38,44 +37,47 @@ public abstract class CommandGroupBase extends CommandBase{
 	 * @see CommandBase
 	 */
 	public void execute() {
-		if (commands.size() == parallels.size() &&
-				interupters.size() <= commands.size()){
-			if(index == 0){
-				Looper.getInstance().newCommand(commands.get(index));
-				index++;
+		CommandState currentCmdState = null;
+		if(index == -1){
+			index++;
+			currentCmdState = commands.get(index);
+			runningCommands.add(currentCmdState);
+			if(currentCmdState.isParallel) index++;
+		}
+		if(index < commands.size()){
+			currentCmdState = commands.get(index);
+			if(!runningCommands.contains(currentCmdState)){
+				runningCommands.add(currentCmdState);
+				if(currentCmdState.isParallel) index++;
 			}
-			else if(parallels.get(index - 1).equals(true)){
-				if(index < commands.size()){
-					Looper.getInstance().newCommand(commands.get(index));
-					index++;
+		}
+		run();
+	}
+	
+	private void run(){
+		for(int x = 0; x < runningCommands.size(); x++){
+			CommandState cmd = runningCommands.get(x);
+			CommandBase command = cmd.command;
+			if(Timer.getFPGATimestamp() > command.getRunSpeed() + command.getLastTime()){
+				if(!command.isInitialized()){
+					command.init();
+					command.setInitialized();
 				}
-				else {
-					isFinished = true;
-				}
-			}
-			else if(isInterruptIndex(index - 1)){
-				if(index < commands.size()){
-					Looper.getInstance().newCommand(commands.get(index));
-					index++;
-				}
-				else {
-					isFinished = true;
-				}
-			}
-			else if(commands.get(index - 1).isFinished()){
-				if(index < commands.size()){
-					Looper.getInstance().newCommand(commands.get(index));
-					index++;
-				}
-				else {
-					isFinished = true;
+				command.execute();
+				command.resetTime();
+				if(command.isFinished()){
+					command.end();
+					if(!cmd.isParallel)
+						index++;
+					runningCommands.remove(cmd);
+					numCmdsFinished++;
 				}
 			}
-		}		
+		}
 	}
 
 	public boolean isFinished() {
-		return isFinished;
+		return numCmdsFinished >= commands.size();
 	}
 	
 	public void end() {
@@ -87,20 +89,26 @@ public abstract class CommandGroupBase extends CommandBase{
 	}
 	
 	protected void addSequential(CommandBase command){
-		commands.add(command);
-		parallels.add(false);
+		for(SubsystemBase subsys : command.getRequirements()){
+			requires(subsys);
+		}
+		commands.add(new CommandState(command, false));
 	}
 	
 	protected void addParallel(CommandBase command){
-		commands.add(command);
-		parallels.add(true);
+		for(SubsystemBase subsys : command.getRequirements()){
+			requires(subsys);
+		}
+		commands.add(new CommandState(command, true));
 	}
+	
 	protected void addInterrupter(int index){
 		interupters.add(index);
 	}
 	
 	protected abstract boolean isInterrupted(int index);
 	
+	@SuppressWarnings("unused")
 	private boolean isInterruptIndex(int index){
 		for(int i = 0; i < interupters.size(); i++){
 			if(interupters.get(i).equals(index)) {
@@ -110,8 +118,13 @@ public abstract class CommandGroupBase extends CommandBase{
 		return false;
 	}
 	
-	@Override
-	public boolean isCommandGroup(){
-		return true;
+	private static class CommandState{
+		CommandBase command;
+		boolean isParallel;
+		
+		CommandState(CommandBase command, boolean isParallel){
+			this.command = command;
+			this.isParallel = isParallel;
+		}
 	}
 }

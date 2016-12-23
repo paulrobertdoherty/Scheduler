@@ -13,6 +13,7 @@ public class ArcadeDrive extends CommandBase{
 	
 	public ArcadeDrive(){
 		setName();
+		requires(Robot.chassis);
 	}
 	
 	public void init(){

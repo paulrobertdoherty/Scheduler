@@ -2,19 +2,19 @@ package org.usfirst.frc.team1339.commands;
 
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.robot.Robot;
-import org.usfirst.frc.team1339.utils.Constants;
 
 /**
  *
  */
-public class DriveShooter extends CommandBase {
+public class DriveShooterTimeout extends CommandBase {
 	
-	private double speed = 0;
+	private double m_speed;
 	
-    public DriveShooter() {
+    public DriveShooterTimeout(double speed, double timeout) {
     	setName();
+    	setTimeout(timeout);
     	setRunSpeed(0.05);
-    	requires(Robot.shooter);
+    	m_speed = speed;
     }
 
 	public void init() {
@@ -23,26 +23,23 @@ public class DriveShooter extends CommandBase {
     
     // Called repeatedly when this Command is scheduled to run
     public void execute() {
-    	double leftTrigger = Robot.HardwareAdapter.getXboxStick().getRawAxis(Constants.xboxLeftTrigger);
-    	double rightTrigger = Robot.HardwareAdapter.getXboxStick().getRawAxis(Constants.xboxRightTrigger);
-
-    	speed = rightTrigger - leftTrigger;
-    	
-    	Robot.shooter.shoot(speed);
+    	Robot.shooter.shoot(m_speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     public void end(){
+    	Robot.shooter.shoot(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     public void interrupted() {
+    	Robot.shooter.shoot(0);
     }
 
 }

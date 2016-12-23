@@ -11,6 +11,9 @@ public class Intake extends SubsystemBase{
 	public static CANTalon axleMotor = new CANTalon(Constants.kAxleMotor);
 	
 	public Intake(){
+	}
+	
+	public void initDefaultCommand() {
 		setDefaultCommand(new DriveIntake());
 	}
 	
