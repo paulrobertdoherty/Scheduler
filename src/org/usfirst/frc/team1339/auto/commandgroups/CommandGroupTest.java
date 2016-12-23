@@ -16,14 +16,9 @@ import org.usfirst.frc.team1339.robot.Robot;
 public class CommandGroupTest extends CommandGroupBase{
 
 	public CommandGroupTest(){
-		addSequential(new DriveStraight(-.5, 1));
-		addParallel(new DriveShooterTimeout(1, 2));
-		addSequential(new DriveStraight(.5, 1));
-	}
+		addParallel(new DriveShooterTimeout(0.5, 5));
+		addSequential(new DriveStraight(-.5, 2));
 
-	@Override
-	protected boolean isInterrupted(int index) {
-		// TODO Auto-generated method stub
-		return false;
+		addInterrupter(0, Robot.HardwareAdapter.getYButton());
 	}
 }

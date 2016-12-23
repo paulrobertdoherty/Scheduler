@@ -84,29 +84,29 @@ public class HardwareAdapter{
 	public Joystick getXboxStick(){
 		return xboxStick;
 	}
-	public boolean getAButton(){
-		return AButton.get();
+	public AngelButton getAButton(){
+		return AButton;
 	}
-	public boolean getBButton(){
-		return BButton.get();
+	public AngelButton getBButton(){
+		return BButton;
 	}
-	public boolean getXButton(){
-		return XButton.get();
+	public AngelButton getXButton(){
+		return XButton;
 	}
-	public boolean getYButton(){
-		return YButton.get();
+	public AngelButton getYButton(){
+		return YButton;
 	}
-	public boolean getLeftBumper(){
-		return leftBumper.get();
+	public AngelButton getLeftBumper(){
+		return leftBumper;
 	}
-	public boolean getRightBumper(){
-		return rightBumper.get();
+	public AngelButton getRightBumper(){
+		return rightBumper;
 	}
-	public boolean getLeftStickButton(){
-		return leftStickButton.get();
+	public AngelButton getLeftStickButton(){
+		return leftStickButton;
 	}
-	public boolean getRightStickButton(){
-		return rightStickButton.get();
+	public AngelButton getRightStickButton(){
+		return rightStickButton;
 	}
 	public double getLeftDriveEnc(){
 		return kLeftDriveEncoder.get();

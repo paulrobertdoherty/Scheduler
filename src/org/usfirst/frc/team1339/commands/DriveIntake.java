@@ -24,10 +24,10 @@ public class DriveIntake extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     public void execute() {
 
-    	if (Robot.HardwareAdapter.getRightBumper()){
+    	if (Robot.HardwareAdapter.getRightBumper().get()){
     		speed = -0.8;
     	}
-    	else if(Robot.HardwareAdapter.getLeftBumper()){
+    	else if(Robot.HardwareAdapter.getLeftBumper().get()){
     		speed = 0.8;
     	}
     	else{
