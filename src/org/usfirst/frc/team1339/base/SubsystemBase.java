@@ -2,6 +2,8 @@ package org.usfirst.frc.team1339.base;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team1339.utils.Looper;
+
 /**
  * The subsystem class is the very core of the entire subsystem framework.
  * Every subsystem is called through {@link run()} and run in Looper.
@@ -16,6 +18,12 @@ public abstract class SubsystemBase {
 	private CommandBase currentCommand, defaultCommand;
 	
 	private static ArrayList<SubsystemBase> defaults = new ArrayList<SubsystemBase>();
+	
+	public abstract void initDefaultCommand();
+	
+	public SubsystemBase(){
+		Looper.getInstance().register(this);
+	}
 	
 	protected void setDefaultCommand(CommandBase command){
 		defaultCommand = command;
@@ -36,6 +44,8 @@ public abstract class SubsystemBase {
 	}
 	
 	public CommandBase getDefaultCommand(){
+		if(defaultCommand == null)
+			initDefaultCommand();
 		return defaultCommand;
 	}
 	

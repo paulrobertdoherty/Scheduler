@@ -52,10 +52,6 @@ public abstract class CommandBase {
 		m_speed = speed;
 	}
 	
-	public void addRequires(SubsystemBase subsystem){
-		requirements.add(subsystem);
-	}
-	
 	protected void requires(SubsystemBase instance){
 		if(!requirements.contains(instance))
 			requirements.add(instance);

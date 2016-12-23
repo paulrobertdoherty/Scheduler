@@ -1,16 +1,12 @@
 package org.usfirst.frc.team1339.utils;
 
 import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
-import org.usfirst.frc.team1339.commands.DriveStraight;
-import org.usfirst.frc.team1339.commands.MaxAcceleration;
-import org.usfirst.frc.team1339.commands.MotionProfileTest;
-import org.usfirst.frc.team1339.commands.TankDrive;
+import org.usfirst.frc.team1339.commands.*;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * A class where we define all the variables for talons, solenoids, sensors, etc.
@@ -22,7 +18,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  *
  */
 		
-public class HardwareAdapter extends Triggers{
+public class HardwareAdapter{
 	
 	//Encoders
 	public Encoder kRightDriveEncoder = new Encoder(
@@ -35,14 +31,14 @@ public class HardwareAdapter extends Triggers{
 	private Joystick xboxStick = new Joystick(Constants.xboxPort);
 	
 	//Razer Joystick Buttons
-	private JoystickButton AButton = new JoystickButton(xboxStick , Constants.xboxAbutton);
-	private JoystickButton BButton = new JoystickButton(xboxStick , Constants.xboxBbutton);
-	private JoystickButton XButton = new JoystickButton(xboxStick , Constants.xboxXbutton);
-	private JoystickButton YButton = new JoystickButton(xboxStick , Constants.xboxYbutton);
-	private JoystickButton leftBumper = new JoystickButton(xboxStick , Constants.xboxLeftBumper);
-	private JoystickButton rightBumper = new JoystickButton(xboxStick , Constants.xboxRightBumper);
-	private JoystickButton leftStickButton = new JoystickButton(xboxStick , Constants.xboxLeftStickButton);
-	private JoystickButton rightStickButton = new JoystickButton(xboxStick , Constants.xboxRightStickButton);
+	private AngelButton AButton = new AngelButton(xboxStick , Constants.xboxAbutton);
+	private AngelButton BButton = new AngelButton(xboxStick , Constants.xboxBbutton);
+	private AngelButton XButton = new AngelButton(xboxStick , Constants.xboxXbutton);
+	private AngelButton YButton = new AngelButton(xboxStick , Constants.xboxYbutton);
+	private AngelButton leftBumper = new AngelButton(xboxStick , Constants.xboxLeftBumper);
+	private AngelButton rightBumper = new AngelButton(xboxStick , Constants.xboxRightBumper);
+	private AngelButton leftStickButton = new AngelButton(xboxStick , Constants.xboxLeftStickButton);
+	private AngelButton rightStickButton = new AngelButton(xboxStick , Constants.xboxRightStickButton);
 	
 	//PID Loops
 	public SynchronousPID LeftDriveEncoderPID = new SynchronousPID(
@@ -80,7 +76,8 @@ public class HardwareAdapter extends Triggers{
 	}
 	
 	public void checkTriggers(){
-		whenPressed(XButton, new CommandGroupTest());
+		XButton.whenPressed(new CommandGroupTest());
+		AButton.toggle(new TankDrive(), new ArcadeDrive());
 	}
 	
 	//Joystick get methods

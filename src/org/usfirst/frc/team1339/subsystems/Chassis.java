@@ -28,9 +28,11 @@ public class Chassis extends SubsystemBase{
 	private double lastTime = 0, lastRightSpeed = 0, lastLeftSpeed = 0;
 	
 	public Chassis(){
-		setDefaultCommand(new ArcadeDrive());
 	}
 	
+	public void initDefaultCommand(){
+		setDefaultCommand(new ArcadeDrive());
+	}
 	
 	public void driveWithJoystick(double throttle, double turn){
        	double right = throttle;

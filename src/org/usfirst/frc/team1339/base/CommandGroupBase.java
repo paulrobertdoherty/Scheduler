@@ -2,12 +2,7 @@ package org.usfirst.frc.team1339.base;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team1339.utils.Looper;
-import org.usfirst.frc.team1339.utils.Triggers;
-
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * 
@@ -23,7 +18,6 @@ public abstract class CommandGroupBase extends CommandBase{
 	private ArrayList<CommandState> commands = new ArrayList<CommandState>();
 	private ArrayList<CommandState> runningCommands = new ArrayList<CommandState>();
 	private ArrayList<Integer> interupters = new ArrayList<Integer>();
-	private boolean isFinished = false;
 	
 	private int index = -1;
 	private int numCmdsFinished = 0;
@@ -71,7 +65,6 @@ public abstract class CommandGroupBase extends CommandBase{
 				}
 				command.execute();
 				command.resetTime();
-				System.out.println(command.isFinished());
 				if(command.isFinished()){
 					command.end();
 					if(!cmd.isParallel)
@@ -84,8 +77,6 @@ public abstract class CommandGroupBase extends CommandBase{
 	}
 
 	public boolean isFinished() {
-		SmartDashboard.putNumber("Size", commands.size());
-		SmartDashboard.putNumber("Index", index);
 		return numCmdsFinished >= commands.size();
 	}
 	
@@ -117,6 +108,7 @@ public abstract class CommandGroupBase extends CommandBase{
 	
 	protected abstract boolean isInterrupted(int index);
 	
+	@SuppressWarnings("unused")
 	private boolean isInterruptIndex(int index){
 		for(int i = 0; i < interupters.size(); i++){
 			if(interupters.get(i).equals(index)) {

@@ -13,6 +13,7 @@ public class DriveIntake extends CommandBase {
     public DriveIntake() {
     	setName();
     	setRunSpeed(0.05);
+    	requires(Robot.intake);
     }
 
 	public void init() {

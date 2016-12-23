@@ -25,6 +25,7 @@ public class Looper {
 	
 	/** creating an arrayList of commands that are supposed to be run */
 	private static ArrayList<CommandBase> commands = new ArrayList<CommandBase>();
+	private static ArrayList<SubsystemBase> subsystems = new ArrayList<SubsystemBase>();
 	
 	public Looper(){
 		
@@ -33,6 +34,10 @@ public class Looper {
 	/** returns global instance */
 	public static Looper getInstance(){
 	    return instance == null ? instance = new Looper() : instance;
+	}
+	
+	public void register(SubsystemBase subsystem){
+		subsystems.add(subsystem);
 	}
 	
 	/** 
@@ -49,8 +54,6 @@ public class Looper {
 		for(CommandBase command : commands){
 			if(command.getName().equals(instance.getName())) isCommandAlready = true;
 		}
-		
-		if(isCommandAlready) System.out.println(instance.getName() + " is already a command");
 		
 		//only runs if it doesn't exist already
 		if(!isCommandAlready){
@@ -73,11 +76,10 @@ public class Looper {
 	 */
 	public void setInitDefaults(){
 		commands.clear();
-		for (SubsystemBase subsystem : SubsystemBase.getDefaults()){
+		for (SubsystemBase subsystem : subsystems){
 			//looping through the subsystems that have a defualt command
 			if(subsystem.getDefaultCommand() != null){		
 				commands.add(subsystem.getDefaultCommand());
-				subsystem.getDefaultCommand().addRequires(subsystem);
 				subsystem.setCurrentCommand(subsystem.getDefaultCommand());
 			}
 		}
@@ -124,5 +126,14 @@ public class Looper {
 			}
 		}
 		commands.remove(command);
+	}
+	
+	public void endCommand(CommandBase command){
+		String name = command.getName();
+		for(int i = 0; i < commands.size(); i++){
+			if(name.equals(commands.get(i).getName())){
+				setDefault(commands.get(i));
+			}
+		}
 	}
 }
