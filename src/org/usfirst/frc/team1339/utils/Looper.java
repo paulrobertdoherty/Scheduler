@@ -96,11 +96,11 @@ public class Looper {
 	/**
 	 * This method is run continuously to execute the commands.
 	 * First, it loops through the list of commands, but it only
-	 * hits a certain command if enough time has passed for it to run. {@code CommandBase.getRunSpeed}
-	 * Then, if it is not initialized, it runs the {@code init} method within the 
+	 * hits a certain command if enough time has passed for it to run. {@code CommandBase.getRunSpeed()}
+	 * Then, if it is not initialized, it runs the {@code init()} method within the 
 	 * command. Then, it executes the command and resets the time. If the command
 	 * is finished, then it adds the default command for that subsystem to the 
-	 * running list of commands {@link setDefault}
+	 * running list of commands {@link setDefault()}
 	 * <p> $ <p> 
 	 * @see SubsystemBase
 	 */
@@ -121,8 +121,8 @@ public class Looper {
 	
 	/**
 	 * This method is run when a command is finished, and it adds
-	 * the default command from the finished commands requirements to 
-	 * the list of commands
+	 * the default command from the finished commands requirements 
+	 * ({@code command.getRequirements()}) to the list of commands
 	 * @param command
 	 */
 	private void setDefault(CommandBase command){

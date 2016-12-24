@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * The AngelButton class is a customized button class created for 
- * button manipulation. It extends the WPIlib JoystickButton, which allows
- * each button made to use the same traits as a JoystickButton. The main
+ * button manipulation. It extends the WPIlib {@link JoystickButton}, which allows
+ * each button made to use the same traits as a {@link JoystickButton}. The main
  * purpose of this class is to recognize triggers that occur from the buttons.
  * There are multiple different methods we have for different types of triggers.
- * HardwareAdapter is where call these methods continuously with different buttons
- * and different commands. It then schedules commands in Looper when a certain
+ * {@link HardwareAdapter} is where call these methods continuously with different buttons
+ * and different commands. It then schedules commands in {@link Looper} when a certain
  * trigger is enacted.
  * 
  * @author Sam Korman
