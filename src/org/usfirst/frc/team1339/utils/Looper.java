@@ -26,7 +26,7 @@ public class Looper {
 	
 	/** creating an arrayList of commands that are supposed to be run */
 	private static ArrayList<CommandBase> commands = new ArrayList<CommandBase>();
-	/** creating an ArrayList of subsystems for robot initialization purposes {@code setInitDefaults*/
+	/** creating an ArrayList of subsystems for robot initialization purposes {@link #setInitDefaults()}*/
 	private static ArrayList<SubsystemBase> subsystems = new ArrayList<SubsystemBase>();
 	
 	public Looper(){
@@ -50,7 +50,7 @@ public class Looper {
 	}
 	
 	/** 
-	 * This method adds the command @param instance to the list of running commands.
+	 * This method adds the command {@code instance} to the list of running commands.
 	 * It checks if the command is running already, and if not, then it removes
 	 * the current command from the subsystem, ends it, and then is added to the list
 	 * of commands.
@@ -100,7 +100,7 @@ public class Looper {
 	 * Then, if it is not initialized, it runs the {@code init()} method within the 
 	 * command. Then, it executes the command and resets the time. If the command
 	 * is finished, then it adds the default command for that subsystem to the 
-	 * running list of commands {@link setDefault()}
+	 * running list of commands {@link #setDefault(CommandBase)}
 	 * <p> $ <p> 
 	 * @see SubsystemBase
 	 */
