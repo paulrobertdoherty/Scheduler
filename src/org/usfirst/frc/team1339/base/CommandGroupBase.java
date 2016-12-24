@@ -63,7 +63,6 @@ public abstract class CommandGroupBase extends CommandBase{
 			CommandBase command = cmd.command;
 			if(Timer.getFPGATimestamp() > command.getRunSpeed() + command.getLastTime()){
 				if(!command.isInitialized()){
-					command.init();
 					command.setInitialized();
 				}
 				command.execute();
