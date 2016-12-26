@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.Timer;
  * @author Nate Howard
  * @author Sam Korman
  * 
+ * @see Looper
  */
 
 public abstract class CommandBase {
@@ -63,14 +64,33 @@ public abstract class CommandBase {
 		this.m_name = this.getClass().getName().substring(this.getClass().getName().lastIndexOf('.') + 1);
 	}
 	
+	/**
+	 * The first method that will run when a command is scheduled.
+	 */
 	protected abstract void init();
 	
+	/**
+	 * This method will run over and over again until the {@link #isFinished()} method returns true.
+	 * It will run at least once every time.
+	 */
 	public abstract void execute();
 	
+	/**
+	 * This method returns whether or not the command is finished and should not be run again.
+	 * 
+	 * @return Whether or not the command is finished
+	 */
 	public abstract boolean isFinished();
 	
+	/**
+	 * This command runs when {@link #isFinished()} returns true, when the command is done.
+	 */
 	protected abstract void end();
 	
+	/**
+	 * This command runs when another command is scheduled that has a similar required subsystem to this command,
+	 * and this one is canceled before {@link #isFinished()} returns true.
+	 */
 	protected abstract void interrupted();
 	
 	/**
