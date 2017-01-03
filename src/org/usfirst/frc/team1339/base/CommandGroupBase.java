@@ -50,9 +50,12 @@ public abstract class CommandGroupBase extends CommandBase{
 			CommandState currentCmdState = commands.get(index);
 			if(!runningCommands.contains(currentCmdState)){
 				ArrayList<SubsystemBase> reqs = currentCmdState.command.getRequirements();
-				for(CommandState cmd: runningCommands){
-					for(SubsystemBase subsys : cmd.command.getRequirements()){
-						for(SubsystemBase req : reqs){
+				for(int runCmds = 0; runCmds < runningCommands.size(); runCmds++){
+					CommandState cmd = runningCommands.get(runCmds);
+					for(int subs = 0; subs < cmd.command.getRequirements().size(); subs++){
+						SubsystemBase subsys = cmd.command.getRequirements().get(subs);
+						for(int reqNum = 0; reqNum < reqs.size(); reqNum++){
+							SubsystemBase req = reqs.get(reqNum);
 							if(req.equals(subsys)){
 								cmd.command.cancel();
 								runningCommands.remove(cmd);
