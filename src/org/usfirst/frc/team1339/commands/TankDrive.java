@@ -14,10 +14,9 @@ public class TankDrive extends CommandBase{
 	public TankDrive(){
 		requires(Robot.chassis);
 		setRunSpeed(0.05);
-		setName();
 	}
 	
-	public void init(){
+	protected void init(){
 		
 	}
 	
@@ -33,10 +32,11 @@ public class TankDrive extends CommandBase{
 		return false;
 	}
 	
-	public void end(){
+	protected void end(){
+		
 	}
 	
-	public void interrupted(){
+	protected void interrupted(){
 		
 	}
 }

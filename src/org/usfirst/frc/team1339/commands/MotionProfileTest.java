@@ -9,37 +9,31 @@ public class MotionProfileTest extends CommandBase {
 	
 	public MotionProfileTest(double goal){
 		requires(Robot.chassis);
-		setName();
 		m_goal = goal;
 	}
 
-	@Override
-	public void init() {
+	protected void init() {
 		// TODO Auto-generated method stub
 		Robot.HardwareAdapter.ChassisMP.configureNewProfile(m_goal);
 	}
 
-	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
 		//System.out.println("Running");
 		Robot.chassis.motionProfile();
 	}
 
-	@Override
 	public boolean isFinished() {
 		// TODO Auto-generated method stub
 		return Robot.HardwareAdapter.ChassisMP.isFinishedTrajectory();
 	}
 
-	@Override
-	public void end() {
+	protected void end() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void interrupted() {
+	protected void interrupted() {
 		// TODO Auto-generated method stub
 		
 	}

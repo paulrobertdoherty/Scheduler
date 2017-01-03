@@ -1,9 +1,29 @@
 package org.usfirst.frc.team1339.utils;
 
+
 import org.usfirst.frc.team1339.base.CommandBase;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
+/**
+ * The AngelButton class is a customized button class created for 
+ * button manipulation. It extends the WPIlib {@link JoystickButton}, which allows
+ * each button made to use the same traits as a {@link JoystickButton}. The main
+ * purpose of this class is to recognize triggers that occur from the buttons.
+ * There are multiple different methods we have for different types of triggers.
+ * {@link HardwareAdapter} is where call these methods continuously with different buttons
+ * and different commands. It then schedules commands in {@link Looper} when a certain
+ * trigger is enacted.
+ * 
+ * @author Sam Korman
+ * @author Sam Schwartz
+ * @author Nate Howard
+ * @see JoystickButton
+ * @see HardwareAdapter
+ * @see Looper
+ *
+ */
 
 public class AngelButton extends JoystickButton{
 	
@@ -13,6 +33,10 @@ public class AngelButton extends JoystickButton{
 		super(stick, port);
 	}
 	
+	/**
+	 * This method runs a given command when a certain button is pressed.
+	 * @param command
+	 */
 	public void whenPressed(CommandBase command){
 		if(!isPressed){
 			if (this.get()){
@@ -25,23 +49,31 @@ public class AngelButton extends JoystickButton{
 		}
 	}
 	
+	/**
+	 * this method runs a given command while a button is being held down
+	 * @param command
+	 */
 	public void whileHeld(CommandBase command){
 		if(isHeld){
 			if(!this.get()){
 				isHeld = false;
 				Looper.getInstance().endCommand(command);
-				System.out.println("end");
 			}
 		}
 		else {
 			if(this.get()) {
 				isHeld = true;
-				System.out.println("schedule");
 				Looper.getInstance().newCommand(command);
 			}
 		}
 	}
 	
+	/**
+	 * this method allows for a user to toggle between two different commands,
+	 * with a single button
+	 * @param firstCommand
+	 * @param secondCommand
+	 */
 	public void toggle(CommandBase firstCommand, CommandBase secondCommand){
 		if(!isPressedToggle){
 			if (this.get()){
@@ -62,5 +94,4 @@ public class AngelButton extends JoystickButton{
 			isPressedToggle = false;
 		}
 	}
-
 }

@@ -12,11 +12,10 @@ public class ArcadeDrive extends CommandBase{
 	Joystick stick;
 	
 	public ArcadeDrive(){
-		setName();
 		requires(Robot.chassis);
 	}
 	
-	public void init(){
+	protected void init(){
 		
 	}
 	
@@ -32,10 +31,11 @@ public class ArcadeDrive extends CommandBase{
 		return false;
 	}
 	
-	public void end(){
+	protected void end(){
+		
 	}
 	
-	public void interrupted(){
+	protected void interrupted(){
 		
 	}
 }

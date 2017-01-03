@@ -3,20 +3,16 @@ package org.usfirst.frc.team1339.commands;
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.robot.Robot;
 
-/**
- *
- */
 public class DriveIntake extends CommandBase {
 	
 	private double speed = 0;
 	
     public DriveIntake() {
-    	setName();
     	setRunSpeed(0.05);
     	requires(Robot.intake);
     }
 
-	public void init() {
+	protected void init() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -42,12 +38,14 @@ public class DriveIntake extends CommandBase {
     }
 
     // Called once after isFinished returns true
-    public void end(){
+    protected void end(){
+    	
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    public void interrupted() {
+    protected void interrupted() {
+    	
     }
 
 }

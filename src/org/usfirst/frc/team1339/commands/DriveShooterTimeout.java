@@ -11,13 +11,12 @@ public class DriveShooterTimeout extends CommandBase {
 	private double m_speed;
 	
     public DriveShooterTimeout(double speed, double timeout) {
-    	setName();
     	setTimeout(timeout);
     	setRunSpeed(0.05);
     	m_speed = speed;
     }
 
-	public void init() {
+	protected void init() {
 		
 	}
     
@@ -32,13 +31,13 @@ public class DriveShooterTimeout extends CommandBase {
     }
 
     // Called once after isFinished returns true
-    public void end(){
+    protected void end(){
     	Robot.shooter.shoot(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    public void interrupted() {
+    protected void interrupted() {
     	Robot.shooter.shoot(0);
     }
 
