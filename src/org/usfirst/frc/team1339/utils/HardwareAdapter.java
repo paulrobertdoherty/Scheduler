@@ -1,7 +1,8 @@
 package org.usfirst.frc.team1339.utils;
 
-import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
-import org.usfirst.frc.team1339.commands.*;
+import org.usfirst.frc.team1339.commands.ArcadeDrive;
+import org.usfirst.frc.team1339.commands.MotionProfileTest;
+import org.usfirst.frc.team1339.commands.TankDrive;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
