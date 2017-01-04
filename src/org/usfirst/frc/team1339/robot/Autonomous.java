@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1339.robot;
 
+import org.usfirst.frc.team1339.auto.commandgroups.CommandGroupTest;
+import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.utils.Looper;
 
 /**
@@ -16,13 +18,17 @@ import org.usfirst.frc.team1339.utils.Looper;
  *
  */
 public class Autonomous {
+	
+	private CommandBase autoCommand = null;
 
 	Autonomous(){
 		
 	}
 	
 	public void init(){
+		autoCommand = new CommandGroupTest();
 		Looper.getInstance().setInitDefaults();
+		if(autoCommand != null) Looper.getInstance().newCommand(autoCommand);
 		Robot.HardwareAdapter.kLeftDriveEncoder.reset();
 		Robot.HardwareAdapter.kRightDriveEncoder.reset();
 	}

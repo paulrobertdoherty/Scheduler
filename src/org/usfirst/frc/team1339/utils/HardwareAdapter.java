@@ -76,7 +76,7 @@ public class HardwareAdapter{
 	}
 	
 	public void checkTriggers(){
-		XButton.whenPressed(new CommandGroupTest());
+		XButton.whenPressed(new MotionProfileTest(4000));
 		AButton.toggle(new TankDrive(), new ArcadeDrive());
 	}
 	
