@@ -12,7 +12,6 @@ public class DriveShooterTimeout extends CommandBase {
 	
     public DriveShooterTimeout(double speed, double timeout) {
     	setTimeout(timeout);
-    	setRunSpeed(0.05);
     	m_speed = speed;
     }
 

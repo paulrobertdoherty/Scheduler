@@ -12,7 +12,6 @@ public class DriveShooter extends CommandBase {
 	private double speed = 0;
 	
     public DriveShooter() {
-    	setRunSpeed(0.05);
     	requires(Robot.shooter);
     }
 
