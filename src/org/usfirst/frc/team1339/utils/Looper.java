@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.base.SubsystemBase;
+import org.usfirst.frc.team1339.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;	
+import edu.wpi.first.wpilibj.Timer;
+import src.splineTracking.PositionTracker;	
 
 /**
  * The Looper class loops through a list of commands that are supposed to be 
@@ -28,6 +30,9 @@ public class Looper {
 	private static ArrayList<CommandBase> commands = new ArrayList<CommandBase>();
 	/** creating an ArrayList of subsystems for robot initialization purposes {@link #setInitDefaults()}*/
 	private static ArrayList<SubsystemBase> subsystems = new ArrayList<SubsystemBase>();
+	
+	public static PositionTracker leftPosition = new PositionTracker();
+	public static PositionTracker rightPosition = new PositionTracker();
 	
 	public Looper(){
 		
@@ -105,6 +110,7 @@ public class Looper {
 	 * @see SubsystemBase
 	 */
 	public void update(){
+		posTracker();
 		for(CommandBase command : commands){ //looping through command list
 			if(Timer.getFPGATimestamp() > command.getRunSpeed() + command.getLastTime()){ //checking time
 				if(!command.isInitialized()){
@@ -151,5 +157,22 @@ public class Looper {
 				setDefault(commands.get(i)); //end command if in command list
 			}
 		}
+	}
+	
+	private void posTracker() {
+		leftPosition.setPosistions(Robot.HardwareAdapter.kSpartanGyro.getAngle(), Robot.HardwareAdapter.getLeftDriveEnc());
+		rightPosition.setPosistions(Robot.HardwareAdapter.kSpartanGyro.getAngle(), Robot.HardwareAdapter.getRightDriveEnc());
+	}
+	
+	public double[] getLeftPosition(){
+		double[] pos = new double[2];
+		pos[0] = leftPosition.getXPos();
+		pos[1] = leftPosition.getYPos();
+	}
+	
+	public double[] getRightPosition(){
+		double[] pos = new double[2];
+		pos[0] = rightPosition.getXPos();
+		pos[1] = rightPosition.getYPos();
 	}
 }
