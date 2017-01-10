@@ -4,7 +4,7 @@ import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.commands.DriveShooter;
 import org.usfirst.frc.team1339.utils.Constants;
 
-import edu.wpi.first.wpilibj.CANTalon;
+import com.ctre.CANTalon;
 
 public class Shooter extends SubsystemBase{
 	
