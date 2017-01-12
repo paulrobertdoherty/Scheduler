@@ -14,7 +14,9 @@ public class MotionProfileTest extends CommandBase {
 
 	protected void init() {
 		// TODO Auto-generated method stub
-		Robot.HardwareAdapter.ChassisMP.configureNewProfile(m_goal, Robot.HardwareAdapter.getLeftDriveEnc(), Robot.HardwareAdapter.getRightDriveEnc());
+		Robot.HardwareAdapter.GyroPID.setSetpoint(Robot.HardwareAdapter.kSpartanGyro.getAngle());
+		Robot.HardwareAdapter.ChassisMP.configureNewProfile(m_goal);
+		Robot.HardwareAdapter.ChassisMP.initializeProfile(Robot.HardwareAdapter.getLeftDriveEnc(), Robot.HardwareAdapter.getRightDriveEnc());
 	}
 
 	public void execute() {

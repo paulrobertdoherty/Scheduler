@@ -53,10 +53,10 @@ public class MotionProfile {
 		}
 	}
 	
-	public void configureNewProfile(double distance, double leftCurrentPos, double rightCurrentPos){
+	public void configureNewProfile(double distance){
 		this.goal = distance;
 		this.maxAcc = Constants.maxAcceleration;
-		this.cruiseVelScaleFactor = Constants.motionProfileSlowScaleFactor;
+		this.cruiseVelScaleFactor = Constants.motionProfileFastScaleFactor;
 		if(distance < 0){
 			this.maxAcc *= -1;
 		}
@@ -64,8 +64,6 @@ public class MotionProfile {
 		if(distance < 0){
 			this.cruiseVel *= -1;
 		}
-		this.leftStartPos = leftCurrentPos;
-		this.rightStartPos = rightCurrentPos;
 		this.currentSegment = new Segment(0, 0, 0);
 		setState(MotionState.ACCELERATING);
 		lastTime = Timer.getFPGATimestamp();
@@ -102,7 +100,9 @@ public class MotionProfile {
 		return Math.min(maxVelOverHalfDistance * cruiseVelScaleFactor, Constants.maxCruiseSpeed);
 	}
 	
-	public void initializeTime(){
+	public void initializeProfile(double leftCurrentPos, double rightCurrentPos){
+		this.leftStartPos = leftCurrentPos;
+		this.rightStartPos = rightCurrentPos;
 		lastTime = Timer.getFPGATimestamp();
 	}
 	
