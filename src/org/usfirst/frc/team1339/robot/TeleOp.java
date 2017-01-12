@@ -2,6 +2,8 @@ package org.usfirst.frc.team1339.robot;
 
 import org.usfirst.frc.team1339.utils.Looper;
 
+import edu.wpi.cscore.AxisCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -22,7 +24,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TeleOp {
 	
 	TeleOp(){
-		
 	}
 	/** This method runs TeleOp at the speed of 20 milliseconds.*/
     public void teleOpPeriodic(){

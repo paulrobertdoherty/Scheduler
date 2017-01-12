@@ -7,6 +7,8 @@ import org.usfirst.frc.team1339.subsystems.Intake;
 import org.usfirst.frc.team1339.subsystems.Shooter;
 import org.usfirst.frc.team1339.utils.HardwareAdapter;
 
+import edu.wpi.cscore.AxisCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 public class Robot extends IterativeRobot {
@@ -16,6 +18,9 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static Shooter shooter;
 	public static HardwareAdapter HardwareAdapter;
+	
+	AxisCamera cam;
+	
     public Robot() {
 		a = new Autonomous();
     	t = new TeleOp();
@@ -26,6 +31,8 @@ public class Robot extends IterativeRobot {
     	chassis = new Chassis();
     	intake = new Intake();
     	shooter = new Shooter();
+    	
+    	cam = CameraServer.getInstance().addAxisCamera("10.13.39.10");
     }
 
     @Override
