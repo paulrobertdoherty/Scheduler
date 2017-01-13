@@ -89,7 +89,7 @@ public class SplineProfile {
 	private double getCruiseVel(double distance){
 		double halfDist = distance / 2;
 		double maxVelOverHalfDistance = Math.sqrt(2 * halfDist * maxAcc);
-		return Math.min(maxVelOverHalfDistance * cruiseVelScaleFactor, 345223456);
+		return Math.min(maxVelOverHalfDistance * cruiseVelScaleFactor, Constants.maxCruiseSpeed);
 	}
 	
 	private double getSplineCruiseVel(double distance){
