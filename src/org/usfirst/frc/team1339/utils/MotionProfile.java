@@ -8,7 +8,8 @@ public class MotionProfile {
 	@SuppressWarnings("unused")
 	private double Kp, Ki, Kd, Ka, Kv, goal, cruiseVel,
 	maxAcc, cruiseVelScaleFactor, lastRightError = 0,
-	lastLeftError = 0, rightOutput = 0, leftOutput = 0;
+	lastLeftError = 0, rightOutput = 0, leftOutput = 0,
+	leftStartPos, rightStartPos;
 	private double lastTime;
 	public Segment initialSegment = new Segment(0, 0, 0);
 	public Segment currentSegment = new Segment(0, 0, 0);
@@ -53,10 +54,9 @@ public class MotionProfile {
 	}
 	
 	public void configureNewProfile(double distance){
-		initialSegment = new Segment(0, 0, 0);
 		this.goal = distance;
 		this.maxAcc = Constants.maxAcceleration;
-		this.cruiseVelScaleFactor = Constants.motionProfileSlowScaleFactor;
+		this.cruiseVelScaleFactor = Constants.motionProfileFastScaleFactor;
 		if(distance < 0){
 			this.maxAcc *= -1;
 		}
@@ -64,7 +64,7 @@ public class MotionProfile {
 		if(distance < 0){
 			this.cruiseVel *= -1;
 		}
-		this.currentSegment = initialSegment;
+		this.currentSegment = new Segment(0, 0, 0);
 		setState(MotionState.ACCELERATING);
 		lastTime = Timer.getFPGATimestamp();
 	}
@@ -100,7 +100,9 @@ public class MotionProfile {
 		return Math.min(maxVelOverHalfDistance * cruiseVelScaleFactor, Constants.maxCruiseSpeed);
 	}
 	
-	public void initializeTime(){
+	public void initializeProfile(double leftCurrentPos, double rightCurrentPos){
+		this.leftStartPos = leftCurrentPos;
+		this.rightStartPos = rightCurrentPos;
 		lastTime = Timer.getFPGATimestamp();
 	}
 	
@@ -174,13 +176,13 @@ public class MotionProfile {
 		//System.out.println("cruiseVel" + cruiseVel);
 		double output = Kv * currentSegment.vel + Ka * currentSegment.acc;
 		
-		double rightError = currentSegment.pos - rightDistance;
+		double rightError = currentSegment.pos + this.rightStartPos - rightDistance;
 		SmartDashboard.putNumber("right Error", rightError);
 		
 		rightOutput = rightError * Kp + ((rightError - lastRightError) / dt) * Kd + output;
 		lastRightError = rightError;
 		
-		double leftError = currentSegment.pos - leftDistance;
+		double leftError = currentSegment.pos + this.leftStartPos - leftDistance;
 		SmartDashboard.putNumber("left Error", leftError);
 		
 		SmartDashboard.putNumber("pos", currentSegment.pos);
