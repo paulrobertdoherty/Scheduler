@@ -7,8 +7,7 @@ import org.usfirst.frc.team1339.base.CommandBase;
 import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
-import src.splineTracking.PositionTracker;	
+import edu.wpi.first.wpilibj.Timer;	
 
 /**
  * The Looper class loops through a list of commands that are supposed to be 
@@ -168,11 +167,22 @@ public class Looper {
 		double[] pos = new double[2];
 		pos[0] = leftPosition.getXPos();
 		pos[1] = leftPosition.getYPos();
+		return pos;
 	}
 	
 	public double[] getRightPosition(){
 		double[] pos = new double[2];
 		pos[0] = rightPosition.getXPos();
 		pos[1] = rightPosition.getYPos();
+		return pos;
+	}
+	
+	public double[] getAvgPosition(){
+		double[] pos = new double[2];
+		double[] leftPos = getLeftPosition();
+		double[] rightPos = getRightPosition();
+		pos[0] = (leftPos[0] + rightPos[0]) / 2;
+		pos[1] = (leftPos[1] + rightPos[1]) / 2;
+		return pos;
 	}
 }
