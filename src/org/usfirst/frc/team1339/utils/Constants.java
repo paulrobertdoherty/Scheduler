@@ -8,6 +8,10 @@ package org.usfirst.frc.team1339.utils;
  *
  */
 public class Constants {
+	//Spline Constants
+	public static double robotWidth = 0;
+	public static double maxSplineVel = 2500;
+	
 	//Motion Profile Constants
 	public static double maxAcceleration = 3500;
 	public static double maxCruiseSpeed = 3000;
@@ -15,11 +19,18 @@ public class Constants {
 	public static double motionProfileMediumScaleFactor = 0.65;
 	public static double motionProfileFastScaleFactor = 0.9;
 	
+	public static final double splineMPKp = 0.0008;
+	public static final double splineMPKi = 0.0;
+	public static final double splineMPKd = 0.0;
+	public static final double splineMPKa = 0.00000005;
+	public static final double splineMPKv = 0.000005;
+	
 	public static final double chassisMPKp = 0.0008;
 	public static final double chassisMPKi = 0.0;
 	public static final double chassisMPKd = 0.0;
 	public static final double chassisMPKa = 0.00000005;
 	public static final double chassisMPKv = 0.000005;
+	
 	public static final double kDriveKp = 0.07;
 	public static final double kDriveKi = 0;
 	public static final double kDriveKd = 0.05;

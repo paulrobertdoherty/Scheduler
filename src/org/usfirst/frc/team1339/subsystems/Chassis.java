@@ -6,6 +6,7 @@ import org.usfirst.frc.team1339.base.SubsystemBase;
 import org.usfirst.frc.team1339.commands.ArcadeDrive;
 import org.usfirst.frc.team1339.robot.Robot;
 import org.usfirst.frc.team1339.utils.Constants;
+import org.usfirst.frc.team1339.utils.SplineProfile;
 
 import com.ctre.CANTalon;
 
@@ -14,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Chassis extends SubsystemBase{
 	
+	public SplineProfile chassisSP = new SplineProfile(
+			Constants.splineMPKp, Constants.splineMPKi, Constants.splineMPKd,
+			Constants.splineMPKa, Constants.splineMPKv);
 
 	public static CANTalon leftMotorOne = new CANTalon(Constants.kLeftMotorOne);
 	public static CANTalon leftMotorTwo = new CANTalon(Constants.kLeftMotorTwo);
@@ -122,6 +126,13 @@ public class Chassis extends SubsystemBase{
     	leftSpeed -= gyroOutput;
     	//System.out.println(speed);
     	SmartDashboard.putNumber("MP output", rightSpeed);
+    	setMotorValues(leftSpeed, rightSpeed);
+    }
+    
+    public void splineProfile(){
+    	chassisSP.calculate(Robot.HardwareAdapter.getLeftDriveEnc(), Robot.HardwareAdapter.getRightDriveEnc());
+    	double leftSpeed = chassisSP.getLeftOutput();
+    	double rightSpeed = chassisSP.getRightOutput();
     	setMotorValues(leftSpeed, rightSpeed);
     }
     

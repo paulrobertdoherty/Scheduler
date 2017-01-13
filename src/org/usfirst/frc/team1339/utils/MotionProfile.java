@@ -117,7 +117,7 @@ public class MotionProfile {
 		double t_to_cruise = (cruiseVel - currentVel) / maxAcc; //time to accelerate to cruise speed
 		double x_to_cruise = currentVel * t_to_cruise + .5 * maxAcc * t_to_cruise * t_to_cruise; //distance to get to cruise speed
 		
-		double t_to_zero = Math.abs(cruiseVel / maxAcc); //time to get to zero speed from cruise speed
+		double t_to_zero = Math.abs(currentVel / maxAcc); //time to get to zero speed from cruise speed
 		double x_to_zero = currentVel * t_to_zero - .5 * maxAcc * t_to_zero * t_to_zero; //distance to get to zero speed
 		
 		double cruiseX;
@@ -136,13 +136,13 @@ public class MotionProfile {
 		}
 		
 		if(getState() == MotionState.CRUISING){
-			if(t_to_cruise + cruiseT < dt){
+			if(cruiseT < dt){
 				setState(MotionState.DECELERATING);
 			}
 		}
 		
 		if(getState() == MotionState.DECELERATING){
-			if(t_to_cruise + cruiseT + t_to_zero < dt){
+			if(t_to_zero < dt){
 				setState(MotionState.END);
 			}
 		}
@@ -164,6 +164,7 @@ public class MotionProfile {
 		}
 		else{
 			nextSegment.pos = 0;
+			currentSegment.pos = goal;
 			nextSegment.vel = 0;
 			nextSegment.acc = 0;
 		}
@@ -199,7 +200,7 @@ public class MotionProfile {
 	}
 	
 	public boolean isFinishedTrajectory() {
-        return Math.abs(currentSegment.pos - goal) < 100
-                && Math.abs(currentSegment.vel) < 100;
+        return currentSegment.pos == goal
+                && currentSegment.vel == 0;
     }
 }
