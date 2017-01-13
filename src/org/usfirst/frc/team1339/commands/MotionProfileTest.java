@@ -5,29 +5,37 @@ import org.usfirst.frc.team1339.robot.Robot;
 
 public class MotionProfileTest extends CommandBase {
 	
-	private double m_goal;
+	private double m_goal, tolerance, initialLeft, initialRight;
+	private int counter;
 	
-	public MotionProfileTest(double goal){
+	public MotionProfileTest(double goal, double input_tolerance){
 		requires(Robot.chassis);
 		m_goal = goal;
+		tolerance = input_tolerance;
 	}
 
 	protected void init() {
 		// TODO Auto-generated method stub
 		Robot.HardwareAdapter.GyroPID.setSetpoint(Robot.HardwareAdapter.kSpartanGyro.getAngle());
 		Robot.HardwareAdapter.ChassisMP.configureNewProfile(m_goal);
-		Robot.HardwareAdapter.ChassisMP.initializeProfile(Robot.HardwareAdapter.getLeftDriveEnc(), Robot.HardwareAdapter.getRightDriveEnc());
+		initialLeft = Robot.HardwareAdapter.getLeftDriveEnc();
+		initialRight = Robot.HardwareAdapter.getRightDriveEnc();
+		Robot.HardwareAdapter.ChassisMP.initializeProfile(initialLeft, initialRight);
 	}
 
 	public void execute() {
 		// TODO Auto-generated method stub
 		//System.out.println("Running");
 		Robot.chassis.motionProfile();
+		if((Math.abs(Robot.HardwareAdapter.getLeftDriveEnc() - m_goal - initialLeft) < tolerance)
+				&& (Math.abs(Robot.HardwareAdapter.getRightDriveEnc() - m_goal - initialRight) < tolerance)){
+			counter++;
+		}
 	}
 
 	public boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.HardwareAdapter.ChassisMP.isFinishedTrajectory();
+		return Robot.HardwareAdapter.ChassisMP.isFinishedTrajectory() && counter >= 5;
 	}
 
 	protected void end() {

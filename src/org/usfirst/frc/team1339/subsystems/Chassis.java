@@ -122,11 +122,11 @@ public class Chassis extends SubsystemBase{
     	double gyroOutput = Robot.HardwareAdapter.GyroPID.calculate(Robot.HardwareAdapter.kSpartanGyro.getAngle());
     	double rightSpeed = Robot.HardwareAdapter.ChassisMP.getRightOutput();
     	double leftSpeed = Robot.HardwareAdapter.ChassisMP.getLeftOutput();
-    	rightSpeed += gyroOutput;
-    	leftSpeed -= gyroOutput;
+    	rightSpeed -= gyroOutput;
+    	leftSpeed += gyroOutput;
     	//System.out.println(speed);
     	SmartDashboard.putNumber("MP output", rightSpeed);
-    	setMotorValues(leftSpeed, rightSpeed);
+    	setMotorValues(-leftSpeed, -rightSpeed);
     }
     
     public void splineProfile(){

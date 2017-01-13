@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1339.utils;
 
+import org.usfirst.frc.team1339.robot.Robot;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -203,4 +205,8 @@ public class MotionProfile {
         return currentSegment.pos == goal
                 && currentSegment.vel == 0;
     }
+	
+	public double getGoal(){
+		return goal;
+	}
 }

@@ -23,9 +23,9 @@ public class HardwareAdapter{
 	
 	//Encoders
 	public Encoder kRightDriveEncoder = new Encoder(
-			Constants.kRightDriveAEncoder , Constants.kRightDriveBEncoder, true);
+			Constants.kRightDriveAEncoder , Constants.kRightDriveBEncoder);
 	public Encoder kLeftDriveEncoder = new Encoder(
-			Constants.kLeftDriveAEncoder , Constants.kLeftDriveBEncoder);
+			Constants.kLeftDriveAEncoder , Constants.kLeftDriveBEncoder, true);
 	public ADXRS450_Gyro kSpartanGyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 	
 	//Joysticks
